@@ -1,0 +1,16 @@
+{
+    "name": "small-games-player",
+    "version": "1.0.0",
+    "description": "",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server"
+    },
+    "author": "Brock Britton brockbritton@outlook.com",
+    "license": "MIT",
+    "devDependencies": {
+        "express": "^4.16.2",
+        "nodemon": "^2.0.19"
+    },
+    "keywords": ["server", "games", "sudoku"]
+ }
