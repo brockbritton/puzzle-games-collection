@@ -1,1 +1,15 @@
 
+/* Game Board */
+.boxes {
+    width: 150px !important; 
+    height: 150px !important;
+}
+  
+.cells {
+    border:1px solid black;
+    width: 50px !important; 
+    height: 50px !important;
+    text-align: center;
+}
+
+  

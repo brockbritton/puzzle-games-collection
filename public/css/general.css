@@ -1,0 +1,40 @@
+
+/* General Styles */
+
+body {
+    font-size: 25px;
+}
+
+
+/* Home Page */
+#home-header {
+    text-align: center;
+}
+
+#home-header > h1 {
+    font-size: 100px;
+}
+
+#home-header > p {
+    font-size: 20px;
+}
+
+#home-choice-buttons-div {
+    display: block;
+    justify-content: center;
+    text-align: center;
+}
+
+#home-choice-buttons-div > p {
+
+}
+
+
+#home-choice-buttons-div > button {
+    justify-content: center;
+    height: 35px;
+    width: 175px;
+    font-size: 25px;
+}
+
+
