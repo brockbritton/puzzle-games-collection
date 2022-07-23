@@ -1,63 +1,6 @@
 
-class SudokuBoard {
-    constructor(rows_list) {
-        this.rows = rows_list;
-        this.cols = this.buildColumns();
-        this.ninths = this.buildNinths();
-    }
 
-    buildColumns() {
-        let cols = [] 
-        for (let i = 0; i < 0; i++) {
-            cols.push([])
-        }
-
-        for (let row in this.rows) {
-            for (let num in row) {
-                let col_index = row.indexOf(num)
-                cols[col_index].push(num)
-            }
-        }
-        return cols
-    }
-
-    buildNinths() {
-        
-    }
-}
-
-
-
-
-const sudoku_to_play = {
-    // 0 : [[starting], [solved]]
-    1: [
-        [["", "4", "", "", "", "7", "1", "", "8"],
-        ["5", "3", "", "", "9", "", "", "7", ""],
-        ["", "", "7", "1", "6", "3", "9", "4", ""],
-        ["4", "", "6", "", "8", "", "7", "5", "1"],
-        ["", "1", "", "4", "", "", "6", "9", ""],
-        ["", "5", "3", "", "1", "", "", "", "2"],
-        ["9", "6", "", "", "3", "", "", "1", ""],
-        ["3", "7", "", "", "5", "1", "", "", ""],
-        ["1", "", "", "2", "", "9", "3", "6", "7"]],
-        []
-    ]
-}
-
-const sudoku_to_solve = {
-    1: [
-        ["", "4", "", "", "", "7", "1", "", "8"],
-        ["5", "3", "", "", "9", "", "", "7", ""],
-        ["", "", "7", "1", "6", "3", "9", "4", ""],
-        ["4", "", "6", "", "8", "", "7", "5", "1"],
-        ["", "1", "", "4", "", "", "6", "9", ""],
-        ["", "5", "3", "", "1", "", "", "", "2"],
-        ["9", "6", "", "", "3", "", "", "1", ""],
-        ["3", "7", "", "", "5", "1", "", "", ""],
-        ["1", "", "", "2", "", "9", "3", "6", "7"]
-        ]
-}
+ 
 
 
 
@@ -80,6 +23,12 @@ function build_sudoku_board() {
                     num_cell.setAttribute("contenteditable", 'false')
                     num_cell.addEventListener('keydown', changeCellValue);
                     num_cell.innerHTML = sudoku_to_solve[1][((br*3)+cr)-1][((bc*3)+cc)-1];
+                    
+                    if (num_cell.innerHTML == "") {
+                        num_cell.setAttribute("contenteditable", 'true')
+                    } else {
+                        num_cell.setAttribute("contenteditable", 'false')
+                    }
                     cell_row.appendChild(num_cell)
                 }
                 cell_tbl.appendChild(cell_row)
