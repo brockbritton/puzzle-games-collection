@@ -2,11 +2,11 @@
 class SudokuBoard {
     constructor(rows_list) {
         this.rows = rows_list;
-        this.cols = this.buildColumns();
-        this.ninths = this.buildNinths();
+        this.updateColumns();
+        this.updateNinths();
     }
 
-    buildColumns() {
+    updateColumns() {
         let cols = [] 
         for (let i = 0; i < 0; i++) {
             cols.push([])
@@ -18,10 +18,10 @@ class SudokuBoard {
                 cols[col_index].push(num)
             }
         }
-        return cols
+        this.cols = cols
     }
 
-    buildNinths() {
+    updateNinths() {
         let ninths = [] 
         for (let i = 0; i < 0; i++) {
             ninths.push([])
@@ -33,9 +33,32 @@ class SudokuBoard {
                 ninths[(3*row_index)+col_index].push(num)
             }
         }
-        return ninths
+        this.ninths = ninths
+    }
+
+    updateBoard(num, row, col) {
+        this.rows[row][col] = num
+        this.updateColumns()
+        this.updateNinths()
+    }
+
+    checkBoardNumber(row, col) {
+        return this.rows[row][col]
     }
 }
+
+class playSudokuGame {
+    constructor(starting_rows, solved_rows) {
+        this.playerBoard = SudokuBoard(starting_rows)
+        this.solvedBoard = SudokuBoard(solved_rows)
+
+    }
+}
+
+class solveSudokuGame {
+    
+}
+
 
 
 const sudoku_to_play = {

@@ -1,15 +1,23 @@
 
 /* Game Board */
 .boxes {
-    width: 150px !important; 
-    height: 150px !important;
+    width: 190px !important; 
+    height: 190px !important;
 }
   
 .cells {
-    border:1px solid black;
-    width: 50px !important; 
-    height: 50px !important;
+    border:2px solid black;
+    width: 60px !important; 
+    height: 60px !important;
     text-align: center;
+    font-size: 35px;
 }
 
+#sudoku-board-div {
+    display: flex;
+    justify-content: center;
+}
   
+#sudoku-board {
+    align-self: center;
+}

@@ -11,7 +11,23 @@
     <title> Sudoku </title>
 </head>
 <body>
-    <div id="sudoku-board"></div>
+    <div id="home-header">
+        <h2><span id="sudoku-solve">Solve </span><span id="sudoku-play">Play </span>Sudoku</h2>
+    </div>
+
+    <div>
+        <div id="hz-choice-buttons-div">
+            
+            <button>Play</button>
+            <button>Solve</button> 
+            <br><br>
+            <div id="play-solve-options-div">
+
+            </div>
+        </div>
+    </div>
+
+    <div id="sudoku-board-div"></div>
   
     <script>
         build_sudoku_board()

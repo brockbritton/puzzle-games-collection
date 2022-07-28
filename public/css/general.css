@@ -11,7 +11,7 @@ body {
     text-align: center;
 }
 
-#home-header > h1 {
+#home-header > h1, h2 {
     font-size: 100px;
 }
 
@@ -19,22 +19,30 @@ body {
     font-size: 20px;
 }
 
-#home-choice-buttons-div {
+#hz-choice-buttons-div {
     display: block;
     justify-content: center;
     text-align: center;
 }
 
-#home-choice-buttons-div > p {
+#hz-choice-buttons-div > p {
 
 }
 
 
-#home-choice-buttons-div > button {
+#hz-choice-buttons-div > button {
     justify-content: center;
     height: 35px;
-    width: 175px;
+    width: max-content;
     font-size: 25px;
+}
+
+#play-solve-options-div {
+    margin-top: 20px;
+    margin: auto;
+    background-color: blue;
+    height: 200px;
+    width: 700px;
 }
 
 
