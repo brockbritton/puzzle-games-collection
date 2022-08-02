@@ -22,7 +22,25 @@
             <button>Solve</button> 
             <br><br>
             <div id="play-solve-options-div">
-
+                <div id="play-options">
+                    <!-- easy, moderate, hard - radiobuttons-->
+                    <div id="play-radio-div">
+                        <input type="radio" id="play-easy" name="play-difficulty" value="0">
+                        <label for="play-easy">Easy</label><br>
+                        <input type="radio" id="play-mod" name="play-difficulty" value="1">
+                        <label for="play-mod">Moderate</label><br>
+                        <input type="radio" id="play-hard" name="play-difficulty" value="2">
+                        <label for="play-hard">Hard</label>
+                    </div>
+                    <!-- play button -->
+                    <div>
+                        <button onclick="">Build Game</button>
+                    </div>
+                </div>
+                <div id="solve-options">
+                    <!-- animate or display-->
+                    <!-- solve button -->
+                </div>
             </div>
         </div>
     </div>
@@ -30,7 +48,7 @@
     <div id="sudoku-board-div"></div>
   
     <script>
-        build_sudoku_board()
+        empty_sudoku_board()
         
     </script>
 </body>

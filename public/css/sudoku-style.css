@@ -21,3 +21,11 @@
 #sudoku-board {
     align-self: center;
 }
+
+#play-solve-options-div {
+    margin-top: 20px;
+    margin: auto;
+    background-color: blue;
+    height: 200px;
+    width: 700px;
+}

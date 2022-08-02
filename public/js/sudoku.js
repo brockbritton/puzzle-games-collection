@@ -2,7 +2,7 @@
 
  
 
-function build_sudoku_board() {
+function empty_sudoku_board() {
     const board = document.createElement("table");
     board.setAttribute('id','sudoku-board');
     
@@ -20,14 +20,8 @@ function build_sudoku_board() {
                     num_cell.classList.add(`row${((br*3)+cr)-1}`)
                     num_cell.classList.add(`col${((bc*3)+cc)-1}`)
                     num_cell.classList.add(`nin${(3*br)+bc}`)
-                    num_cell.innerHTML = sudoku_to_solve[1][((br*3)+cr)-1][((bc*3)+cc)-1];
-                    
-                    if (num_cell.innerHTML == "") {
-                        num_cell.setAttribute("contenteditable", 'true')
-                        num_cell.addEventListener('keydown', changeCellValue);
-                    } else {
-                        num_cell.setAttribute("contenteditable", 'false')
-                    }
+                    //num_cell.innerHTML = sudoku_to_solve[1][((br*3)+cr)-1][((bc*3)+cc)-1];
+                    num_cell.setAttribute("contenteditable", 'false')
                     cell_row.appendChild(num_cell)
                 }
                 cell_tbl.appendChild(cell_row)
@@ -40,7 +34,24 @@ function build_sudoku_board() {
     
     document.getElementById("sudoku-board-div").appendChild(board)
 
+}
 
+function fill_in_board() {
+    for (let r = 0; r < 9; r++) {
+        let cells = document.getElementsByClassName(`row${r}`);
+        for (let i = 0; i < 9; i++) {
+            cells[i].innerHTML = board_values[r][i] //need actual values
+            if (cells[i].innerHTML == "") {
+                cells[i].setAttribute("contenteditable", 'true')
+                cells[i].addEventListener('keydown', changeCellValue);
+            } else {
+                cells[i].setAttribute("contenteditable", 'false')
+            }
+        }
+    }
+    
+    
+    
 }
 
 
