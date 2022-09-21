@@ -4,7 +4,8 @@
     "description": "",
     "main": "server.js",
     "scripts": {
-        "start": "node server"
+        "start": "node server",
+        "devstart": "nodemon server"
     },
     "author": "Brock Britton brockbritton@outlook.com",
     "license": "MIT",

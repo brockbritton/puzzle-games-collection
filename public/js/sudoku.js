@@ -1,8 +1,6 @@
-
-
  
 
-function empty_sudoku_board() {
+function build_sudoku_board() {
     const board = document.createElement("table");
     board.setAttribute('id','sudoku-board');
     
@@ -31,35 +29,80 @@ function empty_sudoku_board() {
         }
         board.appendChild(row)
     }
-    
     document.getElementById("sudoku-board-div").appendChild(board)
 
 }
 
-function fill_in_board() {
+
+function play_a_game() {
+    fill_in_board(easy_game1)
+}
+
+function solve_a_game() {
+    let rows_array = get_board_values();
+    const solve_game = new solveSudokuGame(easy_game1);
+    alert(solve_game.testData);
+   
+}
+
+function fill_in_board(board_array) {
     for (let r = 0; r < 9; r++) {
         let cells = document.getElementsByClassName(`row${r}`);
         for (let i = 0; i < 9; i++) {
-            cells[i].innerHTML = board_values[r][i] //need actual values
-            if (cells[i].innerHTML == "") {
-                cells[i].setAttribute("contenteditable", 'true')
+            if (board_array == null) {
+                cells[i].innerHTML = "";
+                cells[i].setAttribute("contenteditable", 'true');
                 cells[i].addEventListener('keydown', changeCellValue);
             } else {
-                cells[i].setAttribute("contenteditable", 'false')
-            }
+                cells[i].innerHTML = board_array[r][i]
+                if (cells[i].innerHTML == "") {
+                    cells[i].setAttribute("contenteditable", 'true');
+                    cells[i].addEventListener('keydown', changeCellValue);
+                } else {
+                    cells[i].setAttribute("contenteditable", 'false');
+                }
+            } 
         }
     }
-    
-    
-    
 }
 
+function dev_fillin(type) {
+    for (let r = 0; r < 9; r++) {
+        let cells = document.getElementsByClassName(`row${r}`);
+        for (let c = 0; c < 9; c++) {
+            if (type == "row") {
+                cells[c].innerHTML = r
+            } else if (type == "col") {
+                cells[c].innerHTML = c
+            } else if (type == "ninth") {
+                cells[c].innerHTML = Math.floor(r/3) + Math.floor(c/3) + Math.ceil(c/3)
+            }
+            
+        }
+    }
+}
+
+function get_board_values() {
+    const board_values = []
+    for (let r = 0; r < 9; r++) {
+        let row = []
+        let cells = document.getElementsByClassName(`row${r}`);
+        for (let i = 0; i < 9; i++) {
+            if (cells[i].innerHTML == "") {
+                row.push(null)
+            } else {
+                row.push(Number(cells[i].innerHTML))
+            }
+            
+        }
+        board_values.push(row)
+    }
+    return board_values
+}
 
 function changeCellValue(event) {
     const cell = event.target
-    
-    //If the key is not a number 1-9, 
-    // don't allow the input
+    //If the key is not a number 1-9, don't allow the input
     if (((event.which < 49) || (event.which > 57)) && (event.which != 8)) {
         event.preventDefault()
     } else if (cell.innerHTML.length != 0) {

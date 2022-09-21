@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="css/general.css" />
     <link rel="stylesheet" type="text/css" href="css/sudoku-style.css" />
     <script type="text/javascript" src="js/sudoku.js"></script>
-    <script type="text/javascript" src="js/sudoku-games.js"></script>
+    <script type="text/javascript" src="js/sudoku-classes.js"></script>
     <title> Sudoku </title>
 </head>
 <body>
@@ -16,39 +16,80 @@
     </div>
 
     <div>
-        <div id="hz-choice-buttons-div">
-            
-            <button>Play</button>
-            <button>Solve</button> 
-            <br><br>
+        <div id="sudoku-options-div">
+            <button id="sudoku-instructions-header" onclick="toggle_instructions()"> How to Play </button>
+            <div id="sudoku-instructions-content">
+                <p>
+                    To reset the board or to change to a different game mode, 
+                    click clear board. This will also end the current mode that you are in.
+                </p>
+                <p>
+                    To play a game of sudoku, select a difficulty and click play game. 
+                </p>
+                <p>
+                    To solve a board of sudoku, make sure the board is cleared, 
+                    and enter the numbers on the board. Once done, 
+                    choose whether you would like the solved board to animate 
+                    in order or display instantly and click solve board.
+                </p>
+            </div>
+            <br>
             <div id="play-solve-options-div">
-                <div id="play-options">
-                    <!-- easy, moderate, hard - radiobuttons-->
+                <button class="sudoku-options-buttons" onclick="fill_in_board(null)">Clear Board</button>
+                <br>
+                <div id="play-options" class="divs-side-by-side">
                     <div id="play-radio-div">
+                        <!-- easy, moderate, hard - radiobuttons -->
                         <input type="radio" id="play-easy" name="play-difficulty" value="0">
-                        <label for="play-easy">Easy</label><br>
+                        <label for="play-easy" class="radio-label">Easy</label><br>
                         <input type="radio" id="play-mod" name="play-difficulty" value="1">
-                        <label for="play-mod">Moderate</label><br>
+                        <label for="play-mod" class="radio-label">Moderate</label><br>
                         <input type="radio" id="play-hard" name="play-difficulty" value="2">
-                        <label for="play-hard">Hard</label>
+                        <label for="play-hard" class="radio-label">Hard</label>
                     </div>
-                    <!-- play button -->
                     <div>
-                        <button onclick="">Build Game</button>
+                        <!-- play button -->
+                        <button class="sudoku-options-buttons" onclick="play_a_game()"> Play Game </button>
                     </div>
                 </div>
-                <div id="solve-options">
-                    <!-- animate or display-->
-                    <!-- solve button -->
+                <div id="sudoku-options-spacer" class="divs-side-by-side">
                 </div>
+                <div id="solve-options" class="divs-side-by-side">
+                    <div id="solve-radio-div">
+                    <!-- animate or display -->
+                        <input type="radio" id="solve-display" name="solve-visual" value="0">
+                        <label for="solve-display" class="radio-label">Display</label><br>
+                        <input type="radio" id="solve-animate" name="solve-visual" value="1">
+                        <label for="solve-animate" class="radio-label">Animate</label><br>
+                    </div>
+                    <div>
+                        <!-- solve button -->
+                        <button class="sudoku-options-buttons" onclick="solve_a_game()"> Solve Board </button>
+                    </div>
+                </div>
+                <br><br>
             </div>
         </div>
     </div>
 
     <div id="sudoku-board-div"></div>
+    <p id="test-data">Test Data</p>
   
     <script>
-        empty_sudoku_board()
+        build_sudoku_board();
+
+        var current_mode = null;
+
+        function toggle_instructions() {
+            var content = document.getElementById("sudoku-instructions-content")
+            if (content.style.maxHeight){
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            } 
+        };
+
+        dev_fillin("ninth");
         
     </script>
 </body>

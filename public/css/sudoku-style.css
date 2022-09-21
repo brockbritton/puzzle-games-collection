@@ -22,10 +22,70 @@
     align-self: center;
 }
 
+#sudoku-instructions-header {
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    width: auto;
+    height: auto;
+    border: solid 1px;
+    text-align: center;
+    outline: none;
+    font-size: 25px;
+    padding: 5px 30px;
+    margin: 5px;
+}
+
+#sudoku-instructions-content {
+    padding: 0px 20px;
+    max-height: 0;
+    font-size: 18px;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    background-color: #f1f1f1;
+    width: 400px;
+    margin: auto;
+}
+
 #play-solve-options-div {
     margin-top: 20px;
     margin: auto;
-    background-color: blue;
-    height: 200px;
-    width: 700px;
+    width: max-content;
+}
+
+#sudoku-options-spacer {
+    width: 50px;
+}
+
+.divs-side-by-side {
+    display: inline-block;
+}
+
+#sudoku-options-div {
+    height: min-content;
+    text-align: center;
+}
+
+.sudoku-options-buttons {
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    height: auto;
+    width: auto;
+    text-align: center;
+    border: solid 1px;
+    font-size: 25px;
+    padding: 0px 15px;
+    margin: 10px;
+    border-radius: 8px;
+}
+
+.sudoku-options-buttons:active {
+    background-color: #F5F5F5;
+}
+
+
+.radio-label {
+    font-size: 25px;
+    margin: 10px;
 }
