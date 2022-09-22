@@ -75,7 +75,7 @@ function dev_fillin(type) {
             } else if (type == "col") {
                 cells[c].innerHTML = c
             } else if (type == "ninth") {
-                cells[c].innerHTML = Math.floor(r/3) + Math.floor(c/3) + Math.ceil(c/3)
+                cells[c].innerHTML = (3 * (Math.floor(r / 3) % 3) + (Math.floor(c / 3) % 3))
             }
             
         }
