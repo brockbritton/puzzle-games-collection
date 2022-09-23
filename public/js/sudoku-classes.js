@@ -29,12 +29,11 @@ class SudokuBoard {
         
         for (let row_index in this.rows) {
             for (let col_index in this.rows[row_index]) {
-                console.log((3*Number(row_index))+Number(col_index))
-                ninths[(3*Number(row_index))+Number(col_index)].push(this.rows[row_index][col_index])
+                ninths[(3 * (Math.floor(row_index / 3) % 3) + (Math.floor(col_index / 3) % 3))].push(this.rows[row_index][col_index])
             }
         }
-        console.log(ninths)
         this.ninths = ninths
+        
     }
 
     updateNinth(row, col, num) {

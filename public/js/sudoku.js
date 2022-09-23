@@ -16,10 +16,11 @@ function build_sudoku_board() {
                     const num_cell = document.createElement("td");
                     num_cell.classList.add("cells");
                     num_cell.classList.add(`row${((br*3)+cr)-1}`)
-                    num_cell.classList.add(`col${((bc*3)+cc)-1}`)
+                    num_cell.classList.add(`col${((bc*3)+cc)-1}`) 
                     num_cell.classList.add(`nin${(3*br)+bc}`)
-                    //num_cell.innerHTML = sudoku_to_solve[1][((br*3)+cr)-1][((bc*3)+cc)-1];
-                    num_cell.setAttribute("contenteditable", 'false')
+                    num_cell.setAttribute('id', `${((br*3)+cr)-1}.${((bc*3)+cc)-1}.${(3*br)+bc}`)
+                    num_cell.setAttribute("contenteditable", 'true')
+                    num_cell.addEventListener('keydown', changeCellValue);
                     cell_row.appendChild(num_cell)
                 }
                 cell_tbl.appendChild(cell_row)
@@ -36,13 +37,20 @@ function build_sudoku_board() {
 
 function play_a_game() {
     fill_in_board(easy_game1)
+    update_cell_styles("game")
 }
 
 function solve_a_game() {
     let rows_array = get_board_values();
-    const solve_game = new solveSudokuGame(easy_game1);
-    alert(solve_game.testData);
-   
+    update_cell_styles("game")
+    const solve_game = new solveSudokuGame(rows_array);
+    
+
+}
+
+function clear_board_values() {
+    update_cell_styles(null)
+    fill_in_board(null)
 }
 
 function fill_in_board(board_array) {
@@ -78,6 +86,23 @@ function dev_fillin(type) {
                 cells[c].innerHTML = (3 * (Math.floor(r / 3) % 3) + (Math.floor(c / 3) % 3))
             }
             
+        }
+    }
+}
+
+function update_cell_styles(type) {
+    for (let r = 0; r < 9; r++) {
+        let cells = document.getElementsByClassName(`row${r}`);
+        for (let i = 0; i < 9; i++) {
+            if (cells[i].innerHTML != "") {
+                if (type == null) {
+                    cells[i].style.fontWeight = 400
+                    cells[i].setAttribute("contenteditable", 'true');
+                } else if (type == "game") {
+                    cells[i].style.fontWeight = 700
+                    cells[i].setAttribute("contenteditable", 'false');
+                }
+            }
         }
     }
 }

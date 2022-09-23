@@ -35,7 +35,7 @@
             </div>
             <br>
             <div id="play-solve-options-div">
-                <button class="sudoku-options-buttons" onclick="fill_in_board(null)">Clear Board</button>
+                <button class="sudoku-options-buttons" onclick="clear_board_values()">Clear Board</button>
                 <br>
                 <div id="play-options" class="divs-side-by-side">
                     <div id="play-radio-div">
@@ -72,8 +72,9 @@
         </div>
     </div>
 
-    <div id="sudoku-board-div"></div>
-    <p id="test-data">Test Data</p>
+    <div id="sudoku-board-div">
+        <!-- Sudoku Board is built here using js function build_sudoku_board()-->
+    </div>
   
     <script>
         build_sudoku_board();
@@ -89,7 +90,7 @@
             } 
         };
 
-        dev_fillin("ninth");
+        console.log("hello")
         
     </script>
 </body>
