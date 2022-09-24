@@ -5,7 +5,8 @@
     "main": "server.js",
     "scripts": {
         "start": "node server",
-        "devstart": "nodemon server"
+        "devstart": "nodemon server",
+        "edge-debug": "nodemon --inspect server"
     },
     "author": "Brock Britton brockbritton@outlook.com",
     "license": "MIT",

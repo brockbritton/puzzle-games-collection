@@ -65,16 +65,3 @@ class solveSudokuGame {
         this.testData = false;
     }
 }
-
-const easy_game1 = [
-    [null, 4, null, null, null, 7, 1, null, 8],
-    [5, 3, null, null, 9, null, null, 7, null],
-    [null, null, 7, 1, 6, 3, 9, 4, null],
-    [4, null, 6, null, 8, null, 7, 5, 1],
-    [null, 1, null, 4, null, null, 6, 9, null],
-    [null, 5, 3, null, 1, null, null, null, 2],
-    [9, 6, null, null, 3, null, null, 1, null],
-    [3, 7, null, null, 5, 1, null, null, null],
-    [1, null, null, 2, null, 9, 3, 6, 7]
-]
-

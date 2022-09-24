@@ -36,11 +36,13 @@ function build_sudoku_board() {
 
 
 function play_a_game() {
+    console.log("playing a ~difficulty~ game")
     fill_in_board(easy_game1)
     update_cell_styles("game")
 }
 
 function solve_a_game() {
+    console.log("solving a game")
     let rows_array = get_board_values();
     update_cell_styles("game")
     const solve_game = new solveSudokuGame(rows_array);

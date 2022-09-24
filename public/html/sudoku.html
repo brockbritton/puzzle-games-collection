@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="css/general.css" />
     <link rel="stylesheet" type="text/css" href="css/sudoku-style.css" />
+    
+    <script type="text/javascript" src="js/sudoku-games.js"></script>
     <script type="text/javascript" src="js/sudoku.js"></script>
     <script type="text/javascript" src="js/sudoku-classes.js"></script>
     <title> Sudoku </title>
@@ -40,11 +42,11 @@
                 <div id="play-options" class="divs-side-by-side">
                     <div id="play-radio-div">
                         <!-- easy, moderate, hard - radiobuttons -->
-                        <input type="radio" id="play-easy" name="play-difficulty" value="0">
+                        <input type="radio" id="play-easy" name="play-difficulty" value="1">
                         <label for="play-easy" class="radio-label">Easy</label><br>
-                        <input type="radio" id="play-mod" name="play-difficulty" value="1">
+                        <input type="radio" id="play-mod" name="play-difficulty" value="2">
                         <label for="play-mod" class="radio-label">Moderate</label><br>
-                        <input type="radio" id="play-hard" name="play-difficulty" value="2">
+                        <input type="radio" id="play-hard" name="play-difficulty" value="3">
                         <label for="play-hard" class="radio-label">Hard</label>
                     </div>
                     <div>
@@ -73,8 +75,13 @@
     </div>
 
     <div id="sudoku-board-div">
-        <!-- Sudoku Board is built here using js function build_sudoku_board()-->
+        <!-- 
+            Sudoku Board is built here using js function build_sudoku_board()
+            The board is built using js for more efficient writing and common attributes
+        -->
     </div>
+
+    <p id="b_d_note"> Built and Designed by Brock Britton</p>
   
     <script>
         build_sudoku_board();
@@ -90,7 +97,6 @@
             } 
         };
 
-        console.log("hello")
         
     </script>
 </body>

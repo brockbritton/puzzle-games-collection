@@ -25,7 +25,7 @@ body {
 }
 
 #hz-choice-buttons-div > p {
-
+    
 }
 
 
@@ -74,4 +74,8 @@ body {
     visibility: visible;
 }
 
+#b_d_note {
+    text-align: center;
+    margin-top: 40px;
+}
 
