@@ -37,7 +37,7 @@ class SudokuBoard {
     }
 
     updateNinth(row, col, num) {
-        
+        //how to determine what index of the given ninth to update
     }
 
     updateBoard(num, row, col) {

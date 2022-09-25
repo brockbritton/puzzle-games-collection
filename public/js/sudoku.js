@@ -1,4 +1,10 @@
  
+const available_games = {
+    1 : easy_game1,
+    2 : medium_game1,
+    3 : hard_game1,
+}
+
 
 function build_sudoku_board() {
     const board = document.createElement("table");
@@ -36,16 +42,29 @@ function build_sudoku_board() {
 
 
 function play_a_game() {
-    console.log("playing a ~difficulty~ game")
-    fill_in_board(easy_game1)
-    update_cell_styles("game")
+    var radios = document.getElementsByName("sudoku-play-difficulty");
+    var check_true = false
+    for(i = 0; i < radios.length; i++) {
+        if(radios[i].checked) {
+            check_true = true
+            diff_level = radios[i].value
+            console.log(`playing a level ${diff_level} game`)
+            break
+        }
+    }
+    if (check_true) {
+        fill_in_board(available_games[diff_level])
+        update_cell_styles("game")
+    } else {
+        alert("please select a difficulty to play a game")
+    }
 }
 
 function solve_a_game() {
     console.log("solving a game")
     let rows_array = get_board_values();
-    update_cell_styles("game")
-    const solve_game = new solveSudokuGame(rows_array);
+        update_cell_styles("game")
+        const solve_game = new solveSudokuGame(rows_array);
     
 
 }
@@ -136,3 +155,12 @@ function changeCellValue(event) {
         cell.innerHTML = ""
     }
 }
+
+function toggle_instructions() {
+    var content = document.getElementById("sudoku-instructions-content")
+    if (content.style.maxHeight){
+        content.style.maxHeight = null;
+    } else {
+        content.style.maxHeight = content.scrollHeight + "px";
+    } 
+}; 

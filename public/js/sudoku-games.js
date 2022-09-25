@@ -1,4 +1,5 @@
 
+
 const easy_game1 = [
     [null, 4, null, null, null, 7, 1, null, 8],
     [5, 3, null, null, 9, null, null, 7, null],
@@ -34,9 +35,3 @@ const hard_game1 = [
     [8, 1, null, 9, 4, 3, null, null, null],
     [9, null, null, null, null, 8, null, null, null],
 ]
-
-const available_games = {
-    1 : easy_game1,
-    2 : medium_game1,
-    3 : hard_game1,
-}

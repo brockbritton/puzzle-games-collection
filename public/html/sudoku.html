@@ -42,11 +42,11 @@
                 <div id="play-options" class="divs-side-by-side">
                     <div id="play-radio-div">
                         <!-- easy, moderate, hard - radiobuttons -->
-                        <input type="radio" id="play-easy" name="play-difficulty" value="1">
+                        <input type="radio" id="play-easy" name="sudoku-play-difficulty" value="1">
                         <label for="play-easy" class="radio-label">Easy</label><br>
-                        <input type="radio" id="play-mod" name="play-difficulty" value="2">
+                        <input type="radio" id="play-mod" name="sudoku-play-difficulty" value="2">
                         <label for="play-mod" class="radio-label">Moderate</label><br>
-                        <input type="radio" id="play-hard" name="play-difficulty" value="3">
+                        <input type="radio" id="play-hard" name="sudoku-play-difficulty" value="3">
                         <label for="play-hard" class="radio-label">Hard</label>
                     </div>
                     <div>
@@ -59,9 +59,9 @@
                 <div id="solve-options" class="divs-side-by-side">
                     <div id="solve-radio-div">
                     <!-- animate or display -->
-                        <input type="radio" id="solve-display" name="solve-visual" value="0">
+                        <input type="radio" id="solve-display" name="sudoku-solve-visual" value="0">
                         <label for="solve-display" class="radio-label">Display</label><br>
-                        <input type="radio" id="solve-animate" name="solve-visual" value="1">
+                        <input type="radio" id="solve-animate" name="sudoku-solve-visual" value="1">
                         <label for="solve-animate" class="radio-label">Animate</label><br>
                     </div>
                     <div>
@@ -77,7 +77,7 @@
     <div id="sudoku-board-div">
         <!-- 
             Sudoku Board is built here using js function build_sudoku_board()
-            The board is built using js for more efficient writing and common attributes
+            The board is built using js for simpler code and easily changing attributes
         -->
     </div>
 
@@ -85,18 +85,9 @@
   
     <script>
         build_sudoku_board();
+        console.log("Sudoku page has loaded in")
 
         var current_mode = null;
-
-        function toggle_instructions() {
-            var content = document.getElementById("sudoku-instructions-content")
-            if (content.style.maxHeight){
-                content.style.maxHeight = null;
-            } else {
-                content.style.maxHeight = content.scrollHeight + "px";
-            } 
-        };
-
         
     </script>
 </body>

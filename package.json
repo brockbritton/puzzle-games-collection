@@ -6,6 +6,7 @@
     "scripts": {
         "start": "node server",
         "devstart": "nodemon server",
+        "__comment-debug-build__": "this is another comment",
         "edge-debug": "nodemon --inspect server"
     },
     "author": "Brock Britton brockbritton@outlook.com",
