@@ -40,38 +40,58 @@ function build_sudoku_board() {
 
 }
 
-
+//Play Game Button
 function play_a_game() {
-    var radios = document.getElementsByName("sudoku-play-difficulty");
-    var check_true = false
-    for(i = 0; i < radios.length; i++) {
-        if(radios[i].checked) {
-            check_true = true
-            diff_level = radios[i].value
-            console.log(`playing a level ${diff_level} game`)
-            break
-        }
-    }
-    if (check_true) {
-        fill_in_board(available_games[diff_level])
+    let select_radio = get_checked_radio("sudoku-play-difficulty")
+    if (select_radio != null) {
+        console.log(`playing a level ${select_radio.value} game`)
+        let radio_label = document.querySelector(`label[for=${select_radio.id}]`);
+        let par = document.getElementById("game-type-header");
+        par.innerHTML = `Play Sudoku : ${radio_label.innerHTML}`
+        fill_in_board(available_games[select_radio.value])
         update_cell_styles("game")
     } else {
         alert("please select a difficulty to play a game")
     }
 }
 
+//Solve Board Button
 function solve_a_game() {
-    console.log("solving a game")
-    let rows_array = get_board_values();
+    let select_radio = get_checked_radio("sudoku-solve-visual")
+    console.log(select_radio)
+    if (select_radio != null) {
+        let radio_label = document.querySelector(`label[for=${select_radio.id}]`);
+        let par = document.getElementById("game-type-header");
+        console.log(`Solving with ${radio_label.innerHTML}`)
+        par.innerHTML = `Solve Sudoku : ${radio_label.innerHTML}`
+        let rows_array = get_board_values();
         update_cell_styles("game")
         const solve_game = new solveSudokuGame(rows_array);
+    } else {
+        alert("please select a display option to solve a game")
+    }
+    
     
 
 }
 
+function get_checked_radio(id) {
+    let radios = document.getElementsByName(id);
+    console.log(radios)
+    for (let i = 0; i < radios.length; i++) {
+        if (radios[i].checked) {
+            return radios[i]
+        }
+    }
+    return null
+}
+
+//Clear Board Button
 function clear_board_values() {
     update_cell_styles(null)
     fill_in_board(null)
+    let par = document.getElementById("game-type-header");
+    par.innerHTML = ""
 }
 
 function fill_in_board(board_array) {

@@ -18,6 +18,24 @@ body {
     font-size: 20px;
 }
 
+.gen-buttons {
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    height: auto;
+    width: auto;
+    text-align: center;
+    border: solid 1px;
+    font-size: 25px;
+    padding: 0px 15px;
+    margin: 10px;
+    border-radius: 8px;
+}
+
+.gen-buttons:active {
+    background-color: #F5F5F5;
+}
+
 #hz-choice-buttons-div {
     display: block;
     justify-content: center;

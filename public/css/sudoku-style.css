@@ -1,16 +1,16 @@
 
 /* Game Board */
 .boxes {
-    width: 190px !important; 
-    height: 190px !important;
+    width: 200px !important; 
+    height: 200px !important;
 }
   
 .cells {
-    border:2px solid black;
-    width: 60px !important; 
-    height: 60px !important;
+    border: 2px solid black;
+    width: 65px !important; 
+    height: 65px !important;
     text-align: center;
-    font-size: 35px;
+    font-size: 40px;
 }
 
 #sudoku-board-div {
@@ -49,7 +49,9 @@
 
 #play-solve-options-div {
     margin-top: 20px;
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0px;
     width: max-content;
 }
 
@@ -64,28 +66,18 @@
 #sudoku-options-div {
     height: min-content;
     text-align: center;
+    margin-bottom: 0px;
 }
-
-.sudoku-options-buttons {
-    background-color: white;
-    color: black;
-    cursor: pointer;
-    height: auto;
-    width: auto;
-    text-align: center;
-    border: solid 1px;
-    font-size: 25px;
-    padding: 0px 15px;
-    margin: 10px;
-    border-radius: 8px;
-}
-
-.sudoku-options-buttons:active {
-    background-color: #F5F5F5;
-}
-
 
 .radio-label {
     font-size: 25px;
     margin: 10px;
+}
+
+#game-type-header {
+    text-align: center;
+    margin: 5px;
+    font-weight: 700;
+    font-size: 30px;
+    height: 30px;
 }

@@ -5,18 +5,17 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Edge Attach",
-            "port": 3000,
-            "request": "attach",
+            "name": "Edge App Launcher",
+            "request": "launch",
             "type": "msedge",
             "url": "http://localhost:3000",
             "webRoot": "${workspaceFolder}"
         },
         {
-            "name": "Edge App Launcher",
-            "request": "launch",
+            "name": "Edge Attach",
+            "port": 3000,
+            "request": "attach",
             "type": "msedge",
-            "url": "http://localhost:3000",
             "webRoot": "${workspaceFolder}"
         },
         {
