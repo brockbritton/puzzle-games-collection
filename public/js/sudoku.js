@@ -58,7 +58,6 @@ function play_a_game() {
 //Solve Board Button
 function solve_a_game() {
     let select_radio = get_checked_radio("sudoku-solve-visual")
-    console.log(select_radio)
     if (select_radio != null) {
         let radio_label = document.querySelector(`label[for=${select_radio.id}]`);
         let par = document.getElementById("game-type-header");
@@ -77,7 +76,6 @@ function solve_a_game() {
 
 function get_checked_radio(id) {
     let radios = document.getElementsByName(id);
-    console.log(radios)
     for (let i = 0; i < radios.length; i++) {
         if (radios[i].checked) {
             return radios[i]
@@ -90,8 +88,7 @@ function get_checked_radio(id) {
 function clear_board_values() {
     update_cell_styles(null)
     fill_in_board(null)
-    let par = document.getElementById("game-type-header");
-    par.innerHTML = ""
+    document.getElementById("game-type-header").innerHTML = "";
 }
 
 function fill_in_board(board_array) {
