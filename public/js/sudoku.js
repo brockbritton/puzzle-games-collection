@@ -69,13 +69,10 @@ function solve_a_game() {
     } else {
         alert("please select a display option to solve a game")
     }
-    
-    
-
 }
 
-function get_checked_radio(id) {
-    let radios = document.getElementsByName(id);
+function get_checked_radio(name) {
+    let radios = document.getElementsByName(name);
     for (let i = 0; i < radios.length; i++) {
         if (radios[i].checked) {
             return radios[i]
@@ -84,11 +81,28 @@ function get_checked_radio(id) {
     return null
 }
 
+function clear_all_radios() {
+    const all_radio_ids = ["sudoku-play-difficulty", "sudoku-solve-visual"];
+    for (let i = 0; i < all_radio_ids.length; i++) {
+        let radios_by_name = document.getElementsByName(all_radio_ids[i]);
+        for (let j = 0; j < radios_by_name.length; j++) {
+            if (radios_by_name[j].checked) {
+                radios_by_name[j].checked = false;
+            }
+        }
+    }
+}
+
 //Clear Board Button
 function clear_board_values() {
+    //update all cell styles to the basic non-bold text style
     update_cell_styles(null)
+    //clear the board numbers
     fill_in_board(null)
-    document.getElementById("game-type-header").innerHTML = "";
+    //reset game mode ux
+    document.getElementById("game-type-header").innerHTML = "please select a game mode";
+    //remove radio button select
+    clear_all_radios();
 }
 
 function fill_in_board(board_array) {
@@ -112,16 +126,22 @@ function fill_in_board(board_array) {
     }
 }
 
-function dev_fillin(type) {
+function dev_fillin(req) {
     for (let r = 0; r < 9; r++) {
         let cells = document.getElementsByClassName(`row${r}`);
         for (let c = 0; c < 9; c++) {
-            if (type == "row") {
+            if (req == "row") {
                 cells[c].innerHTML = r
-            } else if (type == "col") {
+            } else if (req == "col") {
                 cells[c].innerHTML = c
-            } else if (type == "ninth") {
-                cells[c].innerHTML = (3 * (Math.floor(r / 3) % 3) + (Math.floor(c / 3) % 3))
+            } else if (req == "ninth") {
+                cells[c].innerHTML = 3 * (Math.floor(r / 3) % 3) + (Math.floor(c / 3) % 3)
+            } else if (req == "rowi") {
+                cells[c].innerHTML = c
+            } else if (req == "coli") {
+                cells[c].innerHTML = r
+            } else if (req == "ninthi") {
+                cells[c].innerHTML = (r % 3) + (c % 3) + ((r % 3) * 2)
             }
             
         }
@@ -132,7 +152,10 @@ function update_cell_styles(type) {
     for (let r = 0; r < 9; r++) {
         let cells = document.getElementsByClassName(`row${r}`);
         for (let i = 0; i < 9; i++) {
-            if (cells[i].innerHTML != "") {
+            if (cells[i].innerHTML == "") {
+                cells[i].style.fontWeight = 400
+                cells[i].setAttribute("contenteditable", 'true');
+            } else {
                 if (type == null) {
                     cells[i].style.fontWeight = 400
                     cells[i].setAttribute("contenteditable", 'true');

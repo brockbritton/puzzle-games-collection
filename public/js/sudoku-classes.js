@@ -36,15 +36,11 @@ class SudokuBoard {
         
     }
 
-    updateNinth(row, col, num) {
-        //how to determine what index of the given ninth to update
-    }
-
     updateBoard(num, row, col) {
         //we should only update the row, column, and ninth that was changed
         this.rows[row][col] = num
         this.columns[col][row] = num
-        this.updateNinth(row, col, num)
+        this.ninths[3 * (Math.floor(row / 3) % 3) + (Math.floor(col / 3) % 3)][(row % 3) + (col % 3) + ((row % 3) * 2)] = num
     }
 
     checkBoardNumber(row, col) {
@@ -62,6 +58,6 @@ class playSudokuGame {
 class solveSudokuGame {
     constructor(starting_rows) {
         this.board = new SudokuBoard(starting_rows);
-        this.testData = false;
+    
     }
 }
