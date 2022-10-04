@@ -53,7 +53,7 @@ class SudokuBoard {
                         sets[i][cell] = sets[i][cell].filter(number => number != new_value);
                         
                         if (sets[i][cell].length == 1) {
-                            this.updateBoard(sets[i][cell][0], i, cell); 
+                            this.updateBoard(sets[i][cell][0], i, cell);  
                         } else {
                             this.updateBoard(sets[i][cell], i, cell); 
                         }
@@ -71,48 +71,64 @@ class SudokuBoard {
         for (let row in this.rows) {
             for (let col in this.rows[row]) {
                 if (this.rows[row][col] == null) {
-                    this.rows[row][col] = []
+                    let new_array = []
                     for (let poss_num = 1; poss_num <= 9; poss_num++) {
                         if (!(this.rows[row].includes(poss_num) || this.columns[col].includes(poss_num) || this.ninths[3 * (Math.floor(row / 3) % 3) + (Math.floor(col / 3) % 3)].includes(poss_num))) {
-                            this.rows[row][col].push(poss_num)
+                            new_array.push(poss_num)
                         }
                     }
-                    if (this.rows[row][col].length == 0) {
-                        return false
+                    if (new_array.length == 1) {
+                        //this.updateBoard(new_array[0], row, col)
+                        this.updateBoard(new_array, row, col)
                     } else {
-                        this.updateBoard(this.rows[row][col], row, col)
+                        this.updateBoard(new_array, row, col)
                     } 
                     // causes bugs : else if (this.rows[row][col].length == 1) {
                       //this.updateBoard(this.rows[row][col][0], row, col)
                 }
             }
         }
-        //more runs
+        // keep updating board until the board is full of numbers
+        //while (!this.checkBoardFilled(this.rows)) {}
+        /*
         for (let row in this.rows) {
             for (let col in this.rows[row]) {
                 if (Array.isArray(this.rows[row][col]) && this.rows[row][col].length == 1) {
-                    this.rows[row][col]
+                    this.updateBoard(this.rows[row][col][0], row, col)
                 }
             }
         }
+        */
+
+        //check for notes that contain the only number for a set
+        
         return this.rows
-        //check each row, col, and ninth
-        //check each col
+        
     }
 
     solveBoard() {
         return this.bruteForceSolveBoard()
     }
 
-    checkBoardSolved() {
+    checkBoardFilled(board_array) {
+        var isANumber2 = function(currentValue) {
+            return typeof currentValue === 'number';
+        };
         
+        var isAllNumbers2 = function(currentArray) {
+            return currentArray.every(isANumber2);
+        }
+
+        return board_array.every(isAllNumbers2)
     }
+
 }
 
 class solveSudokuGame {
     constructor(starting_rows) {
         this.starting_board = new SudokuBoard(starting_rows);
-        this.solution_board = new SudokuBoard(this.starting_board.solveBoard())
+        let starting_board = new SudokuBoard(starting_rows);
+        this.solution_board = new SudokuBoard(starting_board.solveBoard())
     }
 }
 

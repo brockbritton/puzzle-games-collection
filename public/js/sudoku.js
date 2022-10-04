@@ -69,9 +69,8 @@ function solve_a_game() {
         fill_in_board(rows_array) //dev
         update_cell_styles("game")
         const solve_game = new solveSudokuGame(rows_array);
-        
-        console.log(solve_game.solution_board.rows[8])
         fill_in_board(solve_game.solution_board.rows)
+        console.log(solve_game.solution_board.rows)
     } else {
         alert("please select a display option to solve a game")
     }
