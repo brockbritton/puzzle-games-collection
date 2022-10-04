@@ -63,11 +63,7 @@ class SudokuBoard {
         }
     }
 
-    checkBoardNumber(row, col) {
-        return this.rows[row][col]
-    }
-
-    bruteForceSolveBoard() {
+    createNotes() {
         for (let row in this.rows) {
             for (let col in this.rows[row]) {
                 if (this.rows[row][col] == null) {
@@ -88,6 +84,14 @@ class SudokuBoard {
                 }
             }
         }
+    }
+
+
+    bruteForceSolveBoard() {
+        this.createNotes()
+
+        this.updateBoard(6, 3, 0)
+
         // keep updating board until the board is full of numbers
         //while (!this.checkBoardFilled(this.rows)) {}
         /*
@@ -102,12 +106,20 @@ class SudokuBoard {
 
         //check for notes that contain the only number for a set
         
-        return this.rows
         
     }
 
     solveBoard() {
-        return this.bruteForceSolveBoard()
+        /*
+        if (this.checkBoardFilled()) {
+            return this.rows
+        } else {
+            this.bruteForceSolveBoard()
+        }
+        */
+        this.bruteForceSolveBoard()
+        return true
+        
     }
 
     checkBoardFilled(board_array) {
@@ -119,7 +131,7 @@ class SudokuBoard {
             return currentArray.every(isANumber2);
         }
 
-        return board_array.every(isAllNumbers2)
+        return this.rows.every(isAllNumbers2)
     }
 
 }
@@ -127,15 +139,21 @@ class SudokuBoard {
 class solveSudokuGame {
     constructor(starting_rows) {
         this.starting_board = new SudokuBoard(starting_rows);
-        let starting_board = new SudokuBoard(starting_rows);
-        this.solution_board = new SudokuBoard(starting_board.solveBoard())
+
+        if (this.starting_board.solveBoard()) {
+            this.solution_board = new SudokuBoard(this.starting_board.rows) 
+        } else {
+            alert("No Solution Found")
+        }
+        
     }
 }
 
 class playSudokuGame {
     constructor(starting_rows) {
         this.player_board = new SudokuBoard(starting_rows)
-        this.solution_board = this.player_board.solveBoard() 
+        
+        //this.solution_board = this.player_board.solveBoard() 
     }
 }
 
