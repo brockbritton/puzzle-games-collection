@@ -48,19 +48,24 @@ class SudokuBoard {
         if (typeof new_value === 'number') {
             let sets = [this.rows[row], this.columns[col], this.ninths[3 * (Math.floor(row / 3) % 3) + (Math.floor(col / 3) % 3)]]
             for (let i in sets) {
-                for (let cell in sets[i]) {
-                    if (Array.isArray(sets[i][cell]) && sets[i][cell].includes(new_value)) {
-                        sets[i][cell] = sets[i][cell].filter(number => number != new_value);
-                        
-                        if (sets[i][cell].length == 1) {
-                            this.updateBoard(sets[i][cell][0], i, cell);  
-                        } else {
-                            this.updateBoard(sets[i][cell], i, cell); 
-                        }
-                    }
-                } 
+                this.updateNotes(sets[i], new_value)
             }
         }
+    }
+
+    updateNotes(set, new_value) {
+        for (let cell in set) {
+            if (Array.isArray(set[cell]) && set[cell].includes(new_value)) {
+                set[cell] = set[cell].filter(number => number != new_value);
+                
+                if (set[cell].length == 1) {
+                    //this.updateBoard(set[cell][0], i, cell);  
+                    this.updateBoard(set[cell], i, cell);   //ERROR HERE !!! i and cell != row and col in all situations
+                } else {
+                    this.updateBoard(set[cell], i, cell); 
+                }
+            }
+        } 
     }
 
     createNotes() {
@@ -90,7 +95,7 @@ class SudokuBoard {
     bruteForceSolveBoard() {
         this.createNotes()
 
-        this.updateBoard(6, 3, 0)
+        this.updateBoard(5, 0, 0) //num, row, col
 
         // keep updating board until the board is full of numbers
         //while (!this.checkBoardFilled(this.rows)) {}
