@@ -46,26 +46,40 @@ class SudokuBoard {
         
         //the notes for each cell must also be updated
         if (typeof new_value === 'number') {
-            let sets = [this.rows[row], this.columns[col], this.ninths[3 * (Math.floor(row / 3) % 3) + (Math.floor(col / 3) % 3)]]
+            let sets = [this.rows, this.columns, this.ninths]
             for (let i in sets) {
-                this.updateNotes(sets[i], new_value)
+                for (let cell in sets[i]) {
+                    let subset_index = null
+                    let row_index = null
+                    let col_index = null
+                    if (i == 0) {
+                        subset_index = row
+                        row_index = row
+                        col_index = cell
+                    } else if (i == 1) {
+                        subset_index = col
+                        col_index = col
+                        row_index = cell  
+                    } else if (i == 2) {
+                        subset_index = 3 * (Math.floor(row / 3) % 3) + (Math.floor(col / 3) % 3)  
+                        row_index = (3 * Math.floor(subset_index / 3)) + Math.floor(cell / 3) 
+                        col_index = (3 * (subset_index % 3)) + (cell % 3)
+                    }
+                    let subset = sets[i][subset_index]
+                    if (Array.isArray(subset[cell]) && subset[cell].includes(new_value)) {
+    
+                        subset[cell] = subset[cell].filter(number => number != new_value);
+                        
+                        if (sets[i][cell].length == 1) {
+                            //this.updateBoard(set[cell][0], i, cell);  
+                            this.updateBoard(subset[cell][0], row_index, col_index);   //ERROR HERE !!! i and cell != row and col in all situations
+                        } else {
+                            this.updateBoard(subset[cell], row_index, col_index); 
+                        }
+                    }
+                } 
             }
         }
-    }
-
-    updateNotes(set, new_value) {
-        for (let cell in set) {
-            if (Array.isArray(set[cell]) && set[cell].includes(new_value)) {
-                set[cell] = set[cell].filter(number => number != new_value);
-                
-                if (set[cell].length == 1) {
-                    //this.updateBoard(set[cell][0], i, cell);  
-                    this.updateBoard(set[cell], i, cell);   //ERROR HERE !!! i and cell != row and col in all situations
-                } else {
-                    this.updateBoard(set[cell], i, cell); 
-                }
-            }
-        } 
     }
 
     createNotes() {
@@ -79,13 +93,10 @@ class SudokuBoard {
                         }
                     }
                     if (new_array.length == 1) {
-                        //this.updateBoard(new_array[0], row, col)
-                        this.updateBoard(new_array, row, col)
+                        this.updateBoard(new_array[0], row, col)
                     } else {
                         this.updateBoard(new_array, row, col)
                     } 
-                    // causes bugs : else if (this.rows[row][col].length == 1) {
-                      //this.updateBoard(this.rows[row][col][0], row, col)
                 }
             }
         }
@@ -95,21 +106,20 @@ class SudokuBoard {
     bruteForceSolveBoard() {
         this.createNotes()
 
-        this.updateBoard(5, 0, 0) //num, row, col
-
         // keep updating board until the board is full of numbers
-        //while (!this.checkBoardFilled(this.rows)) {}
-        /*
-        for (let row in this.rows) {
-            for (let col in this.rows[row]) {
-                if (Array.isArray(this.rows[row][col]) && this.rows[row][col].length == 1) {
-                    this.updateBoard(this.rows[row][col][0], row, col)
+        while (!this.checkBoardFilled(this.rows)) {
+            for (let row in this.rows) {
+                for (let col in this.rows[row]) {
+                    if (Array.isArray(this.rows[row][col]) && this.rows[row][col].length == 1) {
+                        this.updateBoard(this.rows[row][col][0], row, col)
+                    }
                 }
             }
-        }
-        */
 
-        //check for notes that contain the only number for a set
+            //check for notes that contain the only number for a set
+        }
+
+        
         
         
     }
@@ -127,16 +137,16 @@ class SudokuBoard {
         
     }
 
-    checkBoardFilled(board_array) {
-        var isANumber2 = function(currentValue) {
+    checkBoardFilled() {
+        var isANumber = function(currentValue) {
             return typeof currentValue === 'number';
         };
         
-        var isAllNumbers2 = function(currentArray) {
-            return currentArray.every(isANumber2);
+        var isAllNumbers = function(currentArray) {
+            return currentArray.every(isANumber);
         }
 
-        return this.rows.every(isAllNumbers2)
+        return this.rows.every(isAllNumbers)
     }
 
 }

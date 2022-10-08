@@ -136,17 +136,18 @@ function dev_fillin(req) {
         let cells = document.getElementsByClassName(`row${r}`);
         for (let c = 0; c < 9; c++) {
             if (req == "row") {
-                cells[c].innerHTML = r
+                cells[c].innerHTML = `${r}.${c}`
             } else if (req == "col") {
-                cells[c].innerHTML = c
+                cells[c].innerHTML = `${c}.${r}`
             } else if (req == "ninth") {
-                cells[c].innerHTML = 3 * (Math.floor(r / 3) % 3) + (Math.floor(c / 3) % 3)
-            } else if (req == "rowi") {
-                cells[c].innerHTML = c
-            } else if (req == "coli") {
-                cells[c].innerHTML = r
-            } else if (req == "ninthi") {
-                cells[c].innerHTML = (r % 3) + (c % 3) + ((r % 3) * 2)
+                cells[c].innerHTML = `${3 * (Math.floor(r / 3) % 3) + (Math.floor(c / 3) % 3)}.${(r % 3) + (c % 3) + ((r % 3) * 2)}`
+            } else if (req == "bnin") {
+                let ninth_num = 3 * (Math.floor(r / 3) % 3) + (Math.floor(c / 3) % 3)
+                let cell = (r % 3) + (c % 3) + ((r % 3) * 2)
+                let row_num = (3 * Math.floor(ninth_num / 3)) + Math.floor(cell / 3) 
+                let col_num = (3 * (ninth_num % 3)) + (cell % 3)
+                cells[c].innerHTML = `${row_num}.${col_num}`
+                
             }
             
         }
