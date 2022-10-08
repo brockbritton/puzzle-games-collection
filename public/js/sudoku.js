@@ -57,20 +57,29 @@ function play_a_game() {
 
 //Solve Board Button
 function solve_a_game() {
-    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     let select_radio = get_checked_radio("sudoku-solve-visual")
     if (select_radio != null) {
-        let radio_label = document.querySelector(`label[for=${select_radio.id}]`);
-        let par = document.getElementById("game-type-header");
-        console.log(`Solving with ${radio_label.innerHTML}`)
-        par.innerHTML = `Solve Sudoku : ${radio_label.innerHTML}`
-        //let rows_array = get_board_values();
-        let rows_array = available_games[1] //dev
-        fill_in_board(rows_array) //dev
-        update_cell_styles("game")
-        const solve_game = new solveSudokuGame(rows_array);
-        fill_in_board(solve_game.solution_board.rows)
-        console.log(solve_game.solution_board.rows)
+        if (select_radio.id == "solve-display") {
+            let radio_label = document.querySelector(`label[for=${select_radio.id}]`);
+            let par = document.getElementById("game-type-header");
+            console.log(`Solving with ${radio_label.innerHTML}`)
+            par.innerHTML = `Solve Sudoku : ${radio_label.innerHTML}`
+            let rows_array = get_board_values();
+            //let dev_rows_array = available_games[1] //dev
+            //fill_in_board(dev_rows_array) //dev
+            update_cell_styles("game")
+            const solve_game = new solveSudokuGame(rows_array);
+            if (solve_game.solution_board != null) {
+                fill_in_board(solve_game.solution_board.rows)
+                console.log(solve_game.solution_board.rows)
+            } else {
+                alert("no solution found. please make sure you have correctly input the board values.")
+            }
+        } else {
+            alert("this option is not yet available. please choose 'display' to solve a board")
+        }
+        
+        
     } else {
         alert("please select a display option to solve a game")
     }

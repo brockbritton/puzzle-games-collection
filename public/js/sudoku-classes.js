@@ -107,7 +107,9 @@ class SudokuBoard {
         this.createNotes()
 
         // keep updating board until the board is full of numbers
+        let iterations = 0
         while (!this.checkBoardFilled(this.rows)) {
+            iterations += 1
             for (let row in this.rows) {
                 for (let col in this.rows[row]) {
                     if (Array.isArray(this.rows[row][col]) && this.rows[row][col].length == 1) {
@@ -115,25 +117,23 @@ class SudokuBoard {
                     }
                 }
             }
-
             //check for notes that contain the only number for a set
-        }
+            
 
-        
-        
-        
+            if (iterations == 50) {
+                break
+            }
+        }
+        console.log(`while loop solving iterations: ${iterations}`)
     }
 
     solveBoard() {
-        /*
-        if (this.checkBoardFilled()) {
-            return this.rows
-        } else {
-            this.bruteForceSolveBoard()
-        }
-        */
         this.bruteForceSolveBoard()
-        return true
+        if (this.checkBoardFilled()) {
+            return true
+        } else {
+            return false
+        }
         
     }
 
@@ -158,7 +158,7 @@ class solveSudokuGame {
         if (this.starting_board.solveBoard()) {
             this.solution_board = new SudokuBoard(this.starting_board.rows) 
         } else {
-            alert("No Solution Found")
+            this.solution_board = null;
         }
         
     }
