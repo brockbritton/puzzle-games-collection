@@ -64,9 +64,9 @@ function solve_a_game() {
             let par = document.getElementById("game-type-header");
             console.log(`Solving with ${radio_label.innerHTML}`)
             par.innerHTML = `Solve Sudoku : ${radio_label.innerHTML}`
-            let rows_array = get_board_values();
-            //let dev_rows_array = available_games[1] //dev
-            //fill_in_board(dev_rows_array) //dev
+            //let rows_array = get_board_values();
+            let rows_array = available_games[3] //dev
+            fill_in_board(rows_array) //dev
             update_cell_styles("game")
             const solve_game = new solveSudokuGame(rows_array);
             if (solve_game.solution_board != null) {

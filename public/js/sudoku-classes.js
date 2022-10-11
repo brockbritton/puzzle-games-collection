@@ -82,6 +82,92 @@ class SudokuBoard {
         }
     }
 
+    findUniqueNoteValues() {
+        let sets = [this.rows, this.columns, this.ninths]
+        for (let i in sets) {
+            for (let subset in sets[i]) {
+                let existing_set_values = {
+                    1: [],
+                    2: [], 
+                    3: [], 
+                    4: [], 
+                    5: [], 
+                    6: [], 
+                    7: [], 
+                    8: [], 
+                    9: []
+                }
+                //iterate through each cell in a set, and if theres an array, 
+                //count up the note numbers in each cell
+                for (let cell in sets[i][subset]) {
+                    if (Array.isArray(sets[i][subset][cell])) {
+                        //count up all note values in a set
+                        for (let note_value in sets[i][subset][cell]) {
+                            existing_set_values[sets[i][subset][cell][note_value]].push([i, subset, cell])
+                        } 
+                    } 
+                }
+                for (let key in existing_set_values) {
+                    if (existing_set_values[key].length == 1) {
+                        let row_index = null
+                        let col_index = null
+                        if (existing_set_values[key][0][0] == 0) {
+                            row_index = existing_set_values[key][0][1]
+                            col_index = existing_set_values[key][0][2]
+                        } else if (existing_set_values[key][0][0] == 1) {
+                            col_index = existing_set_values[key][0][1]
+                            row_index = existing_set_values[key][0][2] 
+                        } else if (existing_set_values[key][0][0] == 2) {
+                            row_index = (3 * Math.floor(existing_set_values[key][0][1] / 3)) + Math.floor(existing_set_values[key][0][2] / 3) 
+                            col_index = (3 * (existing_set_values[key][0][1] % 3)) + (existing_set_values[key][0][2] % 3)
+                        }
+
+                        this.updateBoard(Number(key), row_index, col_index);
+                    }   
+                }
+            }
+        }
+    }
+
+    findNakedPairs() {
+        //let sets = [this.rows, this.columns, this.ninths]
+        let sets = [this.columns]
+        for (let i in sets) {
+            //iterate through the subsets of each set
+            for (let subset in sets[i]) {
+                //iterate through the cells of each subset
+                console.log(`subset: ${subset}`)
+                for (let cell in sets[i][subset]) {
+                    //if a cell is an array, and has a length of 2
+                    
+                    if (Array.isArray(sets[i][subset][cell]) && sets[i][subset][cell].length == 2) {
+                        
+                        
+                        let shared_rows = [];
+                        let shared_columns = [];
+                        let shared_ninths = [];
+                        let subset_filter = sets[i][subset].filter(value => value != sets[i][subset][cell])
+                        if (subset == 6) {
+                            console.log(`cell value: ${sets[i][subset][cell]}`)
+                            console.log(`column:`)
+                            console.log(sets[i][subset])
+                            console.log(`filtered`)
+                            console.log(subset_filter)
+                            console.log(`count: ${subset_filter.length}`)
+                            console.log("")
+                        }
+                        
+                    
+                    }
+                }
+            }
+        }
+    }
+
+    findHiddenPairs() {
+        //where there are naked pairs hidden within other notes in those cells
+    }
+
     createNotes() {
         for (let row in this.rows) {
             for (let col in this.rows[row]) {
@@ -108,7 +194,7 @@ class SudokuBoard {
 
         // keep updating board until the board is full of numbers
         let iterations = 0
-        while (!this.checkBoardFilled(this.rows)) {
+        while (!this.checkBoardFilled()) {
             iterations += 1
             for (let row in this.rows) {
                 for (let col in this.rows[row]) {
@@ -118,12 +204,18 @@ class SudokuBoard {
                 }
             }
             //check for notes that contain the only number for a set
-            
+            this.findUniqueNoteValues()
 
-            if (iterations == 50) {
+            //check if two notes in a set contain the same and only two numbers
+            
+            //this.findHiddenPairs() 
+            
+            if (iterations == 10) {
                 break
             }
+            
         }
+        this.findNakedPairs()
         console.log(`while loop solving iterations: ${iterations}`)
     }
 
@@ -132,21 +224,30 @@ class SudokuBoard {
         if (this.checkBoardFilled()) {
             return true
         } else {
-            return false
+            //return false 
+            return true //dev
         }
         
     }
 
     checkBoardFilled() {
-        var isANumber = function(currentValue) {
+        const isANumber = function(currentValue) {
             return typeof currentValue === 'number';
         };
         
-        var isAllNumbers = function(currentArray) {
+        const isAllNumbers = function(currentArray) {
             return currentArray.every(isANumber);
         }
 
         return this.rows.every(isAllNumbers)
+    }
+
+    checkAllSame(array) {
+        const areTheSame = function(currentValue) {
+            return array[0] === currentValue;
+        };
+
+        return array.every(areTheSame)
     }
 
 }
