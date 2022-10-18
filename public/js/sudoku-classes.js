@@ -82,6 +82,38 @@ class SudokuBoard {
         }
     }
 
+    updateNotes(subset, set_iterator, subset_index, values) {
+        //the subset in which to update, the iterator of sets, subset index, values to be removed from subset
+        for (let cell in subset) {
+            if (Array.isArray(subset[cell]) && !this.checkArraysEqual(subset[cell], values)) {
+                for (let v in values) {
+                    if (subset[cell].includes(values[v])) {
+                        subset[cell].splice(subset[cell].indexOf(values[v]), 1)
+                        if (subset[cell].length == 1) {
+                            let row_index = null
+                            let col_index = null
+                            if (set_iterator == 0) {
+                                row_index = subset_index
+                                col_index = cell
+            
+                            } else if (set_iterator == 1) {
+                                row_index = cell
+                                col_index = subset_index
+
+                            } else if (set_iterator == 2) {
+                                row_index = (3 * Math.floor(subset_index / 3)) + Math.floor(cell / 3) 
+                                col_index = (3 * (subset_index % 3)) + (cell % 3)
+
+                            }
+                            this.updateBoard(subset[cell][0], row_index, col_index) 
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    //combine some of these loops to reduce so much looping?
     findUniqueNoteValues() {
         let sets = [this.rows, this.columns, this.ninths]
         for (let i in sets) {
@@ -130,34 +162,71 @@ class SudokuBoard {
     }
 
     findNakedPairs() {
-        //let sets = [this.rows, this.columns, this.ninths]
-        let sets = [this.columns]
+        let sets = [this.rows, this.columns, this.ninths]
         for (let i in sets) {
+            i = Number(i)
             //iterate through the subsets of each set
             for (let subset in sets[i]) {
                 //iterate through the cells of each subset
-                console.log(`subset: ${subset}`)
+                subset = Number(subset)
+                //console.log(`subset: ${subset}`)
+                let found_pairs = []
                 for (let cell in sets[i][subset]) {
+                    cell = Number(cell)
+                    let found_already = false
+                    for (let f in found_pairs) {
+                        if (this.checkArraysEqual(found_pairs[f], sets[i][subset][cell])) {
+                            found_already = true
+                        } 
+                    }
                     //if a cell is an array, and has a length of 2
-                    
-                    if (Array.isArray(sets[i][subset][cell]) && sets[i][subset][cell].length == 2) {
-                        
-                        
+                    if (Array.isArray(sets[i][subset][cell]) && sets[i][subset][cell].length == 2 && !found_already) {
+                        //console.log(`cell: ${sets[i][subset][cell]}`)
                         let shared_rows = [];
                         let shared_columns = [];
                         let shared_ninths = [];
-                        let subset_filter = sets[i][subset].filter(value => value != sets[i][subset][cell])
-                        if (subset == 6) {
-                            console.log(`cell value: ${sets[i][subset][cell]}`)
-                            console.log(`column:`)
-                            console.log(sets[i][subset])
-                            console.log(`filtered`)
-                            console.log(subset_filter)
-                            console.log(`count: ${subset_filter.length}`)
-                            console.log("")
+                        let subset_filter = [];
+                        let forEach_cell_index = 0;
+                        sets[i][subset].forEach(element => {
+                            if (this.checkArraysEqual(element, sets[i][subset][cell])) {
+                                subset_filter.push(element)
+                                if (i == 0) {
+                                    shared_rows.push(subset)
+                                    shared_columns.push(forEach_cell_index)
+                                    shared_ninths.push(3 * (Math.floor(subset / 3) % 3) + (Math.floor(forEach_cell_index / 3) % 3))
+                                } else if (i == 1) {
+                                    shared_rows.push(forEach_cell_index)
+                                    shared_columns.push(subset)
+                                    shared_ninths.push(3 * (Math.floor(forEach_cell_index / 3) % 3) + (Math.floor(subset / 3) % 3))
+                                } else if (i == 2) {
+                                    shared_rows.push((3 * Math.floor(subset / 3)) + Math.floor(forEach_cell_index / 3))
+                                    shared_columns.push((3 * (subset % 3)) + (forEach_cell_index % 3))
+                                    shared_ninths.push(subset)
+                                }
+
+                            }
+                            forEach_cell_index += 1
+                        });
+                        let shared_subsets = [shared_rows, shared_columns, shared_ninths];
+                        let shares_list = [];
+                        if (subset_filter.length == 2) {
+                            found_pairs.push(sets[i][subset][cell])
+                            for (let s in shared_subsets) {
+                                if (shared_subsets[s][0] === shared_subsets[s][1]) {
+                                    shares_list.push(shared_subsets[s][0]);
+                                } else {
+                                    shares_list.push(-1);
+                                }
+
+                            }
+                            //console.log(`shares: ${shares_list}`)
+                            for (let j = 0; j < shares_list.length; j++) {
+                                if (shares_list[j] != -1) {
+                                    //the subset in which to update, the iterator of sets, subset index, values to be removed from subset
+                                    this.updateNotes(sets[j][shares_list[j]], j, shares_list[j], sets[i][subset][cell])
+                                }
+                            }
                         }
-                        
-                    
                     }
                 }
             }
@@ -207,15 +276,16 @@ class SudokuBoard {
             this.findUniqueNoteValues()
 
             //check if two notes in a set contain the same and only two numbers
-            
-            //this.findHiddenPairs() 
+            if (iterations == 1) {
+                this.findNakedPairs()
+            }
+            //this.findHiddenPairs() //to build
             
             if (iterations == 10) {
                 break
             }
             
         }
-        this.findNakedPairs()
         console.log(`while loop solving iterations: ${iterations}`)
     }
 
@@ -249,6 +319,14 @@ class SudokuBoard {
 
         return array.every(areTheSame)
     }
+
+    checkArraysEqual(a, b) {
+        return Array.isArray(a) &&
+            Array.isArray(b) &&
+            a.length === b.length &&
+            a.every((val, index) => val === b[index]);
+    }
+    
 
 }
 
