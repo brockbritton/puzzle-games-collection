@@ -156,9 +156,7 @@ function dev_fillin(req) {
                 let row_num = (3 * Math.floor(ninth_num / 3)) + Math.floor(cell / 3) 
                 let col_num = (3 * (ninth_num % 3)) + (cell % 3)
                 cells[c].innerHTML = `${row_num}.${col_num}`
-                
             }
-            
         }
     }
 }

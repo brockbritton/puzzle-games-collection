@@ -87,7 +87,7 @@ class SudokuBoard {
         for (let cell in subset) {
             if (Array.isArray(subset[cell]) && !this.checkArraysEqual(subset[cell], values)) {
                 for (let v in values) {
-                    if (subset[cell].includes(values[v])) {
+                    if (Array.isArray(subset[cell]) && subset[cell].includes(values[v])) {
                         subset[cell].splice(subset[cell].indexOf(values[v]), 1)
                         if (subset[cell].length == 1) {
                             let row_index = null
@@ -224,6 +224,8 @@ class SudokuBoard {
                                 if (shares_list[j] != -1) {
                                     //the subset in which to update, the iterator of sets, subset index, values to be removed from subset
                                     this.updateNotes(sets[j][shares_list[j]], j, shares_list[j], sets[i][subset][cell])
+                                    
+                                    
                                 }
                             }
                         }
@@ -265,19 +267,17 @@ class SudokuBoard {
         let iterations = 0
         while (!this.checkBoardFilled()) {
             iterations += 1
-            for (let row in this.rows) {
-                for (let col in this.rows[row]) {
-                    if (Array.isArray(this.rows[row][col]) && this.rows[row][col].length == 1) {
-                        this.updateBoard(this.rows[row][col][0], row, col)
-                    }
-                }
-            }
+            //check for cells with only one number 
+            //that need to converted from array to number
+            this.checkCellArrayLengthEqualsOne()
+
             //check for notes that contain the only number for a set
             this.findUniqueNoteValues()
 
             //check if two notes in a set contain the same and only two numbers
+            this.findNakedPairs()
             if (iterations == 1) {
-                this.findNakedPairs()
+                
             }
             //this.findHiddenPairs() //to build
             
@@ -298,6 +298,16 @@ class SudokuBoard {
             return true //dev
         }
         
+    }
+
+    checkCellArrayLengthEqualsOne() {
+        for (let row in this.rows) {
+            for (let col in this.rows[row]) {
+                if (Array.isArray(this.rows[row][col]) && this.rows[row][col].length == 1) {
+                    this.updateBoard(this.rows[row][col][0], row, col)
+                }
+            }
+        }
     }
 
     checkBoardFilled() {
