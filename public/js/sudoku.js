@@ -65,7 +65,7 @@ function solve_a_game() {
             console.log(`Solving with ${radio_label.innerHTML}`)
             par.innerHTML = `Solve Sudoku : ${radio_label.innerHTML}`
             //let rows_array = get_board_values();
-            let rows_array = available_games[3] //dev
+            let rows_array = hidden_pairs1 //dev
             fill_in_board(rows_array) //dev
             update_cell_styles("game")
             const solve_game = new solveSudokuGame(rows_array);

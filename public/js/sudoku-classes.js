@@ -114,7 +114,7 @@ class SudokuBoard {
     }
 
     //combine some of these loops to reduce so much looping?
-    findUniqueNoteValues() {
+    findHiddenSingles() {
         let sets = [this.rows, this.columns, this.ninths]
         for (let i in sets) {
             for (let subset in sets[i]) {
@@ -272,7 +272,7 @@ class SudokuBoard {
             this.checkCellArrayLengthEqualsOne()
 
             //check for notes that contain the only number for a set
-            this.findUniqueNoteValues()
+            this.findHiddenSingles()
 
             //check if two notes in a set contain the same and only two numbers
             this.findNakedPairs()
