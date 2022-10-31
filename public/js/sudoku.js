@@ -42,69 +42,52 @@ function build_sudoku_board() {
 
 //Play Game Button
 function play_a_game() {
-    let select_radio = get_checked_radio("sudoku-play-difficulty")
-    if (select_radio != null) {
-        console.log(`playing a level ${select_radio.value} game`)
-        let radio_label = document.querySelector(`label[for=${select_radio.id}]`);
-        let par = document.getElementById("game-type-header");
-        par.innerHTML = `Play Sudoku : ${radio_label.innerHTML}`
-        fill_in_board(available_games[select_radio.value])
-        update_cell_styles("game")
-    } else {
-        alert("please select a difficulty to play a game")
-    }
+    
+    console.log(`playing a level ${select_radio.value} game`)
+    let radio_label = document.querySelector(`label[for=${select_radio.id}]`);
+    let par = document.getElementById("game-type-header");
+    par.innerHTML = `Play Sudoku : ${radio_label.innerHTML}`
+    fill_in_board(available_games[select_radio.value])
+    update_cell_styles("game")
+
 }
 
 //Solve Board Button
 function solve_a_game() {
-    let select_radio = get_checked_radio("sudoku-solve-visual")
-    if (select_radio != null) {
-        if (select_radio.id == "solve-display") {
-            let radio_label = document.querySelector(`label[for=${select_radio.id}]`);
-            let par = document.getElementById("game-type-header");
-            console.log(`Solving with ${radio_label.innerHTML}`)
-            par.innerHTML = `Solve Sudoku : ${radio_label.innerHTML}`
-            //let rows_array = get_board_values();
-            let rows_array = hidden_pairs1 //dev
-            fill_in_board(rows_array) //dev
-            update_cell_styles("game")
-            const solve_game = new solveSudokuGame(rows_array);
-            if (solve_game.solution_board != null) {
-                fill_in_board(solve_game.solution_board.rows)
-                console.log(solve_game.solution_board.rows)
-            } else {
-                alert("no solution found. please make sure you have correctly input the board values.")
-            }
-        } else {
-            alert("this option is not yet available. please choose 'display' to solve a board")
-        }
-        
-        
+
+    let par = document.getElementById("game-type-header");
+    //par.innerHTML = `Solve Sudoku : ${radio_label.innerHTML}`
+    //let rows_array = get_board_values();
+    let rows_array = easy_game1 //dev
+    fill_in_board(rows_array) //dev
+    update_cell_styles("game")
+    const solve_game = new solveSudokuGame(rows_array);
+    if (solve_game.solution_board != null) {
+        fill_in_board(solve_game.solution_board.rows)
+        console.log(solve_game.solution_board.rows)
     } else {
-        alert("please select a display option to solve a game")
+        alert("no solution found. please make sure you have correctly input the board values.")
     }
 }
 
-function get_checked_radio(name) {
-    let radios = document.getElementsByName(name);
-    for (let i = 0; i < radios.length; i++) {
-        if (radios[i].checked) {
-            return radios[i]
-        }
-    }
-    return null
-}
 
-function clear_all_radios() {
-    const all_radio_ids = ["sudoku-play-difficulty", "sudoku-solve-visual"];
-    for (let i = 0; i < all_radio_ids.length; i++) {
-        let radios_by_name = document.getElementsByName(all_radio_ids[i]);
-        for (let j = 0; j < radios_by_name.length; j++) {
-            if (radios_by_name[j].checked) {
-                radios_by_name[j].checked = false;
-            }
-        }
+function update_drpdwn_divs() {
+    let gamemode_dropdown = document.getElementById("choose-sudoku-gamemode-drpdwn")
+    let play_div = document.getElementById("play-dropdown-change")
+    let solve_div = document.getElementById("solve-dropdown-change")
+    if (gamemode_dropdown.value != "null") {
+        if (gamemode_dropdown.value[0] == "s") {
+            solve_div.style.display = "block";
+            play_div.style.display = "none";
+        } else if (gamemode_dropdown.value[0] == "p") {
+            solve_div.style.display = "none";
+            play_div.style.display = "block";
+        }   
+    } else {
+        play_div.style.display = "none";
+        solve_div.style.display = "none";
     }
+    
 }
 
 //Clear Board Button

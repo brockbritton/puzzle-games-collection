@@ -36,46 +36,46 @@
             </p>
         </div>
         <br>
-        <div id="play-solve-options-div">
-            <button class="gen-buttons" onclick="clear_board_values()">Clear Board</button>
-            <br>
-            <div id="play-options" class="divs-side-by-side">
-                <div id="play-radio-div">
-                    <!-- easy, moderate, hard - radiobuttons -->
-                    <input type="radio" id="play-easy" name="sudoku-play-difficulty" value="1">
-                    <label for="play-easy" class="radio-label">Easy</label><br>
-                    <input type="radio" id="play-mod" name="sudoku-play-difficulty" value="2">
-                    <label for="play-mod" class="radio-label">Moderate</label><br>
-                    <input type="radio" id="play-hard" name="sudoku-play-difficulty" value="3">
-                    <label for="play-hard" class="radio-label">Hard</label>
-                </div>
-                <div>
-                    <!-- play button -->
-                    <button class="gen-buttons" onclick="play_a_game()"> Play Game </button>
-                </div>
+        <button onclick="" class="gen-buttons"> Reset Options </button>
+        <div id="sudoku-control-bar">
+            <div id="gamemode-select-div">
+                <label for="choose-sudoku-gamemode-drpdwn"> Gamemode Select </label>
+                <br>
+                <select id="choose-sudoku-gamemode-drpdwn" onchange="update_drpdwn_divs()">
+                    <option value="null"> -- select gamemode -- </option>
+                    <optgroup label="Solve">
+                        <option value="s1" >solve: display</option>
+                        <option value="s2">solve: walkthrough</option>
+                    </optgroup>
+                    <optgroup label="Play">
+                        <option value="p1">play: easy</option>
+                        <option value="p2">play: moderate</option>
+                        <option value="p3">play: difficult</option>
+                    </optgroup>
+                </select>
+                <br>
             </div>
-            <div id="sudoku-options-spacer" class="divs-side-by-side">
+            <div id="play-dropdown-change">
+                <label for="play-button1">
+                    To begin and start the clock, press play.
+                </label>
+                <br>
+                <button id="play-button1" onclick="" class="gen-buttons"> Play </button>
+
             </div>
-            <div id="solve-options" class="divs-side-by-side">
-                <div id="solve-radio-div">
-                <!-- animate or display -->
-                    <input type="radio" id="solve-display" name="sudoku-solve-visual" value="0">
-                    <label for="solve-display" class="radio-label">Display</label><br>
-                    <input type="radio" id="solve-animate" name="sudoku-solve-visual" value="1">
-                    <label for="solve-animate" class="radio-label">Animate</label><br>
-                </div>
-                <div>
-                    <!-- solve button -->
-                    <button class="gen-buttons" onclick="solve_a_game()"> Solve Board </button>
-                </div>
+            <div id="solve-dropdown-change">
+                <label for="solve-button1">
+                    Enter the known numbers on the board below that you would like to solve.
+                </label>
+                <br>
+                <button id="solve-button1" onclick="" class="gen-buttons"> Play </button>
             </div>
-            <br>
+            
         </div>
     </div>
     
 
     <p id="game-type-header">
-        please select a game mode
     </p>
     <div id="sudoku-board-div">
         <!-- 
@@ -89,11 +89,12 @@
     <script>
         build_sudoku_board();
 
-        document.getElementById("solve-display").checked = true;
-        solve_a_game();
+        //solve_a_game();
 
 
         var current_mode = null;
+
+
         
     </script>
 </body>

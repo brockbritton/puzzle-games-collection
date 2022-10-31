@@ -269,17 +269,21 @@ class SudokuBoard {
             iterations += 1
             //check for cells with only one number 
             //that need to converted from array to number
-            this.checkCellArrayLengthEqualsOne()
+            this.findNakedSingles()
 
             //check for notes that contain the only number for a set
             this.findHiddenSingles()
 
             //check if two notes in a set contain the same and only two numbers
             this.findNakedPairs()
-            if (iterations == 1) {
-                
-            }
-            //this.findHiddenPairs() //to build
+            
+            //to build
+            //this.findHiddenPairs() 
+            //this.findXWing()
+            //this.findSwordfish()
+            //this.findForcingChains()
+            //this.findXYWing()
+            //this.findUniqueRectangle()
             
             if (iterations == 10) {
                 break
@@ -300,7 +304,7 @@ class SudokuBoard {
         
     }
 
-    checkCellArrayLengthEqualsOne() {
+    findNakedSingles() {
         for (let row in this.rows) {
             for (let col in this.rows[row]) {
                 if (Array.isArray(this.rows[row][col]) && this.rows[row][col].length == 1) {
@@ -314,7 +318,6 @@ class SudokuBoard {
         const isANumber = function(currentValue) {
             return typeof currentValue === 'number';
         };
-        
         const isAllNumbers = function(currentArray) {
             return currentArray.every(isANumber);
         }

@@ -28,7 +28,7 @@ body {
     border: solid 1px;
     font-size: 25px;
     padding: 0px 15px;
-    margin: 10px;
+    margin: 0px;
     border-radius: 8px;
 }
 
@@ -96,4 +96,5 @@ body {
     text-align: center;
     margin-top: 40px;
 }
+
 

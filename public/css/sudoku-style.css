@@ -81,3 +81,43 @@
     font-size: 30px;
     height: 30px;
 }
+
+#sudoku-control-bar {
+    background-color: lightgrey;
+    border-radius: 25px;
+    height: 175px;
+    width: 600px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0px;
+    
+}
+
+#choose-sudoku-gamemode-drpdwn {
+    width: 260px;
+    height: auto;
+    font-size: 24px;
+    border: none;
+}
+
+#gamemode-select-div {
+    background-color: none;
+    height: 75px;
+    margin: 0px;
+}
+
+#play-dropdown-change {
+    background-color: none;
+    height: 100px;
+    margin: 0px;
+    display: none;
+}
+
+#solve-dropdown-change {
+    background-color: none;
+    height: 100px;
+    margin: 0px;
+    display: none;
+}
+
