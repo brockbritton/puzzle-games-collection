@@ -36,7 +36,7 @@
             </p>
         </div>
         <br>
-        <button onclick="" class="gen-buttons"> Reset Options </button>
+        <button onclick="reset_sudoku_board_options()" class="gen-buttons"> Reset </button>
         <div id="sudoku-control-bar">
             <div id="gamemode-select-div">
                 <label for="choose-sudoku-gamemode-drpdwn"> Gamemode Select </label>
@@ -65,18 +65,15 @@
             </div>
             <div id="solve-dropdown-change">
                 <label for="solve-button1">
-                    Enter the known numbers on the board below that you would like to solve.
+                    Enter the numbers of the board that you would like to solve on the board below and then press Solve Board.
                 </label>
                 <br>
-                <button id="solve-button1" onclick="" class="gen-buttons"> Play </button>
+                <button id="solve-button1" onclick="solve_a_game()" class="gen-buttons"> Solve Board </button>
             </div>
             
         </div>
     </div>
     
-
-    <p id="game-type-header">
-    </p>
     <div id="sudoku-board-div">
         <!-- 
             Sudoku Board is built here using js function build_sudoku_board()
@@ -88,9 +85,6 @@
   
     <script>
         build_sudoku_board();
-
-        //solve_a_game();
-
 
         var current_mode = null;
 

@@ -13,6 +13,10 @@ app.get('/sudoku', function (request, response ) {
     response.sendFile('sudoku.html', { root: './public/html' });
 });
 
+app.get('/bingo', function (request, response ) {
+    response.sendFile('bingo.html', { root: './public/html' });
+});
+
 app.listen(server_port, function() {
     console.log(`server listening at: http://localhost:${server_port}/`)
 });

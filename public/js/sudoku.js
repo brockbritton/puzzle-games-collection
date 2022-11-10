@@ -55,8 +55,6 @@ function play_a_game() {
 //Solve Board Button
 function solve_a_game() {
 
-    let par = document.getElementById("game-type-header");
-    //par.innerHTML = `Solve Sudoku : ${radio_label.innerHTML}`
     //let rows_array = get_board_values();
     let rows_array = easy_game1 //dev
     fill_in_board(rows_array) //dev
@@ -68,6 +66,12 @@ function solve_a_game() {
     } else {
         alert("no solution found. please make sure you have correctly input the board values.")
     }
+}
+
+function reset_sudoku_board_options() {
+    clear_board_values()
+    //reset the gamemode dropdown
+    console.log("fo") 
 }
 
 
@@ -92,24 +96,29 @@ function update_drpdwn_divs() {
 
 //Clear Board Button
 function clear_board_values() {
-    //update all cell styles to the basic non-bold text style
-    update_cell_styles(null)
+    
     //clear the board numbers
-    fill_in_board(null)
-    //reset game mode ux
-    document.getElementById("game-type-header").innerHTML = "please select a game mode";
-    //remove radio button select
-    clear_all_radios();
+    //update all cell styles to the basic non-bold text style
+    update_board(null, null)
+    
+    
+    //these are defunct
+    //fill_in_board(null) 
+    //update_cell_styles(null)
+
 }
 
-function fill_in_board(board_array) {
+function update_board(board_array, type) {
+    // type = "game" or null
+    // board_array = board values
     for (let r = 0; r < 9; r++) {
         let cells = document.getElementsByClassName(`row${r}`);
         for (let i = 0; i < 9; i++) {
             if (board_array == null) {
                 cells[i].innerHTML = "";
-                cells[i].setAttribute("contenteditable", 'true');
-                cells[i].addEventListener('keydown', changeCellValue);
+                cells[i].style.fontWeight = 400
+                cells[i].setAttribute("contenteditable", 'false');
+                //cells[i].addEventListener('keydown', changeCellValue);
             } else {
                 cells[i].innerHTML = board_array[r][i]
                 if (cells[i].innerHTML == "") {
@@ -143,7 +152,7 @@ function dev_fillin(req) {
         }
     }
 }
-
+/*
 function update_cell_styles(type) {
     for (let r = 0; r < 9; r++) {
         let cells = document.getElementsByClassName(`row${r}`);
@@ -154,7 +163,7 @@ function update_cell_styles(type) {
             } else {
                 if (type == null) {
                     cells[i].style.fontWeight = 400
-                    cells[i].setAttribute("contenteditable", 'true');
+                    cells[i].setAttribute("contenteditable", 'false');
                 } else if (type == "game") {
                     cells[i].style.fontWeight = 700
                     cells[i].setAttribute("contenteditable", 'false');
@@ -163,6 +172,7 @@ function update_cell_styles(type) {
         }
     }
 }
+*/
 
 function get_board_values() {
     const board_values = []
