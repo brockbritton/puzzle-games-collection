@@ -15,13 +15,86 @@
     <div id="home-header">
         <h2>Play & Call Bingo</h2>
     </div>
+    <div id="play-or-call-choice-div">
+        <label for="choose-bingo-gamemode-drpdwn"> </label>
+        <select id="choose-bingo-gamemode-drpdwn" onchange="">
+            <option value="0" selected> call bingo </option>
+            <option values="1"> play bingo </option>
+        </select>
+    </div>
+    <div>
+        <div id="caller-div">
+            <div id="caller-left-container">
+                <div id="caller-left-content-container">
+                    <div id="column-selection">
+                        <p class="center-bold-text"> Caller Settings </p>
+                        <p class="important-text" class="center-text">
+                            This bingo caller creates a more effiecent process and reduces the redundancy of original bingo callers. 
+                            To reduce redundancy, use the checkboxes or slider below to choose the columns required to fulfill your games winning pattern.
+                            
+                        </p>
+                        <p class="subtext" class="center-text"> 
+                            If your bingo game will use every column, toggle the slider to all. 
+                            If your bingo game will use less than every column, toggle the slider to some and select the appropriate columns. 
+                            Many bingo callers use a roller cage that allows for a random selection of balls, but this process can be tedious and slow. 
+                            Especially when playing bingo with a winning pattern that does not use all 5 columns.
+                        </p>
+                        <div id="slider-div">
+                            <p class="side-by-side"> some </p>
+                            <label class="switch" class="side-by-side">
+                                <input type="checkbox" id="slider-checkbox" onchange="toggle_column_select()">
+                                <span class="slider round"></span>
+                            </label>
+                            <p class="side-by-side"> all </p>
+                            <button class="side-by-side" id="reset-button"> Reset </button>
+                        </div>
+                        <div id="column-select-div">
+                            <div class="side-by-side" class="select-column-div">
+                                <label for="columnB" class="select-column-letters"> B </label><br>
+                                <input type="checkbox" id="columnB" value="" class="select-column-checkbox">
+                            </div>
+                            <div class="side-by-side" class="select-column-div">
+                                <label for="columnI" class="select-column-letters"> I </label><br>
+                                <input type="checkbox" id="columnI" value="" class="select-column-checkbox">
+                            </div>
+                            <div class="side-by-side" class="select-column-div">
+                                <label for="columnN" class="select-column-letters"> N </label><br>
+                                <input type="checkbox" id="columnN" value="" class="select-column-checkbox">
+                            </div>
+                            <div class="side-by-side" class="select-column-div">
+                                <label for="columnG" class="select-column-letters"> G </label><br>
+                                <input type="checkbox" id="columnG" value="" class="select-column-checkbox">
+                            </div>
+                            <div class="side-by-side" class="select-column-div">
+                                <label for="columnO" class="select-column-letters"> O </label><br>
+                                <input type="checkbox" id="columnO" value="" class="select-column-checkbox">
+                            </div>
+                        </div>
+                        <br>
+                        <p class="zero-margin-text"> After selecting appropriate columns: </p>
+                        <br>
+                        <p class="zero-margin-text"> - To call a number, click the 'call' button or press 'return'. </p>
+                        <p class="zero-margin-text"> - To reset the caller, click the reset button. </p>
+                        
+                    </div>
+                </div>
+            </div>
+            <div id="caller-right-container">
+                <div id="caller-right-content-container">
 
+                </div>
+            </div>
+        </div>
+        <div id="player-div">
+            <!-- leave empty for now -->
+        </div>
+    </div>
     
     
-
     <p id="b_d_note"> Built and Designed by Brock Britton</p>
   
     <script>
+        toggle_column_select()
     </script>
 </body>
 </html>

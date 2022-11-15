@@ -1,0 +1,186 @@
+
+#play-or-call-choice-div {
+    width: min-content;
+    margin: 0 auto;
+}
+
+#choose-bingo-gamemode-drpdwn {
+    width: 175px;
+    padding: 5px;
+    height: auto;
+    font-size: 24px;
+    border: auto;
+    border-radius: 30px;
+}
+
+#caller-div {
+    display: flex;
+    margin-top: 10px;
+}
+
+#caller-left-container {
+    height: min-content;
+    flex: 1;
+}
+
+#caller-left-content-container {
+    float: right;
+    height: min-content;
+    width: 600px;
+    margin-right: 20px;
+}
+
+#caller-right-container {
+    height: 300px;
+    background-color: darkblue;
+    flex: 1;
+}
+
+#caller-right-content-container {
+    float: left;
+    height: 300px;
+    width: 500px;
+    background-color: green;
+    margin-left: 20px;
+}
+
+
+#player-div {
+    display: none;
+}
+
+/* Toggle Slider Start */
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+  
+/* Hide default HTML checkbox */
+.switch #slider-checkbox {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+#slider-checkbox:checked + .slider {
+    background-color: #2196F3;
+}
+
+#slider-checkbox:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+#slider-checkbox:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+/* Toggle Slider End */
+
+.side-by-side {
+    display: inline-block;
+}
+
+#column-select-div {
+    padding: 0px 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    background-color: #f1f1f1;
+    width: max-content;
+    margin: auto;
+}
+
+.important-text {
+    font-size: 24px;
+}
+
+.subtext {
+    font-size: 16px;
+}
+
+.select-column-div {
+    width: 20px;
+}
+
+.select-column-letters {
+    font-size: 24px;
+    padding-left: 30px;
+    padding-right: 30px;
+
+}
+
+.select-column-checkbox {
+    height: 30px;
+    width: 30px;
+    margin: 5% 29%;
+}
+
+#slider-div {
+    margin: auto;
+    width: max-content;
+}
+
+#reset-button {
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    height: auto;
+    width: auto;
+    text-align: center;
+    border: solid 1px;
+    font-size: 20px;
+    padding: 0px 15px;
+    margin: 0 0 0 50px;
+    border-radius: 8px;
+}
+
+.center-bold-text {
+    text-align: center;
+    font-weight: bold;
+}
+
+.zero-margin-text {
+    margin: 0;
+}
+
+.center-text {
+    text-align: right;
+}
