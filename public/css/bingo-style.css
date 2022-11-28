@@ -1,8 +1,16 @@
 
 #play-or-call-choice-div {
-    width: min-content;
     margin: 0 auto;
+    display: flex;
+    width: min-content;
 }
+
+#play-or-call-choice-div label {
+    margin: auto;
+    width: max-content;
+    padding-right: 20px;
+}
+
 
 #choose-bingo-gamemode-drpdwn {
     width: 175px;
@@ -11,6 +19,7 @@
     font-size: 24px;
     border: auto;
     border-radius: 30px;
+    margin: auto;
 }
 
 #caller-div {
@@ -31,21 +40,19 @@
 }
 
 #caller-right-container {
-    height: 300px;
-    background-color: darkblue;
+    height: min-content;
     flex: 1;
 }
 
 #caller-right-content-container {
     float: left;
-    height: 300px;
+    height: min-content;
     width: 500px;
-    background-color: green;
     margin-left: 20px;
 }
 
 
-#player-div {
+#game-player-div {
     display: none;
 }
 
@@ -120,20 +127,21 @@
 
 #column-select-div {
     padding: 0px 20px;
-    max-height: 0;
     overflow: hidden;
-    transition: max-height 0.2s ease-out;
     background-color: #f1f1f1;
     width: max-content;
+    height: 75px;
     margin: auto;
 }
 
 .important-text {
     font-size: 24px;
+    text-align: center;
 }
 
 .subtext {
     font-size: 16px;
+    text-align: center;
 }
 
 .select-column-div {
@@ -158,8 +166,8 @@
     width: max-content;
 }
 
-#reset-button {
-    background-color: white;
+.bingo-buttons {
+    background-color: white ;
     color: black;
     cursor: pointer;
     height: auto;
@@ -184,3 +192,69 @@
 .center-text {
     text-align: right;
 }
+
+
+#calling-number-div {
+    height: 85px;
+    width: max-content;
+}
+
+#calling-number-display {
+    border: black 4px solid;
+    width: 125px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin: 0px 0px 0px 50px;
+}
+
+#calling-number-display p {
+    font-size: 65px;
+    font-weight: bold;
+    margin: 0px;
+    width: max-content;
+}
+
+
+#called-number-table-div {
+    display: flex;
+}
+
+#table-header {
+    width: 75%;
+    margin: auto;
+}
+
+#table-header p {
+    width: 70px;
+}
+
+#called-nums-table {
+    margin: auto;
+    border: black 2px solid;
+}
+
+#called-nums-table tr {
+    height: 30px;
+}
+
+#called-nums-table tr th {
+    font-size: 35px;
+    width: 70px;
+}
+
+#called-nums-table tr td {
+    font-size: 30px;
+    width: 70px;
+    text-align: center;
+}
+
+.cell_number_called {
+    color: black !important;
+    font-weight: 600 !important ;
+}
+
+.cell_number_uncalled {
+    color: grey;
+    font-weight: 300;
+}
+

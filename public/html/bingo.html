@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="css/bingo-style.css" />
 
     <script type="text/javascript" src="js/bingo.js"></script>
+    <script type="text/javascript" src="js/bingo-classes.js"></script>
     <title> Bingo </title>
 </head>
 <body>
@@ -16,7 +17,10 @@
         <h2>Play & Call Bingo</h2>
     </div>
     <div id="play-or-call-choice-div">
-        <label for="choose-bingo-gamemode-drpdwn"> </label>
+        <label for="choose-bingo-gamemode-drpdwn"> 
+            please select to either play or call bingo: 
+        </label>
+        <br>
         <select id="choose-bingo-gamemode-drpdwn" onchange="">
             <option value="0" selected> call bingo </option>
             <option values="1"> play bingo </option>
@@ -28,64 +32,77 @@
                 <div id="caller-left-content-container">
                     <div id="column-selection">
                         <p class="center-bold-text"> Caller Settings </p>
-                        <p class="important-text" class="center-text">
-                            This bingo caller creates a more effiecent process and reduces the redundancy of original bingo callers. 
+                        <p class="important-text" >
+                            This bingo caller creates a more efficent process and reduces the redundancy of original bingo callers. 
                             To reduce redundancy, use the checkboxes or slider below to choose the columns required to fulfill your games winning pattern.
                             
                         </p>
-                        <p class="subtext" class="center-text"> 
+                        <div id="slider-div">
+                            <label for="slider-checkbox"> some </label>
+                            <label class="switch" class="side-by-side">
+                                <input type="checkbox" id="slider-checkbox" onchange="toggle_columns_select()">
+                                <span class="slider round"></span>
+                            </label>
+                            <p class="side-by-side"> all </p>
+                            <button class="bingo-buttons" class="side-by-side" onclick="build_new_caller()"> New Game </button>
+                        </div>
+                        <div id="column-select-div">
+                            <div class="side-by-side" class="select-column-div">
+                                <label for="columnB" class="select-column-letters"> B </label><br>
+                                <input type="checkbox" id="columnB" value="0" class="select-column-checkbox">
+                            </div>
+                            <div class="side-by-side" class="select-column-div">
+                                <label for="columnI" class="select-column-letters"> I </label><br>
+                                <input type="checkbox" id="columnI" value="1" class="select-column-checkbox">
+                            </div>
+                            <div class="side-by-side" class="select-column-div">
+                                <label for="columnN" class="select-column-letters"> N </label><br>
+                                <input type="checkbox" id="columnN" value="2" class="select-column-checkbox">
+                            </div>
+                            <div class="side-by-side" class="select-column-div">
+                                <label for="columnG" class="select-column-letters"> G </label><br>
+                                <input type="checkbox" id="columnG" value="3" class="select-column-checkbox">
+                            </div>
+                            <div class="side-by-side" class="select-column-div">
+                                <label for="columnO" class="select-column-letters"> O </label><br>
+                                <input type="checkbox" id="columnO" value="4" class="select-column-checkbox">
+                            </div>
+                        </div>
+                        <br>
+                        <p class="zero-margin-text"> Once you've started a game: </p>
+                        <p class="zero-margin-text"> &rarr; To call a number, click the 'call' button or press 'return'. </p>
+                        <p class="zero-margin-text"> &rarr; To reset the caller, click the 'new game' button. </p>
+                    </div>
+                    <br>
+                    <div id="more-info">
+                        <p class="center-bold-text"> More Info </p>
+                        <p class="important-text"> 
                             If your bingo game will use every column, toggle the slider to all. 
                             If your bingo game will use less than every column, toggle the slider to some and select the appropriate columns. 
                             Many bingo callers use a roller cage that allows for a random selection of balls, but this process can be tedious and slow. 
                             Especially when playing bingo with a winning pattern that does not use all 5 columns.
                         </p>
-                        <div id="slider-div">
-                            <p class="side-by-side"> some </p>
-                            <label class="switch" class="side-by-side">
-                                <input type="checkbox" id="slider-checkbox" onchange="toggle_column_select()">
-                                <span class="slider round"></span>
-                            </label>
-                            <p class="side-by-side"> all </p>
-                            <button class="side-by-side" id="reset-button"> Reset </button>
-                        </div>
-                        <div id="column-select-div">
-                            <div class="side-by-side" class="select-column-div">
-                                <label for="columnB" class="select-column-letters"> B </label><br>
-                                <input type="checkbox" id="columnB" value="" class="select-column-checkbox">
-                            </div>
-                            <div class="side-by-side" class="select-column-div">
-                                <label for="columnI" class="select-column-letters"> I </label><br>
-                                <input type="checkbox" id="columnI" value="" class="select-column-checkbox">
-                            </div>
-                            <div class="side-by-side" class="select-column-div">
-                                <label for="columnN" class="select-column-letters"> N </label><br>
-                                <input type="checkbox" id="columnN" value="" class="select-column-checkbox">
-                            </div>
-                            <div class="side-by-side" class="select-column-div">
-                                <label for="columnG" class="select-column-letters"> G </label><br>
-                                <input type="checkbox" id="columnG" value="" class="select-column-checkbox">
-                            </div>
-                            <div class="side-by-side" class="select-column-div">
-                                <label for="columnO" class="select-column-letters"> O </label><br>
-                                <input type="checkbox" id="columnO" value="" class="select-column-checkbox">
-                            </div>
-                        </div>
-                        <br>
-                        <p class="zero-margin-text"> After selecting appropriate columns: </p>
-                        <br>
-                        <p class="zero-margin-text"> - To call a number, click the 'call' button or press 'return'. </p>
-                        <p class="zero-margin-text"> - To reset the caller, click the reset button. </p>
-                        
                     </div>
                 </div>
             </div>
             <div id="caller-right-container">
                 <div id="caller-right-content-container">
-
+                    <br>
+                    <div id="calling-number-div">
+                        <button class="bingo-buttons" class="side-by-side" onclick="caller_call_num()"> Call a Number </button>
+                        <div class="side-by-side" id="calling-number-display">
+                            <p id="html-call-display"> B 56</p>
+                        </div>
+                    </div>
+                    <!-- add a call history? -->
+                    <br>
+                    <div id="called-number-table-div">
+                        <!-- table is built here -->
+                    </div>
                 </div>
             </div>
         </div>
-        <div id="player-div">
+        <div id="game-player-div">
             <!-- leave empty for now -->
         </div>
     </div>
@@ -94,7 +111,7 @@
     <p id="b_d_note"> Built and Designed by Brock Britton</p>
   
     <script>
-        toggle_column_select()
+        let curr_bingo_state = new CallerOrganizer();
     </script>
 </body>
 </html>
