@@ -22,8 +22,8 @@
     margin: auto;
 }
 
-#caller-div {
-    display: flex;
+#game-caller-div {
+    display: none;
     margin-top: 10px;
 }
 
@@ -51,9 +51,39 @@
     margin-left: 20px;
 }
 
-
 #game-player-div {
-    display: none;
+    display: flex;
+    margin-top: 10px;
+}
+
+#player-instructions-div {
+    margin: auto;
+    width: 70%;
+
+}
+
+#player-settings-div {
+    margin: auto;
+    display: flex;
+}
+
+.player-options-spacer {
+    width: 100px !important;
+}
+
+#dropdowns-container {
+    margin: auto;
+    width: max-content;
+}
+
+.play-settings-dropdowns {
+    font-size: 22px;
+}
+
+#new-game-button-container {
+    width: 100%;
+    margin: auto;
+    text-align: center;
 }
 
 /* Toggle Slider Start */
@@ -122,7 +152,7 @@
 /* Toggle Slider End */
 
 .side-by-side {
-    display: inline-block;
+    display: inline-block !important;
 }
 
 #column-select-div {
@@ -176,7 +206,6 @@
     border: solid 1px;
     font-size: 20px;
     padding: 0px 15px;
-    margin: 0 0 0 50px;
     border-radius: 8px;
 }
 
@@ -190,13 +219,25 @@
 }
 
 .center-text {
-    text-align: right;
+    text-align: center;
 }
 
 
 #calling-number-div {
     height: 85px;
     width: max-content;
+    margin: auto;
+}
+
+#call-number-btn-div {
+    width: min-content;
+    margin-top: 0px;
+    margin-bottom: 100px;
+    height: inherit;
+}
+
+#call-number-btn-div button {
+    width: max-content !important;
 }
 
 #calling-number-display {
@@ -204,14 +245,15 @@
     width: 125px;
     padding-left: 20px;
     padding-right: 20px;
-    margin: 0px 0px 0px 50px;
+    margin: 0 0 0 40px;
 }
 
 #calling-number-display p {
     font-size: 65px;
     font-weight: bold;
     margin: 0px;
-    width: max-content;
+    width: 140px;
+    height: 75px;
 }
 
 

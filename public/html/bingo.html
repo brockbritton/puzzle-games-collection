@@ -18,16 +18,16 @@
     </div>
     <div id="play-or-call-choice-div">
         <label for="choose-bingo-gamemode-drpdwn"> 
-            please select to either play or call bingo: 
+            please toggle between playing or calling bingo: 
         </label>
         <br>
-        <select id="choose-bingo-gamemode-drpdwn" onchange="">
-            <option value="0" selected> call bingo </option>
-            <option values="1"> play bingo </option>
+        <select id="choose-bingo-gamemode-drpdwn" onchange="switchBingoStates()">
+            <option value="0"> call bingo </option>
+            <option value="1" selected> play bingo </option>
         </select>
     </div>
     <div>
-        <div id="caller-div">
+        <div id="game-caller-div">
             <div id="caller-left-container">
                 <div id="caller-left-content-container">
                     <div id="column-selection">
@@ -40,11 +40,11 @@
                         <div id="slider-div">
                             <label for="slider-checkbox"> some </label>
                             <label class="switch" class="side-by-side">
-                                <input type="checkbox" id="slider-checkbox" onchange="toggle_columns_select()">
+                                <input type="checkbox" id="slider-checkbox" onchange="curr_bingo_state.toggleColumnsSelect()">
                                 <span class="slider round"></span>
                             </label>
                             <p class="side-by-side"> all </p>
-                            <button class="bingo-buttons" class="side-by-side" onclick="build_new_caller()"> New Game </button>
+                            <button class="bingo-buttons" class="side-by-side" onclick="curr_bingo_state.buildNewCaller()"> New Game </button>
                         </div>
                         <div id="column-select-div">
                             <div class="side-by-side" class="select-column-div">
@@ -89,9 +89,11 @@
                 <div id="caller-right-content-container">
                     <br>
                     <div id="calling-number-div">
-                        <button class="bingo-buttons" class="side-by-side" onclick="caller_call_num()"> Call a Number </button>
+                        <div class="side-by-side" id="call-number-btn-div" >
+                            <button class="bingo-buttons"  onclick="curr_bingo_state.checkCallNumber()"> Call a Number </button> 
+                        </div>
                         <div class="side-by-side" id="calling-number-display">
-                            <p id="html-call-display"> B 56</p>
+                            <p id="html-call-display"> &#8203; </p>
                         </div>
                     </div>
                     <!-- add a call history? -->
@@ -103,7 +105,55 @@
             </div>
         </div>
         <div id="game-player-div">
-            <!-- leave empty for now -->
+            <div id="player-instructions-div">
+                <p class="center-bold-text"> Instructions </p>
+                <p class="center-text"> First choose how many bingo boards you would like to have at the same time (up to 6).
+                    You may select a highlight color or keep it as the default. Click new game to begin. 
+                    Once a game has begun, either enter numbers or select them from the table. 
+                    The boards will automatically track numbers called and if bingo has been achieved on any of the boards.
+                </p>
+                <div id="player-settings-div">
+                    <div id="dropdowns-container">
+                        <div class="side-by-side">
+                            <label for="boards-num-dropdown"> number of boards: </label>
+                            <select class="play-settings-dropdowns" id="boards-num-dropdown">
+                                <option value="1"> 1 </option>
+                                <option value="2"> 2 </option>
+                                <option value="3"> 3 </option>
+                                <option value="4"> 4 </option>
+                                <option value="5"> 5 </option>
+                                <option value="6"> 6 </option>
+                            </select>
+                        </div>
+                        <div class="side-by-side player-options-spacer"> <!-- spacer --> </div>
+                        <div class="side-by-side">
+                            <label for="highlight-color-dropdown"> highlight color: </label>
+                            <select class="play-settings-dropdowns" id="highlight-color-dropdown">
+                                <option value=""> blue </option>
+                                <option value=""> red </option>
+                                <option value=""> purple </option>
+                                <option value=""> green </option>
+                                <option value=""> yellow </option>
+                            </select>
+                        </div>
+                        <div class="side-by-side player-options-spacer"> <!-- spacer --> </div>
+                        <div class="side-by-side">
+                            <label for="record-numbers-dropdown"> recording numbers: </label>
+                            <select class="play-settings-dropdowns" id="record-numbers-dropdown">
+                                <option value=""> selectable table </option>
+                                <option value=""> typed input </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div id="new-game-button-container">
+                    <button class="bingo-buttons"> New Game </button>
+                </div>
+            </div>
+            <div id="play-boards-div">
+
+            </div>
         </div>
     </div>
     
