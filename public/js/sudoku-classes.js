@@ -284,6 +284,7 @@ class SudokuBoard {
             //this.findForcingChains()
             //this.findXYWing()
             //this.findUniqueRectangle()
+            //this.tryANumber() !!!
             
             if (iterations == 10) {
                 break

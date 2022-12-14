@@ -3,37 +3,6 @@ class CallerOrganizer {
     constructor() {
         this.caller = null;
         this.resetUIVisuals();
-        let pot_table_cells = document.getElementsByClassName("cell_number_class");
-        if (pot_table_cells.length == 0) {
-            this.buildCalledNumbersTable()
-        }
-    }
-
-    buildCalledNumbersTable() {
-        const table_div = document.getElementById("called-number-table-div")
-        const table = document.createElement("table");
-        table.setAttribute("id", "called-nums-table");
-        
-    
-        const col_headers = ["B", "I", "N", "G", "O"]
-        let table_header_row = table.insertRow(0);
-        for (let i = 0; i < col_headers.length; i++) {
-            let column_th = document.createElement("th");
-            column_th.innerHTML = col_headers[i]
-            table_header_row.appendChild(column_th)
-        }
-        
-        for (let r = 1; r <= 15; r++) {
-            let table_row = table.insertRow(r);
-            for (let d = 0; d < 5; d++) {
-                let cell = table_row.insertCell(d)
-                cell.innerHTML = (d * 15) + (r)
-                cell.setAttribute("id", `cell${(d * 15) + (r)}`)
-                cell.classList.add("cell_number_uncalled", "cell_number_class");
-            }
-        }
-        table_div.appendChild(table)
-    
     }
 
     resetUIVisuals() {
@@ -152,5 +121,174 @@ class BingoCaller {
         
 
 
+    }
+}
+
+class PlayerOrganizer {
+    constructor() {
+        this.current_boards = []
+
+        this.updateBoardsNum() //this.boards_num
+        this.updateHighlightColor() //this.highlight_color 
+        this.updateRecordNumbers() //this.recording_values 
+        this.updateWinningPattern() //this.winning_pattern 
+
+        this.winning_patterns_dict = {
+            "blackout" : [],
+            "four-corners" : []
+        }
+        
+    }
+
+    changeCSSStyle(selector, cssProp, cssVal) {
+        // 1 = second listed external stylesheet: bingo-style.css
+        for ( let i=0, len =document.styleSheets[1]['cssRules'].length; i<len; i++) {
+            if (document.styleSheets[1]['cssRules'][i].selectorText === selector) {
+                document.styleSheets[1]['cssRules'][i].style[cssProp] = cssVal;
+                return;
+            }
+        }
+    }
+
+    getDropdownValue(id) {
+        let dropdown = document.getElementById(id)
+        return dropdown.value
+    }
+
+    updateBoardsNum() {
+        this.boards_num = Number(this.getDropdownValue("boards-num-dropdown"))
+    }
+
+    updateHighlightColor() {
+        this.highlight_color = this.getDropdownValue("highlight-color-dropdown")
+    }
+
+    updateRecordNumbers() {
+        this.recording_values = this.getDropdownValue("record-numbers-dropdown")
+    }
+
+    updateWinningPattern() {
+        this.winning_pattern = this.getDropdownValue("winning-pattern-dropdown")
+    }
+
+    clearDivByID(id) {
+        let boards_div = document.getElementById(id)
+        while (boards_div.firstChild) {
+            boards_div.removeChild(boards_div.firstChild);
+        }
+    }
+
+    buildNewPlayer() {
+
+        //clear old bingo boards
+        this.clearDivByID("play-boards-div")
+
+        //update highlight color for called cells
+        this.changeCSSStyle(".bingo-cell-called-highlight", "background-color", this.highlight_color)
+
+        //update recording numbers option
+        //..still to build
+
+        
+        //build the rows for the board visuals
+        const boards_per_row = 4
+        const boards_div = document.getElementById("play-boards-div")
+        for (let i = 0; i < Math.ceil(this.boards_num / boards_per_row); i++) {
+            const boards_row = document.createElement("div")
+            boards_row.classList.add("play-boards-row")
+            boards_div.appendChild(boards_row)
+        }
+
+        //build the bingo boards from Classes
+        for (let i = 0; i < this.boards_num; i++) {
+            this.current_boards.push(new BingoBoard())
+        }
+    }
+
+
+}
+
+class BingoBoard {
+    constructor() {
+        this.board_columns = this.createNumberColumns()
+        this.buildBingoBoardVisual(this.board_columns)
+    }
+
+    genRandomNumber(col_iter) {
+        return (15 * col_iter) + Math.floor(Math.random() * 15) + 1
+    }
+
+    createNumberColumns() {
+        const columns = []
+        for (let i = 0; i < 5; i++) {
+            columns.push([])
+            while (columns[i].length < 5) {
+                let random_num = this.genRandomNumber(i)
+                while (columns[i].indexOf(random_num) != -1) {
+                    random_num = this.genRandomNumber(i)
+                    
+                }
+                columns[i].push(random_num)
+            }
+        }
+        
+        return columns
+    }
+
+    buildBingoBoardVisual(number_columns_array) {
+        const board_border = document.createElement("div")
+        board_border.classList.add("board-border", "side-by-side")
+    
+        const table_container = document.createElement("div")
+        table_container.classList.add("board-table")
+    
+        const header_letters = ["B", "I", "N", "G", "O"]
+        const header_row = document.createElement("div")
+        header_row.classList.add("board-row")
+        for (let i = 0; i < header_letters.length; i++) {
+            let header_cell = document.createElement("div")
+            header_cell.classList.add("board-header", "side-by-side")
+            header_cell.innerHTML = header_letters[i]
+            header_row.appendChild(header_cell)
+        }
+        table_container.appendChild(header_row)
+    
+        for (let i = 0; i < header_letters.length; i++) {
+            let board_row = document.createElement("div")
+            board_row.classList.add("board-row")
+            for (let j = 0; j < header_letters.length; j++) {
+                let board_cell = document.createElement("div")
+                let board_text = document.createElement("p")
+                
+                if (i == 2 && j == 2) {
+                    board_cell.classList.add("board-cell", "side-by-side", "bingo-cell-called-highlight")
+                    board_text.classList.add("board-cell-text-sizing", "board-free-cell-text")
+                    board_text.innerHTML = "FREE"
+                } else {
+                    board_cell.classList.add("board-cell", "side-by-side")
+                    board_text.classList.add("board-cell-text-sizing")
+                    board_text.innerHTML = `${number_columns_array[j][i]}`    
+                }
+                board_cell.appendChild(board_text)
+                board_row.appendChild(board_cell)
+                
+            }
+            table_container.appendChild(board_row)
+    
+        }
+        board_border.appendChild(table_container)
+
+        
+        const board_rows = document.getElementById("play-boards-div").children
+        
+        if (board_rows[0].children.length < 4) {
+            board_rows[0].appendChild(board_border)
+        } else {
+            board_rows[1].appendChild(board_border)
+        }
+        
+
+        
+    
     }
 }

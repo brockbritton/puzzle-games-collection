@@ -52,14 +52,19 @@
 }
 
 #game-player-div {
-    display: flex;
+    display: block;
     margin-top: 10px;
 }
 
 #player-instructions-div {
     margin: auto;
-    width: 70%;
+    width: 80%;
+    display: block;
+}
 
+#instructions-paragraph {
+    width: 80%;
+    margin: auto;
 }
 
 #player-settings-div {
@@ -68,7 +73,7 @@
 }
 
 .player-options-spacer {
-    width: 100px !important;
+    width: 20px;
 }
 
 #dropdowns-container {
@@ -160,8 +165,32 @@
     overflow: hidden;
     background-color: #f1f1f1;
     width: max-content;
-    height: 75px;
+    height: max-content;
     margin: auto;
+}
+
+.select-column-div {
+    width: 50px;
+    display: flex;
+    margin: 0 2px;
+}
+
+.select-column-label-container {
+    display: flex;
+    width: 100%;
+}
+
+.select-column-letters {
+    font-size: 24px;
+    margin: auto;
+    text-align: center;
+
+}
+
+.select-column-checkbox {
+    height: 30px;
+    width: 30px;
+    margin: 0 10px;
 }
 
 .important-text {
@@ -172,23 +201,6 @@
 .subtext {
     font-size: 16px;
     text-align: center;
-}
-
-.select-column-div {
-    width: 20px;
-}
-
-.select-column-letters {
-    font-size: 24px;
-    padding-left: 30px;
-    padding-right: 30px;
-
-}
-
-.select-column-checkbox {
-    height: 30px;
-    width: 30px;
-    margin: 5% 29%;
 }
 
 #slider-div {
@@ -299,4 +311,74 @@
     color: grey;
     font-weight: 300;
 }
+
+#play-boards-div {
+    background-color: #ccc;
+    margin-top: 50px;
+}
+
+.play-boards-row {
+    margin: auto;
+    display: block;
+    height: min-content;
+    width: max-content;
+    margin: 5px;
+    align-self: center;
+    margin: auto;
+}
+
+.board-border {
+    height: max-content;
+    width: max-content;
+    border: black 3px solid;
+    padding: 15px 20px 20px 20px;
+    background-color: whitesmoke; 
+    margin: 20px;
+}
+
+.board-table {
+    width: max-content;
+    height: max-content;
+}
+
+.board-row {
+    height: 50px;
+}
+
+.board-header {
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    text-align: center;
+    border: whitesmoke 1px solid;
+    font-size: 45px;
+    font-weight: 600;
+}
+
+.board-cell {
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    font-size: 40px;
+    text-align: center;
+    border: whitesmoke 1px solid;
+}
+
+.board-cell-text-sizing {
+    width: max-content;
+    height: min-content;
+    margin: 1.5px auto;
+}
+
+.board-free-cell-text {
+    font-size: 15px !important;
+    margin-top: 15px !important;
+}
+
+.bingo-cell-called-highlight {
+    background-color: #3380FF !important;
+}
+
+
+
 

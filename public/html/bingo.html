@@ -32,39 +32,49 @@
                 <div id="caller-left-content-container">
                     <div id="column-selection">
                         <p class="center-bold-text"> Caller Settings </p>
-                        <p class="important-text" >
+                        <p class="important-text">
                             This bingo caller creates a more efficent process and reduces the redundancy of original bingo callers. 
                             To reduce redundancy, use the checkboxes or slider below to choose the columns required to fulfill your games winning pattern.
                             
                         </p>
                         <div id="slider-div">
                             <label for="slider-checkbox"> some </label>
-                            <label class="switch" class="side-by-side">
+                            <label class="switch side-by-side">
                                 <input type="checkbox" id="slider-checkbox" onchange="curr_bingo_state.toggleColumnsSelect()">
                                 <span class="slider round"></span>
                             </label>
                             <p class="side-by-side"> all </p>
-                            <button class="bingo-buttons" class="side-by-side" onclick="curr_bingo_state.buildNewCaller()"> New Game </button>
+                            <button class="bingo-buttons side-by-side" onclick="curr_bingo_state.buildNewCaller()"> New Game </button>
                         </div>
                         <div id="column-select-div">
-                            <div class="side-by-side" class="select-column-div">
-                                <label for="columnB" class="select-column-letters"> B </label><br>
+                            <div class="side-by-side select-column-div">
+                                <div class="select-column-label-container">
+                                    <label for="columnB" class="select-column-letters"> B </label>
+                                </div>
                                 <input type="checkbox" id="columnB" value="0" class="select-column-checkbox">
                             </div>
-                            <div class="side-by-side" class="select-column-div">
-                                <label for="columnI" class="select-column-letters"> I </label><br>
+                            <div class="side-by-side select-column-div">
+                                <div class="select-column-label-container">
+                                    <label for="columnI" class="select-column-letters"> I </label>
+                                </div>
                                 <input type="checkbox" id="columnI" value="1" class="select-column-checkbox">
                             </div>
-                            <div class="side-by-side" class="select-column-div">
-                                <label for="columnN" class="select-column-letters"> N </label><br>
+                            <div class="side-by-side select-column-div">
+                                <div class="select-column-label-container">
+                                    <label for="columnN" class="select-column-letters"> N </label>
+                                </div>
                                 <input type="checkbox" id="columnN" value="2" class="select-column-checkbox">
                             </div>
-                            <div class="side-by-side" class="select-column-div">
-                                <label for="columnG" class="select-column-letters"> G </label><br>
+                            <div class="side-by-side select-column-div">
+                                <div class="select-column-label-container">
+                                    <label for="columnG" class="select-column-letters"> G </label>
+                                </div>
                                 <input type="checkbox" id="columnG" value="3" class="select-column-checkbox">
                             </div>
-                            <div class="side-by-side" class="select-column-div">
-                                <label for="columnO" class="select-column-letters"> O </label><br>
+                            <div class="side-by-side select-column-div">
+                                <div class="select-column-label-container">
+                                    <label for="columnO" class="select-column-letters"> O </label>
+                                </div>
                                 <input type="checkbox" id="columnO" value="4" class="select-column-checkbox">
                             </div>
                         </div>
@@ -107,52 +117,76 @@
         <div id="game-player-div">
             <div id="player-instructions-div">
                 <p class="center-bold-text"> Instructions </p>
-                <p class="center-text"> First choose how many bingo boards you would like to have at the same time (up to 6).
+                <p class="center-text" id="instructions-paragraph"> First choose how many bingo boards you would like to have at the same time (up to 6).
                     You may select a highlight color or keep it as the default. Click new game to begin. 
                     Once a game has begun, either enter numbers or select them from the table. 
                     The boards will automatically track numbers called and if bingo has been achieved on any of the boards.
                 </p>
+                <br>
                 <div id="player-settings-div">
                     <div id="dropdowns-container">
                         <div class="side-by-side">
                             <label for="boards-num-dropdown"> number of boards: </label>
-                            <select class="play-settings-dropdowns" id="boards-num-dropdown">
+                            <select class="play-settings-dropdowns" id="boards-num-dropdown" onchange="curr_bingo_state.updateBoardsNum()">
                                 <option value="1"> 1 </option>
                                 <option value="2"> 2 </option>
                                 <option value="3"> 3 </option>
                                 <option value="4"> 4 </option>
                                 <option value="5"> 5 </option>
                                 <option value="6"> 6 </option>
+                                <option value="7"> 7 </option>
+                                <option value="8"> 8 </option>
                             </select>
                         </div>
                         <div class="side-by-side player-options-spacer"> <!-- spacer --> </div>
                         <div class="side-by-side">
                             <label for="highlight-color-dropdown"> highlight color: </label>
-                            <select class="play-settings-dropdowns" id="highlight-color-dropdown">
-                                <option value=""> blue </option>
-                                <option value=""> red </option>
-                                <option value=""> purple </option>
-                                <option value=""> green </option>
-                                <option value=""> yellow </option>
+                            <select class="play-settings-dropdowns" id="highlight-color-dropdown" onchange="curr_bingo_state.updateHighlightColor()">
+                                <option value="#3380FF"> blue </option>
+                                <option value="#FF0000"> red </option>
+                                <option value="#A020F0"> purple </option>
+                                <option value="#00FF00"> green </option>
+                                <option value="#FFFF00"> yellow </option>
                             </select>
                         </div>
                         <div class="side-by-side player-options-spacer"> <!-- spacer --> </div>
                         <div class="side-by-side">
                             <label for="record-numbers-dropdown"> recording numbers: </label>
-                            <select class="play-settings-dropdowns" id="record-numbers-dropdown">
-                                <option value=""> selectable table </option>
-                                <option value=""> typed input </option>
+                            <select class="play-settings-dropdowns" id="record-numbers-dropdown" onchange="curr_bingo_state.updateRecordNumbers()">
+                                <option value="select"> selectable table </option>
+                                <option value="type"> typed input </option>
+                            </select>
+                        </div>
+                        <div class="side-by-side player-options-spacer"> <!-- spacer --> </div>
+                        <div class="side-by-side">
+                            <label for="winning-pattern-dropdown"> winning pattern: </label>
+                            <select class="play-settings-dropdowns" id="winning-pattern-dropdown" onchange="curr_bingo_state.updateWinningPattern()">
+                                <option value="stnd"> standard </option>
+                                <option value="blk"> blackout </option>
+                                <option value="fcs"> four corners </option>
+                                <option value="other"> other </option>
                             </select>
                         </div>
                     </div>
                 </div>
+                <div id="sample-board-settings">
+
+                </div>
                 <br>
                 <div id="new-game-button-container">
-                    <button class="bingo-buttons"> New Game </button>
+                    <button class="bingo-buttons" onclick="curr_bingo_state.buildNewPlayer()"> New Game </button>
+                </div>
+            </div>
+            <div id="recording-nums-div">
+                <div id="numbers-table-container">
+                    
+                </div>
+                <div id="enter-nums-input-container">
+
                 </div>
             </div>
             <div id="play-boards-div">
-
+                <!-- boards will be built here -->
             </div>
         </div>
     </div>
@@ -161,7 +195,11 @@
     <p id="b_d_note"> Built and Designed by Brock Britton</p>
   
     <script>
-        let curr_bingo_state = new CallerOrganizer();
+        switchBingoStates()
+
+        buildCallerCalledNumbersTable()
+        buildPlayerCalledNumbersTable()
+
     </script>
 </body>
 </html>
