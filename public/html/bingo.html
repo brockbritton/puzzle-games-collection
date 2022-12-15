@@ -27,7 +27,7 @@
         </select>
     </div>
     <div>
-        <div id="game-caller-div">
+        <div id="bingo-caller-div">
             <div id="caller-left-container">
                 <div id="caller-left-content-container">
                     <div id="column-selection">
@@ -51,31 +51,31 @@
                                 <div class="select-column-label-container">
                                     <label for="columnB" class="select-column-letters"> B </label>
                                 </div>
-                                <input type="checkbox" id="columnB" value="0" class="select-column-checkbox">
+                                <input type="checkbox" id="columnB" value="0" class="select-column-checkbox" onclick="curr_bingo_state.checkClick(event)">
                             </div>
                             <div class="side-by-side select-column-div">
                                 <div class="select-column-label-container">
                                     <label for="columnI" class="select-column-letters"> I </label>
                                 </div>
-                                <input type="checkbox" id="columnI" value="1" class="select-column-checkbox">
+                                <input type="checkbox" id="columnI" value="1" class="select-column-checkbox" onclick="curr_bingo_state.checkClick(event)">
                             </div>
                             <div class="side-by-side select-column-div">
                                 <div class="select-column-label-container">
                                     <label for="columnN" class="select-column-letters"> N </label>
                                 </div>
-                                <input type="checkbox" id="columnN" value="2" class="select-column-checkbox">
+                                <input type="checkbox" id="columnN" value="2" class="select-column-checkbox" onclick="curr_bingo_state.checkClick(event)">
                             </div>
                             <div class="side-by-side select-column-div">
                                 <div class="select-column-label-container">
                                     <label for="columnG" class="select-column-letters"> G </label>
                                 </div>
-                                <input type="checkbox" id="columnG" value="3" class="select-column-checkbox">
+                                <input type="checkbox" id="columnG" value="3" class="select-column-checkbox" onclick="curr_bingo_state.checkClick(event)">
                             </div>
                             <div class="side-by-side select-column-div">
                                 <div class="select-column-label-container">
                                     <label for="columnO" class="select-column-letters"> O </label>
                                 </div>
-                                <input type="checkbox" id="columnO" value="4" class="select-column-checkbox">
+                                <input type="checkbox" id="columnO" value="4" class="select-column-checkbox" onclick="curr_bingo_state.checkClick(event)">
                             </div>
                         </div>
                         <br>
@@ -114,7 +114,7 @@
                 </div>
             </div>
         </div>
-        <div id="game-player-div">
+        <div id="bingo-player-div">
             <div id="player-instructions-div">
                 <p class="center-bold-text"> Instructions </p>
                 <p class="center-text" id="instructions-paragraph"> First choose how many bingo boards you would like to have at the same time (up to 6).
@@ -154,7 +154,7 @@
                             <label for="record-numbers-dropdown"> recording numbers: </label>
                             <select class="play-settings-dropdowns" id="record-numbers-dropdown" onchange="curr_bingo_state.updateRecordNumbers()">
                                 <option value="select"> selectable table </option>
-                                <option value="type"> typed input </option>
+                                <option value="input"> typed input </option>
                             </select>
                         </div>
                         <div class="side-by-side player-options-spacer"> <!-- spacer --> </div>
@@ -177,22 +177,33 @@
                     <button class="bingo-buttons" onclick="curr_bingo_state.buildNewPlayer()"> New Game </button>
                 </div>
             </div>
-            <div id="recording-nums-div">
-                <div id="numbers-table-container">
-                    
+            <div id="call-nums-and-boards">
+                <div id="recording-nums-div">
+                    <div id="numbers-table-container">
+                        <!-- selectable table of numbers built here -->
+                    </div>
+                    <div id="enter-nums-input-container">
+                        <div class="side-by-side">
+                            <label id="called-num-input-label" for="called-num-input"> B </label>
+                            <input id="called-num-input" placeholder="##">
+                        </div>
+                        <div class="side-by-side" id="input-call-uncall-buttons">
+                            <button class="bingo-buttons"> Undo Call</button>
+                            <button class="bingo-buttons"> Call Number</button>
+                        </div>
+                        
+                    </div>
                 </div>
-                <div id="enter-nums-input-container">
-
+                <div id="play-boards-div">
+                    <!-- boards will be built here -->
                 </div>
             </div>
-            <div id="play-boards-div">
-                <!-- boards will be built here -->
-            </div>
+            
         </div>
     </div>
     
     
-    <p id="b_d_note"> Built and Designed by Brock Britton</p>
+    <p id="b_d_note"> Built and Designed by Brock Britton </p>
   
     <script>
         switchBingoStates()

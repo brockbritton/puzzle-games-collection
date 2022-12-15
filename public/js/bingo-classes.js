@@ -30,6 +30,14 @@ class CallerOrganizer {
             }
         }
     }
+
+    checkClick(event) {
+        const slider = document.getElementById("slider-checkbox")
+        if (slider.checked) {
+            event = event || window.event;
+            event.preventDefault()
+        }
+    }
     
 
     buildNewCaller() {
@@ -140,16 +148,6 @@ class PlayerOrganizer {
         
     }
 
-    changeCSSStyle(selector, cssProp, cssVal) {
-        // 1 = second listed external stylesheet: bingo-style.css
-        for ( let i=0, len =document.styleSheets[1]['cssRules'].length; i<len; i++) {
-            if (document.styleSheets[1]['cssRules'][i].selectorText === selector) {
-                document.styleSheets[1]['cssRules'][i].style[cssProp] = cssVal;
-                return;
-            }
-        }
-    }
-
     getDropdownValue(id) {
         let dropdown = document.getElementById(id)
         return dropdown.value
@@ -178,6 +176,35 @@ class PlayerOrganizer {
         }
     }
 
+    changeCSSStyle(selector, cssProp, cssVal) {
+        // 1 = second listed external stylesheet: bingo-style.css
+        for ( let i=0, len =document.styleSheets[1]['cssRules'].length; i<len; i++) {
+            if (document.styleSheets[1]['cssRules'][i].selectorText === selector) {
+                document.styleSheets[1]['cssRules'][i].style[cssProp] = cssVal;
+                return;
+            }
+        }
+    }
+
+    showHideRecordNumberOption() {
+        let select_div = document.getElementById("numbers-table-container")
+        let input_div = document.getElementById("enter-nums-input-container")
+        if (this.recording_values == "select") {
+            select_div.style.display = "block"
+            input_div.style.display = "none"
+        } else {
+            input_div.style.display = "block"
+            select_div.style.display = "none"
+        }
+    }
+
+    callNumber(element) {
+        let num = parseInt(element.innerHTML)
+        //bold the element innerhtml
+
+        //call/uncall the number for each of the boards assuming there are boards
+    }
+
     buildNewPlayer() {
 
         //clear old bingo boards
@@ -187,7 +214,7 @@ class PlayerOrganizer {
         this.changeCSSStyle(".bingo-cell-called-highlight", "background-color", this.highlight_color)
 
         //update recording numbers option
-        //..still to build
+        this.showHideRecordNumberOption()
 
         
         //build the rows for the board visuals
@@ -291,4 +318,6 @@ class BingoBoard {
         
     
     }
+
+    
 }
