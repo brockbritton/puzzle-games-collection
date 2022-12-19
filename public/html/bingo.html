@@ -140,22 +140,8 @@
                         </div>
                         <div class="side-by-side player-options-spacer"> <!-- spacer --> </div>
                         <div class="side-by-side">
-                            <label for="highlight-color-dropdown"> highlight color: </label>
-                            <select class="play-settings-dropdowns" id="highlight-color-dropdown" onchange="curr_bingo_state.updateHighlightColor()">
-                                <option value="#3380FF"> blue </option>
-                                <option value="#FF0000"> red </option>
-                                <option value="#A020F0"> purple </option>
-                                <option value="#00FF00"> green </option>
-                                <option value="#FFFF00"> yellow </option>
-                            </select>
-                        </div>
-                        <div class="side-by-side player-options-spacer"> <!-- spacer --> </div>
-                        <div class="side-by-side">
-                            <label for="record-numbers-dropdown"> recording numbers: </label>
-                            <select class="play-settings-dropdowns" id="record-numbers-dropdown" onchange="curr_bingo_state.updateRecordNumbers()">
-                                <option value="select"> selectable table </option>
-                                <option value="input"> typed input </option>
-                            </select>
+                            <label for="highlight-colorpicker"> highlight color:</label>
+                            <input type="color" id="highlight-colorpicker" onchange="curr_bingo_state.updateHighlightColor()" value="#3380FF">
                         </div>
                         <div class="side-by-side player-options-spacer"> <!-- spacer --> </div>
                         <div class="side-by-side">
@@ -181,17 +167,6 @@
                 <div id="recording-nums-div">
                     <div id="numbers-table-container">
                         <!-- selectable table of numbers built here -->
-                    </div>
-                    <div id="enter-nums-input-container">
-                        <div class="side-by-side">
-                            <label id="called-num-input-label" for="called-num-input"> B </label>
-                            <input id="called-num-input" placeholder="##">
-                        </div>
-                        <div class="side-by-side" id="input-call-uncall-buttons">
-                            <button class="bingo-buttons"> Undo Call</button>
-                            <button class="bingo-buttons"> Call Number</button>
-                        </div>
-                        
                     </div>
                 </div>
                 <div id="play-boards-div">

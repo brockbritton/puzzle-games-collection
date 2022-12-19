@@ -135,17 +135,15 @@ class BingoCaller {
 class PlayerOrganizer {
     constructor() {
         this.current_boards = []
-
+        this.call_list = []
         this.updateBoardsNum() //this.boards_num
         this.updateHighlightColor() //this.highlight_color 
-        this.updateRecordNumbers() //this.recording_values 
         this.updateWinningPattern() //this.winning_pattern 
 
         this.winning_patterns_dict = {
             "blackout" : [],
             "four-corners" : []
         }
-        
     }
 
     getDropdownValue(id) {
@@ -158,11 +156,8 @@ class PlayerOrganizer {
     }
 
     updateHighlightColor() {
-        this.highlight_color = this.getDropdownValue("highlight-color-dropdown")
-    }
-
-    updateRecordNumbers() {
-        this.recording_values = this.getDropdownValue("record-numbers-dropdown")
+        let colorpicker = document.getElementById("highlight-colorpicker")
+        this.highlight_color = colorpicker.value
     }
 
     updateWinningPattern() {
@@ -186,23 +181,45 @@ class PlayerOrganizer {
         }
     }
 
-    showHideRecordNumberOption() {
-        let select_div = document.getElementById("numbers-table-container")
-        let input_div = document.getElementById("enter-nums-input-container")
-        if (this.recording_values == "select") {
-            select_div.style.display = "block"
-            input_div.style.display = "none"
-        } else {
-            input_div.style.display = "block"
-            select_div.style.display = "none"
-        }
+    hexToRGB(hex_code) {
+        if (hex_code.length == 7) {
+            hex_code = hex_code.substring(1)
+        } 
+        var rgbHex = hex_code.match(/.{1,2}/g);
+        var rgb_array = [
+            parseInt(rgbHex[0], 16),
+           parseInt(rgbHex[1], 16),
+            parseInt(rgbHex[2], 16)
+        ];
+
+        return rgb_array
+
     }
 
-    callNumber(element) {
-        let num = parseInt(element.innerHTML)
+    numberCellClicked(element) {
+        let num = parseInt(element.innerHTML);
         //bold the element innerhtml
-
         //call/uncall the number for each of the boards assuming there are boards
+        if (!this.call_list.includes(num)) {
+            this.call_list.push(num);
+            element.style.fontWeight = 900;
+            let rgb_array = this.hexToRGB(this.highlight_color);
+            element.style.backgroundColor = `rgba(${rgb_array[0]}, ${rgb_array[1]}, ${rgb_array[2]}, 0.2)`
+            for (let i = 0; i < this.current_boards.length; i++) {
+                this.current_boards[i].callNumber(num)
+            }
+            
+        } else {
+            let num_index = this.call_list.indexOf(num)
+            this.call_list.splice(num_index)
+            element.style.fontWeight = 400;
+            element.style.backgroundColor = "transparent";
+            element.style.opacity = "1";
+            for (let i = 0; i < this.current_boards.length; i++) {
+                this.current_boards[i].uncallNumber(num)
+            }
+        }
+        
     }
 
     buildNewPlayer() {
@@ -212,10 +229,20 @@ class PlayerOrganizer {
 
         //update highlight color for called cells
         this.changeCSSStyle(".bingo-cell-called-highlight", "background-color", this.highlight_color)
+        
+        //clear called nums list and reset called nums table style
+        this.call_list = []
+        this.current_boards = []
 
-        //update recording numbers option
-        this.showHideRecordNumberOption()
-
+        //clear and display (re-display) recording numbers option
+        let called_table_cells = document.getElementsByClassName("horizontal-table-cell") 
+        for (let i = 0; i < called_table_cells.length; i++) {
+            called_table_cells[i].style.fontWeight = 400;
+            called_table_cells[i].style.backgroundColor = "transparent";
+            called_table_cells[i].style.opacity = "1";
+        }
+        let select_div = document.getElementById("numbers-table-container")
+        select_div.style.display = "block"
         
         //build the rows for the board visuals
         const boards_per_row = 4
@@ -228,7 +255,7 @@ class PlayerOrganizer {
 
         //build the bingo boards from Classes
         for (let i = 0; i < this.boards_num; i++) {
-            this.current_boards.push(new BingoBoard())
+            this.current_boards.push(new BingoBoard(i))
         }
     }
 
@@ -236,9 +263,14 @@ class PlayerOrganizer {
 }
 
 class BingoBoard {
-    constructor() {
-        this.board_columns = this.createNumberColumns()
-        this.buildBingoBoardVisual(this.board_columns)
+    constructor(id) {
+        this.id_num = id
+        this.all_nums = []
+        this.columns = this.createNumberColumns()
+        this.rows = this.buildRows()
+        //this.LRDown = this.buildLRDown()
+        //this.LRUp = this.buildLRUp()
+        this.buildBingoBoardVisual()
     }
 
     genRandomNumber(col_iter) {
@@ -258,16 +290,31 @@ class BingoBoard {
                 columns[i].push(random_num)
             }
         }
-        
+        //designate the free space
+        columns[2][2] = "FREE"
         return columns
     }
 
-    buildBingoBoardVisual(number_columns_array) {
+    buildRows() {
+        let rows = [] 
+        for (let i = 0; i < 5; i++) {
+            let row = []
+            for (let j = 0; j < 5; j++) {
+                row.push(this.columns[j][i])
+                this.all_nums.push(this.columns[j][i])
+            }
+            rows.push(row)
+        }
+        return rows
+    }
+
+    buildBingoBoardVisual() {
         const board_border = document.createElement("div")
         board_border.classList.add("board-border", "side-by-side")
     
         const table_container = document.createElement("div")
         table_container.classList.add("board-table")
+        table_container.setAttribute("id", `cells-container-board-${this.id_num}`)
     
         const header_letters = ["B", "I", "N", "G", "O"]
         const header_row = document.createElement("div")
@@ -290,12 +337,11 @@ class BingoBoard {
                 if (i == 2 && j == 2) {
                     board_cell.classList.add("board-cell", "side-by-side", "bingo-cell-called-highlight")
                     board_text.classList.add("board-cell-text-sizing", "board-free-cell-text")
-                    board_text.innerHTML = "FREE"
                 } else {
                     board_cell.classList.add("board-cell", "side-by-side")
                     board_text.classList.add("board-cell-text-sizing")
-                    board_text.innerHTML = `${number_columns_array[j][i]}`    
                 }
+                board_text.innerHTML = `${this.rows[i][j]}`    
                 board_cell.appendChild(board_text)
                 board_row.appendChild(board_cell)
                 
@@ -304,8 +350,6 @@ class BingoBoard {
     
         }
         board_border.appendChild(table_container)
-
-        
         const board_rows = document.getElementById("play-boards-div").children
         
         if (board_rows[0].children.length < 4) {
@@ -313,10 +357,24 @@ class BingoBoard {
         } else {
             board_rows[1].appendChild(board_border)
         }
-        
+    }
 
-        
-    
+    callNumber(num) {
+        let table_divs_container = document.getElementById(`cells-container-board-${this.id_num}`)
+        let num_index = this.all_nums.indexOf(num)
+        if (num_index != -1) {
+            let called_cell = table_divs_container.children[Math.floor(num_index / 5)+1].children[num_index % 5]
+            called_cell.classList.add("bingo-cell-called-highlight")
+        }
+    }
+
+    uncallNumber(num) {
+        let table_divs_container = document.getElementById(`cells-container-board-${this.id_num}`)
+        let num_index = this.all_nums.indexOf(num)
+        if (num_index != -1) {
+            let called_cell = table_divs_container.children[Math.floor(num_index / 5)+1].children[num_index % 5]
+            called_cell.classList.remove("bingo-cell-called-highlight")
+        }
     }
 
     

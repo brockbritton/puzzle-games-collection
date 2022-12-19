@@ -7,7 +7,7 @@ class SudokuBoard {
     }
 
     buildColumns() {
-        let cols = [] 
+        let cols = []
         for (let i = 0; i < 9; i++) {
             cols.push([])
         }
@@ -114,6 +114,16 @@ class SudokuBoard {
     }
 
     //combine some of these loops to reduce so much looping?
+    findNakedSingles() {
+        for (let row in this.rows) {
+            for (let col in this.rows[row]) {
+                if (Array.isArray(this.rows[row][col]) && this.rows[row][col].length == 1) {
+                    this.updateBoard(this.rows[row][col][0], row, col)
+                }
+            }
+        }
+    }
+
     findHiddenSingles() {
         let sets = [this.rows, this.columns, this.ninths]
         for (let i in sets) {
@@ -239,6 +249,14 @@ class SudokuBoard {
         //where there are naked pairs hidden within other notes in those cells
     }
 
+    tryANumber() {
+        //recursive !!
+        //find naked pairs, plug in the first value for one cell, then try to solve
+        //if solveboard() comes back false, try the other value, 
+        //if both numbers come back false, try to go back to the first function call.
+
+    }
+
     createNotes() {
         for (let row in this.rows) {
             for (let col in this.rows[row]) {
@@ -303,16 +321,6 @@ class SudokuBoard {
             return true //dev
         }
         
-    }
-
-    findNakedSingles() {
-        for (let row in this.rows) {
-            for (let col in this.rows[row]) {
-                if (Array.isArray(this.rows[row][col]) && this.rows[row][col].length == 1) {
-                    this.updateBoard(this.rows[row][col][0], row, col)
-                }
-            }
-        }
     }
 
     checkBoardFilled() {

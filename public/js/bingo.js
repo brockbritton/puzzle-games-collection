@@ -55,6 +55,7 @@ function buildPlayerCalledNumbersTable() {
         for (let i = 1; i < 16; i++) {
             let cell = table_row.insertCell(i)
             cell.classList.add("horizontal-table-cell")
+            cell.setAttribute("onclick", "curr_bingo_state.numberCellClicked(this)")
             cell.innerHTML = `${(15 * r) + i}`
         }
     }

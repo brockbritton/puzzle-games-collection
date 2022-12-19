@@ -47,21 +47,17 @@ function play_a_game() {
     let radio_label = document.querySelector(`label[for=${select_radio.id}]`);
     let par = document.getElementById("game-type-header");
     par.innerHTML = `Play Sudoku : ${radio_label.innerHTML}`
-    fill_in_board(available_games[select_radio.value])
-    update_cell_styles("game")
+    update_board(available_games[select_radio.value], "game")
+
 
 }
 
 //Solve Board Button
 function solve_a_game() {
-
-    //let rows_array = get_board_values();
-    let rows_array = easy_game1 //dev
-    fill_in_board(rows_array) //dev
-    update_cell_styles("game")
+    let rows_array = get_board_values();
     const solve_game = new solveSudokuGame(rows_array);
     if (solve_game.solution_board != null) {
-        fill_in_board(solve_game.solution_board.rows)
+        update_board(solve_game.solution_board.rows, "game")
         console.log(solve_game.solution_board.rows)
     } else {
         alert("no solution found. please make sure you have correctly input the board values.")
@@ -71,7 +67,6 @@ function solve_a_game() {
 function reset_sudoku_board_options() {
     clear_board_values()
     //reset the gamemode dropdown
-    console.log("fo") 
 }
 
 
@@ -83,9 +78,12 @@ function update_drpdwn_divs() {
         if (gamemode_dropdown.value[0] == "s") {
             solve_div.style.display = "block";
             play_div.style.display = "none";
+            let rows_array = easy_game1 //dev
+            update_board(rows_array, "game") //dev
         } else if (gamemode_dropdown.value[0] == "p") {
             solve_div.style.display = "none";
             play_div.style.display = "block";
+            
         }   
     } else {
         play_div.style.display = "none";
@@ -102,9 +100,6 @@ function clear_board_values() {
     update_board(null, null)
     
     
-    //these are defunct
-    //fill_in_board(null) 
-    //update_cell_styles(null)
 
 }
 

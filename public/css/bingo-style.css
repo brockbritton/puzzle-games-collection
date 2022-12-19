@@ -382,12 +382,6 @@
     margin: auto;
 }
 
-#enter-nums-input-container {
-    display: none; 
-    margin: auto;
-    width: max-content;
-}
-
 #selectable-number-table .horizontal-table-header-cell {
     width: 40px;
     height: 30px;
@@ -400,6 +394,7 @@
     height: 30px;
     text-align: center;
     border: black 1px solid;
+    cursor: pointer;
 }
 
 #selectable-table-p {
@@ -411,31 +406,6 @@
 
 #numbers-table-container {
     display: none;
-}
-
-#called-num-input-label {
-    font-size: 55px;
-    font-weight: 600;
-    margin: 0;
-}
-
-#called-num-input {
-    font-size: 55px;
-    width: 65px;
-    padding: 0px;
-    border: none;
-    border-bottom: black 2px solid !important;
-    padding: 5px;
-}
-
-#called-num-input :focus {
-    outline: none;
-}
-
-#input-call-uncall-buttons {
-    width: 150px;
-    height: 70px;
-    margin-left: 20px;
 }
 
 
