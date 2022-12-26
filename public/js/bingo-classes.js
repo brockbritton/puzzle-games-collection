@@ -141,8 +141,28 @@ class PlayerOrganizer {
         this.updateWinningPattern() //this.winning_pattern 
 
         this.winning_patterns_dict = {
-            "blackout" : [],
-            "four-corners" : []
+            "standard": 
+            [
+                [true, true, true, true, true],
+                [true, true, false, false, false],
+                [true, false, true, false, false],
+                [true, false, false, true, false],
+                [true, false, false, false, true]
+            ],
+            "blackout": [
+                [true, true, true, true, true],
+                [true, true, true, true, true],
+                [true, true, true, true, true],
+                [true, true, true, true, true],
+                [true, true, true, true, true]
+            ],
+            "four-corners": [
+                [true, false, false, false, true],
+                [false, false, false, false, false],
+                [false, false, false, false, false],
+                [false, false, false, false, false],
+                [true, false, false, false, true],
+            ]
         }
     }
 
@@ -157,17 +177,28 @@ class PlayerOrganizer {
 
     updateHighlightColor() {
         let colorpicker = document.getElementById("highlight-colorpicker")
+        this.changeCSSStyle(".custom-board-cell-highlight", "background-color", colorpicker.value)
         this.highlight_color = colorpicker.value
     }
 
     updateWinningPattern() {
-        this.winning_pattern = this.getDropdownValue("winning-pattern-dropdown")
+        let value = this.getDropdownValue("winning-pattern-dropdown")
+        this.winning_pattern = value
+
+        let content = document.getElementById("create-custom-winning-pattern-div")
+        let other_select = document.getElementById("other-select")
+        if (other_select.selected) {
+            content.style.maxHeight = "300px";
+        } else {
+            content.style.maxHeight = "0px";
+            
+        }
     }
 
     clearDivByID(id) {
-        let boards_div = document.getElementById(id)
-        while (boards_div.firstChild) {
-            boards_div.removeChild(boards_div.firstChild);
+        let div_to_clear = document.getElementById(id)
+        while (div_to_clear.firstChild) {
+            div_to_clear.removeChild(div_to_clear.firstChild);
         }
     }
 
@@ -185,8 +216,8 @@ class PlayerOrganizer {
         if (hex_code.length == 7) {
             hex_code = hex_code.substring(1)
         } 
-        var rgbHex = hex_code.match(/.{1,2}/g);
-        var rgb_array = [
+        let rgbHex = hex_code.match(/.{1,2}/g);
+        let rgb_array = [
             parseInt(rgbHex[0], 16),
            parseInt(rgbHex[1], 16),
             parseInt(rgbHex[2], 16)
@@ -200,49 +231,102 @@ class PlayerOrganizer {
         let num = parseInt(element.innerHTML);
         //bold the element innerhtml
         //call/uncall the number for each of the boards assuming there are boards
+        element.classList.toggle("bingo-cell-called-transparent-highlight") 
+        element.classList.toggle("font-weight-900")
         if (!this.call_list.includes(num)) {
             this.call_list.push(num);
-            element.style.fontWeight = 900;
-            let rgb_array = this.hexToRGB(this.highlight_color);
-            element.style.backgroundColor = `rgba(${rgb_array[0]}, ${rgb_array[1]}, ${rgb_array[2]}, 0.2)`
             for (let i = 0; i < this.current_boards.length; i++) {
                 this.current_boards[i].callNumber(num)
-            }
-            
+            }  
         } else {
             let num_index = this.call_list.indexOf(num)
             this.call_list.splice(num_index)
-            element.style.fontWeight = 400;
-            element.style.backgroundColor = "transparent";
-            element.style.opacity = "1";
             for (let i = 0; i < this.current_boards.length; i++) {
                 this.current_boards[i].uncallNumber(num)
             }
         }
-        
+    }
+
+    collectCustomWinningPattern() {
+        let values = []
+        let cells = document.getElementsByClassName("custom-wp-cells")
+        for (let i = 0; i < cells.length; i++) {
+            if (cells[i].classList.contains("custom-board-cell-highlight")) {
+                values.push(true)
+            } else {
+                values.push(false)
+            }
+        }
+        return values 
     }
 
     buildNewPlayer() {
-
-        //clear old bingo boards
+        //delete old bingo boards
         this.clearDivByID("play-boards-div")
 
-        //update highlight color for called cells
+        let custom_wp_container = document.getElementById("create-custom-winning-pattern-div")
+        let custom_wp_array = null
+        if (custom_wp_container.style.maxHeight != "0px") {
+            //get the custom winning pattern
+            custom_wp_array = this.collectCustomWinningPattern()
+            if (!custom_wp_array.includes(true)) {
+                alert("please select at least one cell for your custom pattern")
+                return false
+            }
+
+            //fill in the display for the winning pattern
+            let display_cells = document.getElementsByClassName("wp-display-cells")
+            for (let i = 0; i < display_cells.length; i++) {
+                if (custom_wp_array[i]) {
+                    display_cells[i].classList.add("bingo-cell-called-highlight")
+                } else {
+                    display_cells[i].classList.remove("bingo-cell-called-highlight")
+                }
+
+            }
+            //hide and clear custom wp board
+            custom_wp_container.style.maxHeight = "0px";
+            let custom_wp_cells = document.getElementsByClassName("custom-wp-cells")
+            for (let i = 0; i < custom_wp_cells.length; i++) {
+                if (custom_wp_cells[i].classList.contains("custom-board-cell-highlight")) {
+                    custom_wp_cells[i].classList.toggle("custom-board-cell-highlight")
+                }   
+            }
+        }
+
+        //update highlight color for called bingo card cells
         this.changeCSSStyle(".bingo-cell-called-highlight", "background-color", this.highlight_color)
+
+        //update highlight color for called table of numbers
+        let rgb_array = this.hexToRGB(this.highlight_color);
+        this.changeCSSStyle(".bingo-cell-called-transparent-highlight", "background-color", `rgba(${rgb_array[0]}, ${rgb_array[1]}, ${rgb_array[2]}, 0.2)`)
         
         //clear called nums list and reset called nums table style
         this.call_list = []
         this.current_boards = []
 
-        //clear and display (re-display) recording numbers option
+        //update current game label, display label
+        let game_type_label = document.getElementById("curr-game-label")
+        if (custom_wp_array == null) {
+            game_type_label.innerHTML = "Current Game: Classic"
+        } else {
+            game_type_label.innerHTML = "Current Game: Pattern Match"
+        }
+        game_type_label.style.display = "block"
+
+        //clear and display (or re-display) recording numbers option
         let called_table_cells = document.getElementsByClassName("horizontal-table-cell") 
         for (let i = 0; i < called_table_cells.length; i++) {
-            called_table_cells[i].style.fontWeight = 400;
-            called_table_cells[i].style.backgroundColor = "transparent";
-            called_table_cells[i].style.opacity = "1";
+            console.log(called_table_cells[i].classList)
+            if (called_table_cells[i].classList.contains("bingo-cell-called-transparent-highlight")) {
+                called_table_cells[i].classList.toggle("bingo-cell-called-transparent-highlight")
+                called_table_cells[i].classList.toggle("font-weight-900")
+
+
+            }
         }
-        let select_div = document.getElementById("numbers-table-container")
-        select_div.style.display = "block"
+        let select_div = document.getElementById("recording-nums-wp-display")
+        select_div.style.display = "flex"
         
         //build the rows for the board visuals
         const boards_per_row = 4
@@ -254,8 +338,26 @@ class PlayerOrganizer {
         }
 
         //build the bingo boards from Classes
+        //also display pattern match display or classic win paragraph
+        let classic_par = document.getElementById("classic-win-par")
+        let wp_display = document.getElementById("custom_wp_display")
         for (let i = 0; i < this.boards_num; i++) {
-            this.current_boards.push(new BingoBoard(i))
+            if (custom_wp_array == null) {
+                this.current_boards.push(new ClassicBingoBoard(i))
+                classic_par.style.display = "block"
+                wp_display.style.display = "none"
+
+            } else {
+                this.current_boards.push(new PatternMatchBingoBoard(i, custom_wp_array))
+                classic_par.style.display = "none"
+                wp_display.style.display = "block"
+            }
+            
+        }
+        //reset dropdowns
+        let default_options = document.getElementsByClassName("default-dropdown-option")
+        for (let i = 0; i < default_options.length; i++) {
+            default_options[i].selected = true
         }
     }
 
@@ -268,9 +370,8 @@ class BingoBoard {
         this.all_nums = []
         this.columns = this.createNumberColumns()
         this.rows = this.buildRows()
-        //this.LRDown = this.buildLRDown()
-        //this.LRUp = this.buildLRUp()
         this.buildBingoBoardVisual()
+
     }
 
     genRandomNumber(col_iter) {
@@ -377,5 +478,64 @@ class BingoBoard {
         }
     }
 
-    
+}
+
+class PatternMatchBingoBoard extends BingoBoard {
+    constructor(id, pattern) {
+        super(id)
+        this.win_bool_pattern = pattern
+        this.checkFreeSpaceHighlight()
+        this.curr_bool_pattern = []
+        for (let i = 0; i < pattern.length; i++) {
+            if (i != Math.floor(pattern.length/2)) {
+                this.curr_bool_pattern.push(false) 
+            } else {
+                this.curr_bool_pattern.push(true)
+            } 
+        } 
+    }
+
+    checkFreeSpaceHighlight() {
+        let table_divs_container = document.getElementById(`cells-container-board-${this.id_num}`)
+        let free_index = this.all_nums.indexOf('FREE')
+        let free_cell = table_divs_container.children[Math.floor(free_index / 5)+1].children[free_index % 5]
+        if (!this.win_bool_pattern[free_index]) {
+            free_cell.classList.add("bingo-cell-called-transparent-highlight")
+            free_cell.classList.remove("bingo-cell-called-highlight")
+        }
+    }
+
+    callNumber(num) {
+        let table_divs_container = document.getElementById(`cells-container-board-${this.id_num}`)
+        let num_index = this.all_nums.indexOf(num)
+        if (num_index != -1) {
+            let called_cell = table_divs_container.children[Math.floor(num_index / 5)+1].children[num_index % 5]
+            if (this.win_bool_pattern[num_index]) {
+                called_cell.classList.add("bingo-cell-called-highlight")
+            } else {
+                called_cell.classList.add("bingo-cell-called-transparent-highlight")
+            }
+        }
+    }
+
+    collectCellsNumInPattern() {
+        //count the true values in a pattern
+    }
+
+    checkWin() {
+        //check current boolean board against bool winning pattern
+        //current board can have more trues, but needs the right ones in the right place
+    }
+
+
+
+}
+
+class ClassicBingoBoard extends BingoBoard {
+    constructor(id) {
+        super (id)
+        this.necessry_calls = 5
+        //this.LRDown = this.buildLRDown()
+        //this.LRUp = this.buildLRUp()
+    }
 }

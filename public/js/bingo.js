@@ -62,7 +62,73 @@ function buildPlayerCalledNumbersTable() {
     table_container.appendChild(table)
 
     const instructions_par = document.createElement("p");
-    instructions_par.setAttribute("id", "selectable-table-p")
-    instructions_par.innerHTML = "When a number is called, click the corresponding cell. Your board(s) below will automatically updated."
+    instructions_par.classList.add("bingo-table-captions")
+    instructions_par.innerHTML = "when a number is called, click the corresponding cell. your board(s) below will be automatically updated."
     table_container.appendChild(instructions_par)
+}
+
+function buildCustomPatternSelectBoard() {
+    const table_container = document.getElementById("create-custom-winning-pattern-div")
+    const table = document.createElement("table")
+    table.setAttribute("id", "custom-pattern-table")
+    let header_letters = ["B", "I", "N", "G", "O"]
+    let header_row = document.createElement("tr") 
+    for (let h = 0; h < header_letters.length; h++) {
+        let header_cell = document.createElement("th")
+        header_cell.innerHTML = header_letters[h]
+        header_row.appendChild(header_cell)
+    }
+    table.appendChild(header_row)
+
+    for (let i = 0; i < 5; i++) {
+        let board_row = document.createElement("tr")
+        for (let j = 0; j < 5; j++) {
+            let board_cell = document.createElement("td") 
+            board_cell.classList.add("custom-wp-cells")
+            board_cell.setAttribute("onclick", "toggleHighlight(this)") 
+            if (i == 2 && j == 2) {
+                board_cell.innerHTML = "FREE"
+                board_cell.setAttribute("id", "custom-pattern-free-space")
+            } else {
+                board_cell.innerHTML = "##"
+            }
+            
+            board_row.appendChild(board_cell)
+        }
+        table.appendChild(board_row)
+    }
+    table_container.appendChild(table)
+}
+
+function buildCustomPatternDisplayBoard() {
+    const table_container = document.getElementById("custom_wp_display")
+    const table = document.createElement("table")
+    table.setAttribute("id", "display-wp-table")
+
+    for (let i = 0; i < 5; i++) {
+        let board_row = document.createElement("tr")
+        for (let j = 0; j < 5; j++) {
+            let board_cell = document.createElement("td") 
+            board_cell.classList.add("wp-display-cells") 
+            if (i == 2 && j == 2) {
+                board_cell.innerHTML = "FREE"
+                board_cell.setAttribute("id", "custom-pattern-free-space")
+            } else {
+                board_cell.innerHTML = "##"
+            }
+            
+            board_row.appendChild(board_cell)
+        }
+        table.appendChild(board_row)
+    }
+    table_container.appendChild(table)
+
+    let table_label = document.createElement("p")
+    table_label.classList.add("bingo-table-captions")
+    table_label.innerHTML = "to win, you must match this pattern"
+    table_container.appendChild(table_label)
+}
+
+function toggleHighlight(element) {
+    element.classList.toggle("custom-board-cell-highlight")
 }
