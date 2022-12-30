@@ -330,7 +330,7 @@
     height: max-content;
     width: max-content;
     border: black 3px solid;
-    padding: 15px 20px 20px 20px;
+    padding: 15px 20px 15px 20px;
     background-color: whitesmoke; 
     margin: 20px;
 }
@@ -387,7 +387,7 @@
 }
 
 #selectable-number-table {
-    margin: auto;
+    margin: 0px;
 }
 
 #selectable-number-table .horizontal-table-header-cell {
@@ -422,37 +422,6 @@
     width: max-content;
 }
 
-#winning-pattern-display-container {
-    margin-left: 20px;
-    width: 250px;
-    padding-top: 0px;
-}
-
-
-#custom_wp_display {
-    display: none;
-    height: 250px;
-    width: 250px;
-    margin-top: none;
-    padding-top: none;
-}
-
-#display-wp-table {
-    margin: auto;
-}
-
-#display-wp-table td {
-    border: black 1px solid;
-    width: 25px;
-    height: 25px;
-}
-
-#classic-win-par {
-    display: none;
-    text-align: center;
-    margin-top: none;
-    padding-top: none;
-}
 
 #custom-pattern-prompt {
     font-size: 16px;
@@ -497,4 +466,96 @@
     margin: auto;
     text-align: center;
     font-size: 20px;
+}
+
+#gameplay-nums-table-wp-display {
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    width: 100;
+    margin: auto;
+    display: flex;
+}
+
+#bingo-alert-popup-display {
+    z-index: 3;
+    position: absolute;
+    top: 0;
+    background-color: transparent;
+    width: 100%;
+    
+}
+
+#bingo-alert-background {
+    position: relative;
+    border-radius: 25px;
+    width: 400px;
+    height: 200px;
+    margin: auto;
+    margin-top: 15px !important;
+    background-color: green;
+    
+}
+
+#bingo-alert-header {
+    font-size: 60px;
+    margin: 0;
+    text-align: center;
+}
+
+.bingo-alert-text {
+    text-align: center;
+    margin: 5px;
+}
+
+#bingo-play-control-box {
+    display: none;
+    position: relative;
+    width: 100%;
+    height: 250px;
+}
+
+#gameplay-nums-table-wp-display {
+    position: relative;
+    width: max-content;
+    margin: auto;
+    
+}
+
+#winning-pattern-display-container {
+    width: 250px;
+    padding-top: 0px;
+}
+
+
+#custom_wp_display {
+    display: none;
+    height: 250px;
+    width: 250px;
+    margin-top: none;
+    padding-top: none;
+}
+
+#display-wp-table {
+    margin: auto;
+}
+
+#display-wp-table td {
+    border: black 1px solid;
+    width: 25px;
+    height: 25px;
+}
+
+#classic-win-par {
+    display: none;
+    text-align: center;
+    margin-top: none;
+    padding-top: none;
+}
+
+.board_id_label {
+    margin: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 13px;
 }
