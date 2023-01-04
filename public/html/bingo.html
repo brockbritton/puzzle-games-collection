@@ -17,14 +17,17 @@
         <h2>Play & Call Bingo</h2>
     </div>
     <div id="play-or-call-choice-div">
-        <label for="choose-bingo-gamemode-drpdwn"> 
-            please toggle between playing or calling bingo: 
-        </label>
-        <br>
-        <select id="choose-bingo-gamemode-drpdwn" onchange="switchBingoStates()">
-            <option value="0"> call bingo </option>
-            <option value="1" selected> play bingo </option>
-        </select>
+        <div id="play-or-call-toggle-container">
+            <p id="switch-bingo-toggle-label"> 
+                to switch bingo modes, please toggle below 
+            </p>
+            <br>
+            <select id="choose-bingo-gamemode-drpdwn" onchange="switchBingoStates()">
+                <option value="0"> call bingo </option>
+                <option value="1" selected> play bingo </option>
+            </select>
+        </div>
+        <p id="aware-warning"> please be aware that switching gamemodes will erase your current game if one is running </p>
     </div>
     <div>
         <div id="bingo-caller-div">
@@ -103,7 +106,7 @@
                             <button class="bingo-buttons"  onclick="curr_bingo_state.checkCallNumber()"> Call a Number </button> 
                         </div>
                         <div class="side-by-side" id="calling-number-display">
-                            <p id="html-call-display"> &#8203; </p>
+                            <p id="html-call-display" class="numbers-font"> &#8203; </p>
                         </div>
                     </div>
                     <!-- add a call history? -->
@@ -185,9 +188,20 @@
                     </div>
                     <div id="bingo-alert-popup-display">
                         <div id="bingo-alert-background"> 
+                            <!-- blur background on popup? -->
                             <p id="bingo-alert-header"> BINGO! </p>
-                            <p class="bingo-alert-text"> new win board(s): 4</p>
-                            <p class="bingo-alert-text"> previous win boards(s): 1, 2, 3</p>
+                            <div class="popup-text-container">
+                                <p class="alert-new-text"> Board(s):</p>
+                                <p class="alert-new-text" id="alert-new-nums"></p>
+                            </div>
+        
+                            <div class="popup-text-container">
+                                <p class="alert-old-text"> Prior Win Board(s):</p>
+                                <p class="alert-old-text" id="alert-old-nums"></p>
+                            </div>
+                            <div id="bingo-alerts-buttons-container">
+                                <button class="bingo-alert-button bingo-buttons" onclick="curr_bingo_state.toggleBingoAlert()"> Continue </button>
+                            </div>
                         </div> 
                     </div>
                 </div>
@@ -210,6 +224,9 @@
         buildCustomPatternSelectBoard()
         buildCustomPatternDisplayBoard()
 
+        //add a page event listener for enter
+        //if on caller, call number, otherwise prevent default
+        
     </script>
 </body>
 </html>

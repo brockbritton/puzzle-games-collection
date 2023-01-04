@@ -25,7 +25,7 @@ class CallerOrganizer {
         //reset the called numbers table
         const table_cells = document.getElementsByClassName("cell_number_class")
         for (let i = 0; i < table_cells.length; i++) {
-            if (table_cells[i].classList.length > 2) {
+            if (table_cells[i].classList.contains("cell_number_called")) {
                 table_cells[i].classList.toggle("cell_number_called")
             }
         }
@@ -126,9 +126,6 @@ class BingoCaller {
             let html_display = document.getElementById("html-call-display")
             html_display.innerHTML = "&#8203;"
         }
-        
-
-
     }
 }
 
@@ -139,6 +136,7 @@ class PlayerOrganizer {
         this.updateBoardsNum() //this.boards_num
         this.updateHighlightColor() //this.highlight_color 
         this.updateWinningPattern() //this.winning_pattern 
+        //also need to update / clear old game visuals
 
     }
 
@@ -203,9 +201,6 @@ class PlayerOrganizer {
 
     numberCellClicked(element) {
         let num = parseInt(element.innerHTML);
-        //bold the element innerhtml
-        //call/uncall the number for each of the boards assuming there are boards
-        element.classList.toggle("bingo-cell-called-transparent-highlight") 
         element.classList.toggle("font-weight-900")
         if (!this.call_list.includes(num)) {
             this.call_list.push(num);
@@ -220,12 +215,69 @@ class PlayerOrganizer {
             }
         }
 
+        //look for bingo in current boards
+        //if found, update the custom bingo alert
+        this.evaluateBingoCalls()
+        
+    }
+
+    evaluateBingoCalls() {
+        let first_bingo_boards = []
+        let old_bingo_boards = []
         for (let i = 0; i < this.current_boards.length; i++) {
-            if (this.current_boards[i].bingo_win && this.current_boards[i].first_bingo_call) {
-                alert(`Bingo on Board ${this.current_boards[i].id_num + 1}!`)
-                this.current_boards[i].first_bingo_call = false
+            if (this.current_boards[i].bingo_win) {
+                if (this.current_boards[i].first_bingo_call) {
+                    first_bingo_boards.push(this.current_boards[i])
+                    this.current_boards[i].first_bingo_call = false
+                } else {
+                    old_bingo_boards.push(this.current_boards[i])
+                }
             }
         }
+
+        if (first_bingo_boards.length > 0) {
+            let first_bingo_nums = this.buildBoardsNumPhrase(first_bingo_boards)
+            document.getElementById("alert-new-nums").innerHTML = first_bingo_nums
+            if (old_bingo_boards.length > 0) {
+                let old_bingo_nums = this.buildBoardsNumPhrase(old_bingo_boards)
+                document.getElementById("alert-old-nums").innerHTML = old_bingo_nums
+            } else {
+                document.getElementById("alert-old-nums").innerHTML = "none"
+            }
+            this.toggleBingoAlert()
+        }
+    }
+
+    toggleBingoAlert() {
+        const bingo_popup = document.getElementById("bingo-alert-popup-display")
+        const blur_div = document.getElementById("numbers-table-container")
+        if (bingo_popup.style.zIndex == 1) {
+            //change popup to visible and blur
+            blur_div.style.filter = blur("11px")
+            bingo_popup.style.zIndex = 3
+        } else {
+            //hide popup and unblur
+            blur_div.style.filter = "none"
+            bingo_popup.style.zIndex = 1
+        }
+    
+    }
+
+    buildBoardsNumPhrase(boards_array) {
+        if (boards_array.length == 0) {
+            return false
+        } else if (boards_array.length == 1) {
+            return boards_array[0].board_num
+        } else if (boards_array.length == 2) {
+            return `${boards_array[0].board_num} & ${boards_array[1].board_num}`
+        } else {
+            let phrase = ""
+            for (let i = 0; i < boards_array.length - 1; i++) {
+                phrase += ` ${boards_array[i].board_num},`
+            }  
+            phrase += ` & ${boards_array[boards_array.length - 1].board_num}`
+            return phrase
+        } 
     }
 
     collectCustomWinningPattern() {
@@ -245,14 +297,29 @@ class PlayerOrganizer {
         //delete old bingo boards
         this.clearDivByID("play-boards-div")
 
+        //collect and analyze the custom pattern
         let custom_wp_container = document.getElementById("create-custom-winning-pattern-div")
         let custom_wp_array = null
         if (custom_wp_container.style.maxHeight != "0px") {
             //get the custom winning pattern
             custom_wp_array = this.collectCustomWinningPattern()
-            if (!custom_wp_array.includes(true)) {
+            let selected_count = 0
+            for (let i = 0; i < custom_wp_array.length; i++) {
+                if (custom_wp_array[i]) {
+                    selected_count += 1
+                }
+            }
+            //if there are no selected cells for the pattern
+            if (selected_count == 0) {
                 alert("please select at least one cell for your custom pattern")
                 return false
+            } else if (selected_count == 1) {
+                let check_for_center = this.collectCustomWinningPattern()
+                check_for_center.splice(Math.floor(check_for_center.length / 2))
+                if (!check_for_center.includes(true)) {
+                    alert("please choose more than just the free space")
+                    return false
+                }
             }
 
             //fill in the display for the winning pattern
@@ -295,11 +362,14 @@ class PlayerOrganizer {
         }
         game_type_label.style.display = "block"
 
+        //hide the bingo popup if necessary -- maybe also need to delete the blur?
+        let bingo_popup = document.getElementById("bingo-alert-popup-display")
+        bingo_popup.style.zIndex = 1
+
         //clear and display (or re-display) recording numbers option
         let called_table_cells = document.getElementsByClassName("horizontal-table-cell") 
         for (let i = 0; i < called_table_cells.length; i++) {
-            if (called_table_cells[i].classList.contains("bingo-cell-called-transparent-highlight")) {
-                called_table_cells[i].classList.toggle("bingo-cell-called-transparent-highlight")
+            if (called_table_cells[i].classList.contains("font-weight-900")) {
                 called_table_cells[i].classList.toggle("font-weight-900")
             }
         }
@@ -330,7 +400,6 @@ class PlayerOrganizer {
                 classic_par.style.display = "none"
                 wp_display.style.display = "block"
             }
-            
         }
         //reset dropdowns
         let default_options = document.getElementsByClassName("default-dropdown-option")
@@ -345,10 +414,12 @@ class PlayerOrganizer {
 class BingoBoard {
     constructor(id) {
         this.id_num = id
+        this.board_num = id + 1
         this.all_nums = []
         this.columns = this.createNumberColumns()
         this.rows = this.buildRows()
         this.curr_bool_pattern = this.buildStartingBoolPattern()
+        this.calls_for_bingo = 5
         this.bingo_win = false
         this.first_bingo_call = true
         this.buildBingoBoardVisual()
@@ -413,17 +484,17 @@ class BingoBoard {
             board_row.classList.add("board-row")
             for (let j = 0; j < header_letters.length; j++) {
                 let board_cell = document.createElement("div")
-                let board_text = document.createElement("p")
+                let cell_text = document.createElement("p")
                 
                 if (i == 2 && j == 2) {
                     board_cell.classList.add("board-cell", "side-by-side", "bingo-cell-called-highlight")
-                    board_text.classList.add("board-cell-text-sizing", "board-free-cell-text")
+                    cell_text.classList.add("board-cell-text-sizing", "board-free-cell-text")
                 } else {
-                    board_cell.classList.add("board-cell", "side-by-side")
-                    board_text.classList.add("board-cell-text-sizing")
+                    board_cell.classList.add("board-cell", "side-by-side", "numbers-font")
+                    cell_text.classList.add("board-cell-text-sizing")
                 }
-                board_text.innerHTML = `${this.rows[i][j]}`    
-                board_cell.appendChild(board_text)
+                cell_text.innerHTML = `${this.rows[i][j]}`    
+                board_cell.appendChild(cell_text)
                 board_row.appendChild(board_cell)
                 
             }
@@ -447,21 +518,45 @@ class BingoBoard {
         }
     }
 
+    collectCellsNumInPattern(pattern) {
+        //count the true values in a pattern
+        let count = 0
+        for (let i = 0; i < pattern.length; i++) {
+            if (pattern.length[i]) {
+                count += 1
+            }
+        }
+        return count
+    }
+
     callNumber(num) {
         let table_divs_container = document.getElementById(`cells-container-board-${this.id_num}`)
         let num_index = this.all_nums.indexOf(num)
         if (num_index != -1) {
+            this.curr_bool_pattern[num_index] = true
             let called_cell = table_divs_container.children[Math.floor(num_index / 5)+1].children[num_index % 5]
             called_cell.classList.add("bingo-cell-called-highlight")
+            this.bingo_win = this.checkWin()
+            /*
+            if (this.collectCellsNumInPattern(this.curr_bool_pattern) >= this.calls_for_bingo) {
+                this.bingo_win = this.checkWin()
+            }
+            */
         }
+        
     }
 
     uncallNumber(num) {
         let table_divs_container = document.getElementById(`cells-container-board-${this.id_num}`)
         let num_index = this.all_nums.indexOf(num)
         if (num_index != -1) {
+            this.curr_bool_pattern[num_index] = false
             let called_cell = table_divs_container.children[Math.floor(num_index / 5)+1].children[num_index % 5]
             called_cell.classList.remove("bingo-cell-called-highlight")
+            //if deciding bingo call is misclicked, bingo is removed
+            let win_bool = this.checkWin()
+            this.bingo_win = win_bool
+            this.first_bingo_call = !win_bool
         }
     }
 
@@ -530,19 +625,10 @@ class PatternMatchBingoBoard extends BingoBoard {
             }
 
             //if deciding bingo call is misclicked, bingo is removed
-            this.bingo_win = this.checkWin()
+            let win_bool = this.checkWin()
+            this.bingo_win = win_bool
+            this.first_bingo_call = !win_bool
         }
-    }
-
-    collectCellsNumInPattern(pattern) {
-        //count the true values in a pattern
-        let count = 0
-        for (let i = 0; i < pattern.length; i++) {
-            if (pattern.length[i]) {
-                count += 1
-            }
-        }
-        return count
     }
 
     checkWin() {
@@ -570,5 +656,34 @@ class ClassicBingoBoard extends BingoBoard {
         this.calls_before_bingo = 4
         //this.LRDown = this.buildLRDown()
         //this.LRUp = this.buildLRUp()
+    }
+
+    checkWin() {
+        //check diagonals
+        let LRUp_array = []
+        let LRDown_array = []
+        for (let i = 0, j = 4; i < 5; i++, j--) {
+            LRUp_array.push(this.curr_bool_pattern[(j*5)+i])  
+            LRDown_array.push(this.curr_bool_pattern[(i*5)+i]) 
+        }
+        if (!LRUp_array.includes(false) || !LRDown_array.includes(false)) {
+            return true
+        }
+
+        //check across and down
+        for (let i = 0; i < 5; i++) {
+            let across_array = []
+            let down_array = []
+            for (let j = 0; j < 5; j++) {
+                across_array.push(this.curr_bool_pattern[(i*5)+j])
+                down_array.push(this.curr_bool_pattern[(j*5)+i])
+            }
+            if (!across_array.includes(false) || !down_array.includes(false)) {
+                return true
+            }
+        }
+
+        return false
+        
     }
 }

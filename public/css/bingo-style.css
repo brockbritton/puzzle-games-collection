@@ -1,14 +1,22 @@
 
 #play-or-call-choice-div {
     margin: 0 auto;
-    display: flex;
-    width: min-content;
+    width: max-content;
 }
 
-#play-or-call-choice-div label {
+#play-or-call-toggle-container {
+
+}
+
+#switch-bingo-toggle-label {
     margin: auto;
     width: max-content;
-    padding-right: 20px;
+}
+
+
+#aware-warning {
+    font-size: 16px;
+    text-align: center;
 }
 
 
@@ -254,18 +262,18 @@
 
 #calling-number-display {
     border: black 4px solid;
-    width: 125px;
-    padding-left: 20px;
-    padding-right: 20px;
+    width: 140px;
+    padding-left: 10px;
+    padding-right: 10px;
     margin: 0 0 0 40px;
 }
 
 #calling-number-display p {
-    font-size: 65px;
+    font-size: 60px;
     font-weight: bold;
     margin: 0px;
-    width: 140px;
-    height: 75px;
+    width: max-content;
+    height: min-content;
 }
 
 
@@ -360,7 +368,9 @@
     overflow: hidden;
     font-size: 40px;
     text-align: center;
-    border: whitesmoke 1px solid;
+    border: whitesmoke 1px solid !important;
+    border-radius: 5px;
+    background-color: #E8E8E8;
 }
 
 .board-cell-text-sizing {
@@ -374,6 +384,14 @@
     margin-top: 15px !important;
 }
 
+.board_id_label {
+    margin: 0;
+    margin-top: 10px !important;
+    width: 100%;
+    text-align: center;
+    font-size: 13px;
+}
+
 .bingo-cell-called-highlight {
     background-color: #3380FF !important;
 }
@@ -384,6 +402,10 @@
 
 .font-weight-900 {
     font-weight: 900 !important;
+}
+
+#numbers-table-container {
+    width: 800px;
 }
 
 #selectable-number-table {
@@ -403,6 +425,8 @@
     text-align: center;
     border: black 1px solid;
     cursor: pointer;
+    border-radius: 10px;
+    background-color: whitesmoke;
 }
 
 #create-custom-winning-pattern-div {
@@ -442,6 +466,8 @@
 
 #custom-pattern-free-space {
     font-size: 10px !important;
+    text-align: center !important; 
+    font-weight: 525 !important; 
 }
 
 .custom-board-cell-highlight {
@@ -493,19 +519,44 @@
     height: 200px;
     margin: auto;
     margin-top: 15px !important;
-    background-color: green;
+    background-color: #3380FF;
+    opacity: 0.99;
     
 }
 
 #bingo-alert-header {
     font-size: 60px;
-    margin: 0;
+    padding-top: 20px;
+    margin: 0px;
     text-align: center;
 }
 
-.bingo-alert-text {
+.alert-new-text {
+    font-size: 25px;
     text-align: center;
     margin: 5px;
+    display: inline-block;
+}
+
+.popup-text-container {
+    width: max-content;
+    margin: auto;
+}
+
+.alert-old-text {
+    font-size: 20px;
+    text-align: center;
+    margin: 5px;
+    display: inline-block;
+}
+
+#bingo-alerts-buttons-container {
+    width: max-content;
+    margin: auto;
+}
+
+.bingo-alert-button {
+    
 }
 
 #bingo-play-control-box {
@@ -519,6 +570,7 @@
     position: relative;
     width: max-content;
     margin: auto;
+    background-color: white;
     
 }
 
@@ -532,8 +584,8 @@
     display: none;
     height: 250px;
     width: 250px;
-    margin-top: none;
-    padding-top: none;
+    margin: none;
+    padding: none;
 }
 
 #display-wp-table {
@@ -553,9 +605,3 @@
     padding-top: none;
 }
 
-.board_id_label {
-    margin: 0;
-    width: 100%;
-    text-align: center;
-    font-size: 13px;
-}

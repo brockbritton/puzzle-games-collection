@@ -34,7 +34,7 @@ function buildCallerCalledNumbersTable() {
             let cell = table_row.insertCell(d)
             cell.innerHTML = (d * 15) + (r)
             cell.setAttribute("id", `cell${(d * 15) + (r)}`)
-            cell.classList.add("cell_number_uncalled", "cell_number_class");
+            cell.classList.add("cell_number_uncalled", "cell_number_class", "numbers-font");
         }
     }
     table_container.appendChild(table)
@@ -54,7 +54,7 @@ function buildPlayerCalledNumbersTable() {
         header_cell.innerHTML = header_letters[r] 
         for (let i = 1; i < 16; i++) {
             let cell = table_row.insertCell(i)
-            cell.classList.add("horizontal-table-cell")
+            cell.classList.add("horizontal-table-cell", "numbers-font")
             cell.setAttribute("onclick", "curr_bingo_state.numberCellClicked(this)")
             cell.innerHTML = `${(15 * r) + i}`
         }
@@ -84,8 +84,8 @@ function buildCustomPatternSelectBoard() {
         let board_row = document.createElement("tr")
         for (let j = 0; j < 5; j++) {
             let board_cell = document.createElement("td") 
-            board_cell.classList.add("custom-wp-cells")
-            board_cell.setAttribute("onclick", "toggleHighlight(this)") 
+            board_cell.classList.add("custom-wp-cells", "numbers-font")
+            board_cell.onclick = function() { this.classList.toggle("custom-board-cell-highlight") };
             if (i == 2 && j == 2) {
                 board_cell.innerHTML = "FREE"
                 board_cell.setAttribute("id", "custom-pattern-free-space")
@@ -109,7 +109,7 @@ function buildCustomPatternDisplayBoard() {
         let board_row = document.createElement("tr")
         for (let j = 0; j < 5; j++) {
             let board_cell = document.createElement("td") 
-            board_cell.classList.add("wp-display-cells") 
+            board_cell.classList.add("wp-display-cells", "numbers-font") 
             if (i == 2 && j == 2) {
                 board_cell.innerHTML = "FREE"
                 board_cell.setAttribute("id", "custom-pattern-free-space")
@@ -129,6 +129,3 @@ function buildCustomPatternDisplayBoard() {
     table_container.appendChild(table_label)
 }
 
-function toggleHighlight(element) {
-    element.classList.toggle("custom-board-cell-highlight")
-}

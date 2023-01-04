@@ -3,6 +3,11 @@
 
 body {
     font-size: 25px;
+    font-family: Georgia, serif;
+}
+
+.numbers-font {
+    font-family: 'Courier New', Courier;
 }
 
 /* Home Page */
