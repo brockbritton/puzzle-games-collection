@@ -13,41 +13,46 @@
     <title> Bingo </title>
 </head>
 <body>
-    <div id="home-header">
-        <h2>Play & Call Bingo</h2>
+    <div id="page-header">
+        <h2>Bingo</h2>
     </div>
     <div id="play-or-call-choice-div">
-        <div id="play-or-call-toggle-container">
-            <p id="switch-bingo-toggle-label"> 
-                to switch bingo modes, please toggle below 
-            </p>
-            <br>
-            <select id="choose-bingo-gamemode-drpdwn" onchange="switchBingoStates()">
-                <option value="0"> call bingo </option>
-                <option value="1" selected> play bingo </option>
-            </select>
+        <p id="switch-bingo-toggle-label"> 
+            to switch bingo modes, please toggle below 
+        </p>
+        <div id="toggle-container">
+            <label for="slider-checkbox" class="toggle-labels side-by-side"> play </label>
+            <label class="switch side-by-side">
+                <input type="checkbox" id="slider-toggle-bingo" class="slider-checkbox" onchange="toggleBingoStates()">
+                <span class="slider round"></span>
+            </label>
+            <p class="toggle-labels side-by-side"> call </p>
         </div>
-        <p id="aware-warning"> please be aware that switching gamemodes will erase your current game if one is running </p>
+        <p id="aware-warning"> 
+            please be aware that switching gamemodes will erase your current game if one is running 
+        </p>
     </div>
     <div>
         <div id="bingo-caller-div">
             <div id="caller-left-container">
                 <div id="caller-left-content-container">
                     <div id="column-selection">
-                        <p class="center-bold-text"> Caller Settings </p>
+                        <p class="center-bold-text"> Caller Instructions </p>
                         <p class="important-text">
-                            This bingo caller creates a more efficent process and reduces the redundancy of original bingo callers. 
-                            To reduce redundancy, use the checkboxes or slider below to choose the columns required to fulfill your games winning pattern.
-                            
+                           this program will help you to call a game of bingo. 
+                           use the checkboxes below to select which columns are applicable to your game, and begin when ready. 
                         </p>
                         <div id="slider-div">
                             <label for="slider-checkbox"> some </label>
                             <label class="switch side-by-side">
-                                <input type="checkbox" id="slider-checkbox" onchange="curr_bingo_state.toggleColumnsSelect()">
+                                <input type="checkbox" id="slider-toggle-some-all" class="slider-checkbox" onchange="curr_bingo_state.toggleColumnsSelect()">
                                 <span class="slider round"></span>
                             </label>
                             <p class="side-by-side"> all </p>
-                            <button class="bingo-buttons side-by-side" onclick="curr_bingo_state.buildNewCaller()"> New Game </button>
+                            <div id="spacer-25px" class="side-by-side"> 
+                                <!-- spacer -->
+                            </div>
+                            <button class="gen-buttons side-by-side" onclick="curr_bingo_state.buildNewCaller()"> New Game </button>
                         </div>
                         <div id="column-select-div">
                             <div class="side-by-side select-column-div">
@@ -82,18 +87,15 @@
                             </div>
                         </div>
                         <br>
-                        <p class="zero-margin-text"> Once you've started a game: </p>
+                        <p class="center-bold-text"> Caller Controls </p>
                         <p class="zero-margin-text"> &rarr; To call a number, click the 'call' button or press 'return'. </p>
                         <p class="zero-margin-text"> &rarr; To reset the caller, click the 'new game' button. </p>
                     </div>
                     <br>
                     <div id="more-info">
                         <p class="center-bold-text"> More Info </p>
-                        <p class="important-text"> 
-                            If your bingo game will use every column, toggle the slider to all. 
-                            If your bingo game will use less than every column, toggle the slider to some and select the appropriate columns. 
-                            Many bingo callers use a roller cage that allows for a random selection of balls, but this process can be tedious and slow. 
-                            Especially when playing bingo with a winning pattern that does not use all 5 columns.
+                        <p class="important-text">   
+                            by allowing for individual selection of columns, this creates a more efficient process by eliminating the redundancy of most physical bingo callers when a game is played with a specific pattern that does not use all 5 columns. 
                         </p>
                     </div>
                 </div>
@@ -103,7 +105,7 @@
                     <br>
                     <div id="calling-number-div">
                         <div class="side-by-side" id="call-number-btn-div" >
-                            <button class="bingo-buttons"  onclick="curr_bingo_state.checkCallNumber()"> Call a Number </button> 
+                            <button class="gen-buttons" onclick="curr_bingo_state.checkCallNumber()"> Call a Number </button> 
                         </div>
                         <div class="side-by-side" id="calling-number-display">
                             <p id="html-call-display" class="numbers-font"> &#8203; </p>
@@ -119,19 +121,18 @@
         </div>
         <div id="bingo-player-div">
             <div id="player-instructions-div">
-                <p class="center-bold-text"> Instructions </p>
+                <p class="center-bold-text"> Player Instructions </p>
                 <p class="center-text" id="instructions-paragraph"> 
-                    first choose how many bingo boards you would like to have for this game.
-                    you may select a highlight color or keep it as the default. if you would like to play a classic game of bingo, select. 
-                    if you would like to play a game with a custom pattern, select custom and fill in the opened display. 
-                    click new game to begin. 
+                    This program will help you to play a game of bingo, 
+                    with the assumption that there is an external person or program calling numbers. 
+                    You can have up to 8 boards per game, a customized highlight color, and choose what the winning pattern is for your game.
                     
                 </p>
                 <br>
                 <div id="player-settings-div">
                     <div id="dropdowns-container">
                         <div class="side-by-side">
-                            <label for="boards-num-dropdown"> number of boards: </label>
+                            <label for="boards-num-dropdown"> boards per game: </label>
                             <select class="play-settings-dropdowns" id="boards-num-dropdown" onchange="curr_bingo_state.updateBoardsNum()">
                                 <option value="1" class="default-dropdown-option"> 1 </option>
                                 <option value="2"> 2 </option>
@@ -164,25 +165,27 @@
                 </div>
                 <br>
                 <div id="new-game-button-container">
-                    <button class="bingo-buttons" onclick="curr_bingo_state.buildNewPlayer()"> New Game </button>
+                    <button class="gen-buttons" onclick="curr_bingo_state.buildNewPlayer()"> New Game </button>
                 </div>
             </div>
             <div id="call-nums-and-boards">
-                <p id="curr-game-label">
+                <p id="curr-game-label" class="blur-elements">
                     <!-- label will be created here when a game is built-->
                 </p>
                 <div id="bingo-play-control-box">
                     <div id="gameplay-nums-table-wp-display">
-                        <div id="numbers-table-container">
+                        <div id="numbers-table-container" class="blur-elements">
                             <!-- selectable table of numbers built here -->
                         </div>
                         <div id="winning-pattern-display-container">
-                            <div id="custom_wp_display">
+                            <div id="custom_wp_display" class="blur-elements">
                                 <!-- visual of custom winning pattern will be built here -->
                             </div>
-                            <div id="classic-win-par">
+                            <div id="classic-win-par" class="blur-elements">
                                 <!-- par of how to win a classic game of bingo -->
-                                <p> to win a classic game of bingo, one must earn five in a row. this can be down, across, or diagonal. </p>
+                                <p> 
+                                    to win a classic game of bingo, one must earn five in a row. this can be down, across, or diagonal. 
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -200,7 +203,7 @@
                                 <p class="alert-old-text" id="alert-old-nums"></p>
                             </div>
                             <div id="bingo-alerts-buttons-container">
-                                <button class="bingo-alert-button bingo-buttons" onclick="curr_bingo_state.toggleBingoAlert()"> Continue </button>
+                                <button class="gen-buttons" onclick="curr_bingo_state.toggleBingoAlert()"> Continue </button>
                             </div>
                         </div> 
                     </div>
@@ -217,7 +220,8 @@
     <p id="b_d_note"> Built and Designed by Brock Britton </p>
   
     <script>
-        switchBingoStates()
+
+        toggleBingoStates()
 
         buildCallerCalledNumbersTable()
         buildPlayerCalledNumbersTable()
@@ -226,6 +230,17 @@
 
         //add a page event listener for enter
         //if on caller, call number, otherwise prevent default
+        const game_type_slider = document.getElementById("slider-toggle-bingo")
+        document.addEventListener("keydown", (event) => {
+            //enter pressed
+            if (event.which == 13) { 
+                if (game_type_slider.checked) {
+                    console.log("yes")
+                } else {
+                    event.preventDefault()
+                }
+            } 
+        })
         
     </script>
 </body>

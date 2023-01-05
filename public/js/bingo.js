@@ -1,13 +1,13 @@
 
-function switchBingoStates() {
+function toggleBingoStates() {
     let caller_div = document.getElementById("bingo-caller-div")
     let player_div = document.getElementById("bingo-player-div")
-    let dropdown = document.getElementById("choose-bingo-gamemode-drpdwn");
-    if (dropdown.value == 0) {
+    let bingo_toggle = document.getElementById("slider-toggle-bingo");
+    if (bingo_toggle.checked) {
         caller_div.style.display = "flex";
         player_div.style.display = "none";
         curr_bingo_state = new CallerOrganizer();
-    } else if (dropdown.value == 1) {
+    } else {
         caller_div.style.display = "none";
         player_div.style.display = "block";
         curr_bingo_state = new PlayerOrganizer();

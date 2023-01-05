@@ -1,0 +1,18 @@
+
+#hz-choice-buttons-div {
+    display: block;
+    justify-content: center;
+    text-align: center;
+}
+
+#hz-choice-buttons-div > p {
+    
+}
+
+
+#hz-choice-buttons-div > button {
+    justify-content: center;
+    height: 35px;
+    width: max-content;
+    font-size: 25px;
+}

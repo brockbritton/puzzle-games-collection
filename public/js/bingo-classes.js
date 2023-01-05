@@ -7,7 +7,7 @@ class CallerOrganizer {
 
     resetUIVisuals() {
         //reset the slider and checkboxes - so a new game cannot be accidentally created
-        const slider = document.getElementById("slider-checkbox")
+        const slider = document.getElementById("slider-toggle-some-all")
         if (slider.checked) {
             slider.checked = false
         }
@@ -32,7 +32,7 @@ class CallerOrganizer {
     }
 
     checkClick(event) {
-        const slider = document.getElementById("slider-checkbox")
+        const slider = document.getElementById("slider-toggle-some-all")
         if (slider.checked) {
             event = event || window.event;
             event.preventDefault()
@@ -53,7 +53,7 @@ class CallerOrganizer {
 
     collectColumns() {
         const checkboxes = document.getElementsByClassName("select-column-checkbox");
-        const slider = document.getElementById("slider-checkbox")
+        const slider = document.getElementById("slider-toggle-some-all")
         if (slider.checked) {
             return [0, 1, 2, 3, 4];
         } else {
@@ -78,7 +78,7 @@ class CallerOrganizer {
     }
 
     toggleColumnsSelect() {
-        const slider = document.getElementById("slider-checkbox")
+        const slider = document.getElementById("slider-toggle-some-all")
         const checkboxes = document.getElementsByClassName("select-column-checkbox");
         for (let i = 0; i < checkboxes.length; i++) {
             if (slider.checked) {
@@ -137,6 +137,7 @@ class PlayerOrganizer {
         this.updateHighlightColor() //this.highlight_color 
         this.updateWinningPattern() //this.winning_pattern 
         //also need to update / clear old game visuals
+        this.resetUIVisuals()
 
     }
 
@@ -153,6 +154,20 @@ class PlayerOrganizer {
         let colorpicker = document.getElementById("highlight-colorpicker")
         this.changeCSSStyle(".custom-board-cell-highlight", "background-color", colorpicker.value)
         this.highlight_color = colorpicker.value
+    }
+
+    resetUIVisuals() {
+        //delete old bingo boards
+        this.clearDivByID("play-boards-div")
+
+        let bingo_popup = document.getElementById("bingo-alert-popup-display")
+        bingo_popup.style.zIndex = 1
+
+        let select_div = document.getElementById("bingo-play-control-box")
+        select_div.style.display = "none"
+
+        let game_type_label = document.getElementById("curr-game-label")
+        game_type_label.style.display = "none"
     }
 
     updateWinningPattern() {
@@ -250,14 +265,18 @@ class PlayerOrganizer {
 
     toggleBingoAlert() {
         const bingo_popup = document.getElementById("bingo-alert-popup-display")
-        const blur_div = document.getElementById("numbers-table-container")
+        const blur_elements = document.getElementsByClassName("blur-elements")
         if (bingo_popup.style.zIndex == 1) {
             //change popup to visible and blur
-            blur_div.style.filter = blur("11px")
+            for (let i = 0; i < blur_elements.length; i++) {
+                blur_elements[i].style.filter = "blur(3px)"
+            }
             bingo_popup.style.zIndex = 3
         } else {
             //hide popup and unblur
-            blur_div.style.filter = "none"
+            for (let i = 0; i < blur_elements.length; i++) {
+                blur_elements[i].style.filter = "none"
+            }
             bingo_popup.style.zIndex = 1
         }
     
@@ -342,13 +361,16 @@ class PlayerOrganizer {
             }
         }
 
-        //update highlight color for called bingo card cells
+        //update highlight color for opaque hightlight option
         this.changeCSSStyle(".bingo-cell-called-highlight", "background-color", this.highlight_color)
 
-        //update highlight color for called table of numbers
+        //update highlight color for transparent highlight option
         let rgb_array = this.hexToRGB(this.highlight_color);
         this.changeCSSStyle(".bingo-cell-called-transparent-highlight", "background-color", `rgba(${rgb_array[0]}, ${rgb_array[1]}, ${rgb_array[2]}, 0.2)`)
-        
+
+        //update highligh color for 
+        this.changeCSSStyle("#bingo-alert-background", "background-color", this.highlight_color)
+
         //clear called nums list and reset called nums table style
         this.call_list = []
         this.current_boards = []
