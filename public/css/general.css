@@ -11,6 +11,10 @@ body {
     font-family: Georgia, serif;
 }
 
+.side-by-side {
+    display: inline-block !important;
+}
+
 #page-header > h1, h2 {
     font-size: 75px;
     text-align: center;
@@ -148,13 +152,12 @@ body {
     border-radius: 50%;
 }
 
+/* containers and label styles */
 .toggle-container {
     margin: auto;
     width: max-content;
     height: min-content;
     margin-top: 10px;
-    background-color: yellow;
-
 }
 
 .toggle-labels {

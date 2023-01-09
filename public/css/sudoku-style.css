@@ -59,15 +59,9 @@
     width: 50px;
 }
 
-.divs-side-by-side {
-    display: inline-block;
-}
-
 #sudoku-options-div {
-    height: min-content;
     text-align: center;
     margin-bottom: 0px;
-    background-color: green;
 }
 
 .radio-label {
@@ -122,4 +116,3 @@
     margin: 0px;
     display: none;
 }
-
