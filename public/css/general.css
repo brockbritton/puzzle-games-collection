@@ -1,5 +1,10 @@
 
 /* General Styles */
+:root {
+    --accent-color : #C41E3A;
+}
+
+/* Accent Color : */
 
 body {
     font-size: 25px;
@@ -106,9 +111,10 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ccc;
+    background-color: white; 
     -webkit-transition: .4s;
     transition: .4s;
+    border: black 1px solid;
 }
 
 .slider:before {
@@ -118,17 +124,13 @@ body {
     width: 26px;
     left: 4px;
     bottom: 4px;
-    background-color: white;
+    background-color: var(--accent-color);
     -webkit-transition: .4s;
     transition: .4s;
 }
 
 .slider-checkbox:checked + .slider {
-    background-color: #2196F3;
-}
-
-.slider-checkbox:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
+    background-color: white;
 }
 
 .slider-checkbox:checked + .slider:before {
@@ -144,6 +146,19 @@ body {
 
 .slider.round:before {
     border-radius: 50%;
+}
+
+.toggle-container {
+    margin: auto;
+    width: max-content;
+    height: min-content;
+    margin-top: 10px;
+    background-color: yellow;
+
+}
+
+.toggle-labels {
+    margin: 0;
 }
 /* ----- Toggle Slider End ----- */
 

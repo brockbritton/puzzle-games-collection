@@ -42,7 +42,6 @@ function build_sudoku_board() {
 
 //Play Game Button
 function play_a_game() {
-    
     console.log(`playing a level ${select_radio.value} game`)
     let radio_label = document.querySelector(`label[for=${select_radio.id}]`);
     let par = document.getElementById("game-type-header");
@@ -78,7 +77,7 @@ function update_drpdwn_divs() {
         if (gamemode_dropdown.value[0] == "s") {
             solve_div.style.display = "block";
             play_div.style.display = "none";
-            let rows_array = easy_game1 //dev
+            let rows_array = test_game //dev
             update_board(rows_array, "game") //dev
         } else if (gamemode_dropdown.value[0] == "p") {
             solve_div.style.display = "none";
@@ -94,11 +93,9 @@ function update_drpdwn_divs() {
 
 //Clear Board Button
 function clear_board_values() {
-    
     //clear the board numbers
     //update all cell styles to the basic non-bold text style
     update_board(null, null)
-    
     
 
 }

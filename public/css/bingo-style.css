@@ -1,19 +1,10 @@
+:root {
+    --accent-color : #C41E3A;
+}
 
 #play-or-call-choice-div {
     margin: 0 auto;
     width: max-content;
-}
-
-#toggle-container {
-    margin: auto;
-    width: max-content;
-    height: min-content;
-    margin-top: 10px;
-
-}
-
-.toggle-labels {
-    margin: 0;
 }
 
 #switch-bingo-toggle-label {
@@ -144,6 +135,11 @@
     height: 30px;
     width: 30px;
     margin: 0 10px;
+}
+
+.select-column-checkbox:checked {
+    color: #C41E3A;
+    background-color: #C41E3A;
 }
 
 .important-text {
@@ -545,4 +541,3 @@
 #spacer-25px {
     width: 25px;
 }
-

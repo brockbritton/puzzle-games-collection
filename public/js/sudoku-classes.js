@@ -1,4 +1,25 @@
 
+class solveSudokuGame {
+    constructor(starting_rows) {
+        this.starting_board = new SudokuBoard(starting_rows);
+
+        if (this.starting_board.solveBoard()) {
+            this.solution_board = new SudokuBoard(this.starting_board.rows) 
+        } else {
+            this.solution_board = null;
+        }
+        
+    }
+}
+
+class playSudokuGame {
+    constructor(starting_rows) {
+        this.player_board = new SudokuBoard(starting_rows)
+        
+        //this.solution_board = this.player_board.solveBoard() 
+    }
+}
+
 class SudokuBoard {
     constructor(rows_list) {
         this.rows = rows_list;
@@ -36,6 +57,26 @@ class SudokuBoard {
         
     }
 
+    buildCellNotes() {
+        for (let row in this.rows) {
+            for (let col in this.rows[row]) {
+                if (this.rows[row][col] == null) {
+                    let new_array = []
+                    for (let poss_num = 1; poss_num <= 9; poss_num++) {
+                        if (!(this.rows[row].includes(poss_num) || this.columns[col].includes(poss_num) || this.ninths[3 * (Math.floor(row / 3) % 3) + (Math.floor(col / 3) % 3)].includes(poss_num))) {
+                            new_array.push(poss_num)
+                        }
+                    }
+                    if (new_array.length == 1) {
+                        this.updateBoard(new_array[0], row, col)
+                    } else {
+                        this.updateBoard(new_array, row, col)
+                    } 
+                }
+            }
+        }
+    }
+
     updateBoard(new_value, row, col) {
         //we should only update the row, column, and ninth that was changed
         this.rows[row][col] = new_value
@@ -47,7 +88,7 @@ class SudokuBoard {
         //the notes for each cell must also be updated
         if (typeof new_value === 'number') {
             let sets = [this.rows, this.columns, this.ninths]
-            for (let i in sets) {
+            for (let i in sets) { 
                 for (let cell in sets[i]) {
                     let subset_index = null
                     let row_index = null
@@ -82,7 +123,7 @@ class SudokuBoard {
         }
     }
 
-    updateNotes(subset, set_iterator, subset_index, values) {
+    updateCellNotes(subset, set_iterator, subset_index, values) {
         //the subset in which to update, the iterator of sets, subset index, values to be removed from subset
         for (let cell in subset) {
             if (Array.isArray(subset[cell]) && !this.checkArraysEqual(subset[cell], values)) {
@@ -113,7 +154,6 @@ class SudokuBoard {
         }
     }
 
-    //combine some of these loops to reduce so much looping?
     findNakedSingles() {
         for (let row in this.rows) {
             for (let col in this.rows[row]) {
@@ -179,7 +219,6 @@ class SudokuBoard {
             for (let subset in sets[i]) {
                 //iterate through the cells of each subset
                 subset = Number(subset)
-                //console.log(`subset: ${subset}`)
                 let found_pairs = []
                 for (let cell in sets[i][subset]) {
                     cell = Number(cell)
@@ -191,7 +230,6 @@ class SudokuBoard {
                     }
                     //if a cell is an array, and has a length of 2
                     if (Array.isArray(sets[i][subset][cell]) && sets[i][subset][cell].length == 2 && !found_already) {
-                        //console.log(`cell: ${sets[i][subset][cell]}`)
                         let shared_rows = [];
                         let shared_columns = [];
                         let shared_ninths = [];
@@ -229,13 +267,10 @@ class SudokuBoard {
                                 }
 
                             }
-                            //console.log(`shares: ${shares_list}`)
                             for (let j = 0; j < shares_list.length; j++) {
                                 if (shares_list[j] != -1) {
                                     //the subset in which to update, the iterator of sets, subset index, values to be removed from subset
-                                    this.updateNotes(sets[j][shares_list[j]], j, shares_list[j], sets[i][subset][cell])
-                                    
-                                    
+                                    this.updateCellNotes(sets[j][shares_list[j]], j, shares_list[j], sets[i][subset][cell])
                                 }
                             }
                         }
@@ -257,29 +292,8 @@ class SudokuBoard {
 
     }
 
-    createNotes() {
-        for (let row in this.rows) {
-            for (let col in this.rows[row]) {
-                if (this.rows[row][col] == null) {
-                    let new_array = []
-                    for (let poss_num = 1; poss_num <= 9; poss_num++) {
-                        if (!(this.rows[row].includes(poss_num) || this.columns[col].includes(poss_num) || this.ninths[3 * (Math.floor(row / 3) % 3) + (Math.floor(col / 3) % 3)].includes(poss_num))) {
-                            new_array.push(poss_num)
-                        }
-                    }
-                    if (new_array.length == 1) {
-                        this.updateBoard(new_array[0], row, col)
-                    } else {
-                        this.updateBoard(new_array, row, col)
-                    } 
-                }
-            }
-        }
-    }
-
-
-    bruteForceSolveBoard() {
-        this.createNotes()
+    solveBoard() {
+        this.buildCellNotes()
 
         // keep updating board until the board is full of numbers
         let iterations = 0
@@ -305,22 +319,13 @@ class SudokuBoard {
             //this.tryANumber() !!!
             
             if (iterations == 10) {
-                break
+                console.log("board not solved")
+                return false
             }
             
         }
-        console.log(`while loop solving iterations: ${iterations}`)
-    }
-
-    solveBoard() {
-        this.bruteForceSolveBoard()
-        if (this.checkBoardFilled()) {
-            return true
-        } else {
-            //return false 
-            return true //dev
-        }
-        
+        console.log("board solved")
+        return true
     }
 
     checkBoardFilled() {
@@ -348,28 +353,4 @@ class SudokuBoard {
             a.length === b.length &&
             a.every((val, index) => val === b[index]);
     }
-    
-
 }
-
-class solveSudokuGame {
-    constructor(starting_rows) {
-        this.starting_board = new SudokuBoard(starting_rows);
-
-        if (this.starting_board.solveBoard()) {
-            this.solution_board = new SudokuBoard(this.starting_board.rows) 
-        } else {
-            this.solution_board = null;
-        }
-        
-    }
-}
-
-class playSudokuGame {
-    constructor(starting_rows) {
-        this.player_board = new SudokuBoard(starting_rows)
-        
-        //this.solution_board = this.player_board.solveBoard() 
-    }
-}
-

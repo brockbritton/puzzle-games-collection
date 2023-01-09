@@ -17,7 +17,6 @@
         <h2>Sudoku</h2>
     </div>
 
-    
     <div id="sudoku-options-div">
         <button id="sudoku-instructions-header" onclick="toggle_instructions()"> How to Play </button>
         <div id="sudoku-instructions-content">
@@ -35,8 +34,15 @@
                 in order or display instantly and click solve board.
             </p>
         </div>
-        <br>
-        <button onclick="reset_sudoku_board_options()" class="gen-buttons"> Reset </button>
+        
+        <div class="toggle-container">
+            <label for="slider-checkbox" class="toggle-labels side-by-side"> play </label>
+            <label class="switch side-by-side">
+                <input id="slider-toggle-bingo" class="slider-checkbox" type="checkbox" onchange="">
+                <span class="slider round"></span>
+            </label>
+            <p class="toggle-labels side-by-side"> solve </p>
+        </div>
         <div id="sudoku-control-bar">
             <div id="gamemode-select-div">
                 <label for="choose-sudoku-gamemode-drpdwn"> Gamemode Select </label>
@@ -84,12 +90,11 @@
     <p id="b_d_note"> Built and Designed by Brock Britton</p>
   
     <script>
+
         build_sudoku_board();
+        // reset_sudoku_board_options()
 
         let current_mode = null;
-
-
-        
     </script>
 </body>
 </html>

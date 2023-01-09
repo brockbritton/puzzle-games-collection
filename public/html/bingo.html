@@ -20,10 +20,10 @@
         <p id="switch-bingo-toggle-label"> 
             to switch bingo modes, please toggle below 
         </p>
-        <div id="toggle-container">
+        <div class="toggle-container">
             <label for="slider-checkbox" class="toggle-labels side-by-side"> play </label>
             <label class="switch side-by-side">
-                <input type="checkbox" id="slider-toggle-bingo" class="slider-checkbox" onchange="toggleBingoStates()">
+                <input id="slider-toggle-bingo" class="slider-checkbox" type="checkbox" onchange="toggleBingoStates()">
                 <span class="slider round"></span>
             </label>
             <p class="toggle-labels side-by-side"> call </p>
@@ -43,12 +43,14 @@
                            use the checkboxes below to select which columns are applicable to your game, and begin when ready. 
                         </p>
                         <div id="slider-div">
-                            <label for="slider-checkbox"> some </label>
-                            <label class="switch side-by-side">
+                            <div class="toggle-container side-by-side" >
+                                <label for="slider-checkbox" class="toggle-labels side-by-side"> some </label>
+                                <label class="switch side-by-side">
                                 <input type="checkbox" id="slider-toggle-some-all" class="slider-checkbox" onchange="curr_bingo_state.toggleColumnsSelect()">
                                 <span class="slider round"></span>
                             </label>
-                            <p class="side-by-side"> all </p>
+                                <p class="toggle-labels side-by-side"> all </p>
+                            </div>
                             <div id="spacer-25px" class="side-by-side"> 
                                 <!-- spacer -->
                             </div>
@@ -147,7 +149,7 @@
                         <div class="side-by-side player-options-spacer"> <!-- spacer --> </div>
                         <div class="side-by-side">
                             <label for="highlight-colorpicker"> highlight color:</label>
-                            <input type="color" id="highlight-colorpicker" onchange="curr_bingo_state.updateHighlightColor()" value="#3380FF">
+                            <input type="color" id="highlight-colorpicker" onchange="curr_bingo_state.updateHighlightColor()" value="#C41E3A">
                         </div>
                         <div class="side-by-side player-options-spacer"> <!-- spacer --> </div>
                         <div class="side-by-side">
@@ -235,13 +237,12 @@
             //enter pressed
             if (event.which == 13) { 
                 if (game_type_slider.checked) {
-                    console.log("yes")
+                    //call a number with the caller
                 } else {
                     event.preventDefault()
                 }
             } 
         })
-        
     </script>
 </body>
 </html>
