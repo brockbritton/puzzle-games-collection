@@ -17,8 +17,8 @@
         <h2>Bingo</h2>
     </div>
     <div id="play-or-call-choice-div">
-        <p id="switch-bingo-toggle-label"> 
-            to switch bingo modes, please toggle below 
+        <p class="switch-game-toggle-label"> 
+            to switch gamemodes, please toggle below 
         </p>
         <div class="toggle-container">
             <label for="slider-checkbox" class="toggle-labels side-by-side"> play </label>
@@ -28,7 +28,7 @@
             </label>
             <p class="toggle-labels side-by-side"> call </p>
         </div>
-        <p id="aware-warning"> 
+        <p class="aware-warning"> 
             please be aware that switching gamemodes will erase your current game if one is running 
         </p>
     </div>
@@ -149,7 +149,7 @@
                         <div class="side-by-side player-options-spacer"> <!-- spacer --> </div>
                         <div class="side-by-side">
                             <label for="highlight-colorpicker"> highlight color:</label>
-                            <input type="color" id="highlight-colorpicker" onchange="curr_bingo_state.updateHighlightColor()" value="#C41E3A">
+                            <input type="color" id="highlight-colorpicker" onchange="curr_bingo_state.updateHighlightColor()" value="#0096FF">
                         </div>
                         <div class="side-by-side player-options-spacer"> <!-- spacer --> </div>
                         <div class="side-by-side">

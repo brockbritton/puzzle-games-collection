@@ -1,7 +1,7 @@
 
 /* General Styles */
 :root {
-    --accent-color : #C41E3A;
+    --accent-color : #0096FF;
 }
 
 /* Accent Color : */
@@ -160,8 +160,20 @@ body {
     margin-top: 10px;
 }
 
+.switch-game-toggle-label {
+    margin: 0 auto ;
+    width: max-content;
+}
+
 .toggle-labels {
     margin: 0;
+}
+
+.aware-warning {
+    font-size: 16px;
+    text-align: center;
+    width: 70%;
+    margin: 5px auto;
 }
 /* ----- Toggle Slider End ----- */
 

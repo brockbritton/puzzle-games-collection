@@ -17,62 +17,87 @@
         <h2>Sudoku</h2>
     </div>
     <div id="sudoku-options-div">
-        <button id="sudoku-instructions-header" onclick="toggle_instructions()"> How to Play </button>
-        <div id="sudoku-instructions-content">
-            <p>
-                To reset the board or to change to a different game mode, 
-                click clear board. This will also end the current mode that you are in.
+        <div id="sudoku-toggle-gamemode-div">
+            <p class="switch-game-toggle-label"> 
+                to switch gamemodes, please toggle below 
             </p>
-            <p>
-                To play a game of sudoku, select a difficulty and click play game. 
-            </p>
-            <p>
-                To solve a board of sudoku, make sure the board is cleared, 
-                and enter the numbers on the board. Once done, 
-                choose whether you would like the solved board to animate 
-                in order or display instantly and click solve board.
+            <div class="toggle-container">
+                <label for="slider-checkbox" class="toggle-labels side-by-side"> play </label>
+                <label class="switch side-by-side">
+                    <input id="slider-toggle-sudoku" class="slider-checkbox" type="checkbox" onchange="toggleSudokuPlaySolve()">
+                    <span class="slider round"></span>
+                </label>
+                <p class="toggle-labels side-by-side"> solve </p>
+            </div>
+            <p class="aware-warning"> 
+                please be aware that switching gamemodes will erase your current game if one is running 
             </p>
         </div>
-        <div class="toggle-container">
-            <label for="slider-checkbox" class="toggle-labels side-by-side"> play </label>
-            <label class="switch side-by-side">
-                <input id="slider-toggle-sudoku" class="slider-checkbox" type="checkbox" onchange="">
-                <span class="slider round"></span>
-            </label>
-            <p class="toggle-labels side-by-side"> solve </p>
-        </div>
+        
         <div id="sudoku-control-bar">
-            <div id="gamemode-select-div">
-                <label for="choose-sudoku-gamemode-drpdwn"> Gamemode Select </label>
-                <br>
-                <select id="choose-sudoku-gamemode-drpdwn" onchange="update_drpdwn_divs()">
-                    <option value="null"> -- select gamemode -- </option>
-                    <optgroup label="Solve">
-                        <option value="s1" >solve: display</option>
-                        <option value="s2">solve: walkthrough</option>
-                    </optgroup>
-                    <optgroup label="Play">
-                        <option value="p1">play: easy</option>
-                        <option value="p2">play: moderate</option>
-                        <option value="p3">play: difficult</option>
-                    </optgroup>
-                </select>
-                <br>
+            <div id="play-settings-div">
+                <div id="play-settings-left" class="side-by-side" >
+                    <p class="sudoku-control-header">Difficulty</p>
+                    <div class="align-radio-left">
+                        <input type="radio" id="easy-play" name="play-difficulty" value="0" />
+                        <label for="easy-play">Easy</label>
+                    </div>
+                    <div class="align-radio-left">
+                        <input type="radio" id="medium-play" name="play-difficulty" value="1" />
+                        <label for="medium-play">Medium</label>
+                    </div>
+                    <div class="align-radio-left">
+                        <input type="radio" id="hard-play" name="play-difficulty" value="2" />
+                        <label for="hard-play">Hard</label>
+                    </div>
+                </div>
+                <div id="spacer-40px" class="side-by-side"> <!-- spacer --></div>
+                <div id="play-settings-right" class="side-by-side">
+                    <p class="sudoku-control-header">Options</p>
+                    <div class="align-check-right">
+                        </label for="play-timer"> Stopwatch</label>
+                        <input type="checkbox" id="play-timer">
+                    </div>
+                    
+                    <div class="align-check-right">
+                        </label for="play-correct"> Auto-correct </label>
+                        <input type="checkbox" id="play-correct">
+                    </div>
+                    <button id="play-button1" onclick="" class="gen-buttons"> Begin </button>
+                </div>
+                
             </div>
-            <div id="play-dropdown-change">
-                <label for="play-button1">
-                    To begin and start the clock, press play.
-                </label>
-                <br>
-                <button id="play-button1" onclick="" class="gen-buttons"> Play </button>
+            <div id="play-controls-div">
+ 
+            </div>
+            <div id="solve-settings-div">
+                <div id="solve-settings-left" class="side-by-side">
+                    <p class="sudoku-control-header">Instructions</p>
+                    <p id="enter-nums-instruction">
+                        Enter the numbers on the board or upload a photo of a board. 
+                        Or choose random board for an example.
+                    </p>
+                    <button onclick="" class="gen-buttons"> Upload Photo </button>
+                    <button onclick="fill_random_board()" class="gen-buttons"> Random Board </button>
+                </div>
+                <div id="solve-settings-right" class="side-by-side">
+                    <p class="sudoku-control-header">Options</p>
+                    <div class="align-radio-right">
+                        <input type="radio" id="easy-play" name="solve-type" value="0" />
+                        <label for="easy-play">Display Final</label>
+                    </div>
+                    <div class="align-radio-right">
+                        <input type="radio" id="medium-play" name="solve-type" value="1" />
+                        <label for="medium-play">Walkthrough</label>
+                    </div>
+                    <br>
+                    <button id="solve-button1" onclick="solve_a_game()" class="gen-buttons"> Solve Board </button>
+                </div>
+                
+                
+            </div>
+            <div id="solve-controls-div">
 
-            </div>
-            <div id="solve-dropdown-change">
-                <label for="solve-button1">
-                    Enter the numbers of the board that you would like to solve on the board below and then press Solve Board.
-                </label>
-                <br>
-                <button id="solve-button1" onclick="solve_a_game()" class="gen-buttons"> Solve Board </button>
             </div>
             
         </div>
@@ -89,6 +114,9 @@
     <script>
 
         build_sudoku_board();
+        document.getElementById("slider-toggle-sudoku").checked = true
+        toggleSudokuPlaySolve();
+
         //reset_sudoku_board_options()
     </script>
 </body>

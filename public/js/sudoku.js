@@ -3,6 +3,19 @@ const available_games = {
     1 : easy_game1,
     2 : medium_game1,
     3 : hard_game1,
+};
+
+function toggleSudokuPlaySolve() {
+    const gamemode_toggle = document.getElementById("slider-toggle-sudoku")
+    const play_settings_div = document.getElementById("play-settings-div")
+    const solve_settings_div = document.getElementById("solve-settings-div")
+    if (gamemode_toggle.checked) {
+        solve_settings_div.style.display = "block"
+        play_settings_div.style.display = "none"
+    } else {
+        solve_settings_div.style.display = "none"
+        play_settings_div.style.display = "block"
+    }
 }
 
 
@@ -27,6 +40,7 @@ function build_sudoku_board() {
                     num_cell.setAttribute('id', `${((br*3)+cr)-1}.${((bc*3)+cc)-1}.${(3*br)+bc}`)
                     num_cell.setAttribute("contenteditable", 'true')
                     num_cell.addEventListener('keydown', changeCellValue);
+                    num_cell.innerHTML = "&#8203;" //so cell innerhtml is in the center of the cell
                     cell_row.appendChild(num_cell)
                 }
                 cell_tbl.appendChild(cell_row)
@@ -51,16 +65,43 @@ function play_a_game() {
 
 }
 
+
+
 //Solve Board Button
 function solve_a_game() {
     let rows_array = get_board_values();
     const solve_game = new solveSudokuGame(rows_array);
-    if (solve_game.solution_board != null) {
+    if (this.solution_board != null) {
         update_board(solve_game.solution_board.rows, "game")
-        console.log(solve_game.solution_board.rows)
     } else {
         alert("no solution found. please make sure you have correctly input the board values.")
     }
+}
+
+//to fill in a random board from Solve Board Control
+function fill_random_board() {
+    //put empty cells as 
+    let rows_array = test_game //dev
+    update_board(rows_array, "game") //dev
+}
+
+//Getting board values from 
+function get_board_values() {
+    const board_values = []
+    for (let r = 0; r < 9; r++) {
+        let row = []
+        let cells = document.getElementsByClassName(`row${r}`);
+        for (let i = 0; i < 9; i++) {
+            if (cells[i].innerHTML == "") {
+                row.push(null)
+            } else {
+                row.push(Number(cells[i].innerHTML))
+            }
+            
+        }
+        board_values.push(row)
+    }
+    return board_values
 }
 
 function reset_sudoku_board_options() {
@@ -69,27 +110,7 @@ function reset_sudoku_board_options() {
 }
 
 
-function update_drpdwn_divs() {
-    let gamemode_dropdown = document.getElementById("choose-sudoku-gamemode-drpdwn")
-    let play_div = document.getElementById("play-dropdown-change")
-    let solve_div = document.getElementById("solve-dropdown-change")
-    if (gamemode_dropdown.value != "null") {
-        if (gamemode_dropdown.value[0] == "s") {
-            solve_div.style.display = "block";
-            play_div.style.display = "none";
-            let rows_array = test_game //dev
-            update_board(rows_array, "game") //dev
-        } else if (gamemode_dropdown.value[0] == "p") {
-            solve_div.style.display = "none";
-            play_div.style.display = "block";
-            
-        }   
-    } else {
-        play_div.style.display = "none";
-        solve_div.style.display = "none";
-    }
-    
-}
+
 
 //Clear Board Button
 function clear_board_values() {
@@ -107,13 +128,15 @@ function update_board(board_array, type) {
         let cells = document.getElementsByClassName(`row${r}`);
         for (let i = 0; i < 9; i++) {
             if (board_array == null) {
-                cells[i].innerHTML = "";
+                cells[i].innerHTML = "&#8203;";
                 cells[i].style.fontWeight = 400
                 cells[i].setAttribute("contenteditable", 'false');
                 //cells[i].addEventListener('keydown', changeCellValue);
             } else {
+                //if board array has numbers
                 cells[i].innerHTML = board_array[r][i]
                 if (cells[i].innerHTML == "") {
+                    cells[i].innerHTML == "&#8203;"
                     cells[i].setAttribute("contenteditable", 'true');
                     cells[i].addEventListener('keydown', changeCellValue);
                 } else {
@@ -122,6 +145,7 @@ function update_board(board_array, type) {
             } 
         }
     }
+    update_cell_styles(type)
 }
 
 function dev_fillin(req) {
@@ -144,7 +168,7 @@ function dev_fillin(req) {
         }
     }
 }
-/*
+
 function update_cell_styles(type) {
     for (let r = 0; r < 9; r++) {
         let cells = document.getElementsByClassName(`row${r}`);
@@ -164,25 +188,7 @@ function update_cell_styles(type) {
         }
     }
 }
-*/
 
-function get_board_values() {
-    const board_values = []
-    for (let r = 0; r < 9; r++) {
-        let row = []
-        let cells = document.getElementsByClassName(`row${r}`);
-        for (let i = 0; i < 9; i++) {
-            if (cells[i].innerHTML == "") {
-                row.push(null)
-            } else {
-                row.push(Number(cells[i].innerHTML))
-            }
-            
-        }
-        board_values.push(row)
-    }
-    return board_values
-}
 
 function changeCellValue(event) {
     const cell = event.target
@@ -190,15 +196,6 @@ function changeCellValue(event) {
     if (((event.which < 49) || (event.which > 57)) && (event.which != 8)) {
         event.preventDefault()
     } else if (cell.innerHTML.length != 0) {
-        cell.innerHTML = ""
+        cell.innerHTML = "&#8203;"
     }
 }
-
-function toggle_instructions() {
-    var content = document.getElementById("sudoku-instructions-content")
-    if (content.style.maxHeight){
-        content.style.maxHeight = null;
-    } else {
-        content.style.maxHeight = content.scrollHeight + "px";
-    } 
-}; 
