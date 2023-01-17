@@ -39,15 +39,15 @@
                 <div id="play-settings-left" class="side-by-side" >
                     <p class="sudoku-control-header">Difficulty</p>
                     <div class="align-radio-left">
-                        <input type="radio" id="easy-play" name="play-difficulty" value="0" />
+                        <input type="radio" id="easy-play" name="play-difficulty" value="1" />
                         <label for="easy-play">Easy</label>
                     </div>
                     <div class="align-radio-left">
-                        <input type="radio" id="medium-play" name="play-difficulty" value="1" />
+                        <input type="radio" id="medium-play" name="play-difficulty" value="2" />
                         <label for="medium-play">Medium</label>
                     </div>
                     <div class="align-radio-left">
-                        <input type="radio" id="hard-play" name="play-difficulty" value="2" />
+                        <input type="radio" id="hard-play" name="play-difficulty" value="3" />
                         <label for="hard-play">Hard</label>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
                         </label for="play-correct"> Auto-correct </label>
                         <input type="checkbox" id="play-correct">
                     </div>
-                    <button id="play-button1" onclick="" class="gen-buttons"> Begin </button>
+                    <button id="play-button1" onclick="play_a_game()" class="gen-buttons"> Play </button>
                 </div>
                 
             </div>
@@ -102,7 +102,11 @@
             
         </div>
     </div>
-    
+    <div>
+        <p id="game-type-header">
+
+        </p>
+    </div>
     <div id="sudoku-board-div">
         <!-- 
             Sudoku Board is built here using js function build_sudoku_board()

@@ -56,15 +56,23 @@ function build_sudoku_board() {
 
 //Play Game Button
 function play_a_game() {
-    console.log(`playing a level ${select_radio.value} game`)
-    let radio_label = document.querySelector(`label[for=${select_radio.id}]`);
-    let par = document.getElementById("game-type-header");
-    par.innerHTML = `Play Sudoku : ${radio_label.innerHTML}`
-    update_board(available_games[select_radio.value], "game")
+    let select_radio = null;
+    var radios = document.getElementsByName('play-difficulty');   
+    for (let i = 0; i < radios.length; i++) {
+        if (radios[i].checked) {
+            select_radio = radios[i]
+        }
+    }
 
-
+    if (select_radio != null) {
+        const radio_label = document.querySelector(`label[for=${select_radio.id}]`);
+        const par = document.getElementById("game-type-header");
+        par.innerHTML = `Play Sudoku : ${radio_label.innerHTML}`
+        update_board(available_games[select_radio.value], "game")
+    } else {
+        alert("please select a difficulty to play")
+    }
 }
-
 
 
 //Solve Board Button
@@ -80,9 +88,11 @@ function solve_a_game() {
 
 //to fill in a random board from Solve Board Control
 function fill_random_board() {
-    //put empty cells as 
-    let rows_array = test_game //dev
-    update_board(rows_array, "game") //dev
+    //put empty cells as no-space character
+    const par = document.getElementById("game-type-header");
+    par.innerHTML = `Solve Sudoku : Random`
+    let rows_array = test_game 
+    update_board(rows_array, "game") 
 }
 
 //Getting board values from 
@@ -118,7 +128,6 @@ function clear_board_values() {
     //update all cell styles to the basic non-bold text style
     update_board(null, null)
     
-
 }
 
 function update_board(board_array, type) {
