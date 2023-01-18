@@ -68,7 +68,7 @@ function play_a_game() {
         const radio_label = document.querySelector(`label[for=${select_radio.id}]`);
         const par = document.getElementById("game-type-header");
         par.innerHTML = `Play Sudoku : ${radio_label.innerHTML}`
-        update_board(available_games[select_radio.value], "game")
+        update_board(available_games[select_radio.value], "game-play")
     } else {
         alert("please select a difficulty to play")
     }
@@ -79,8 +79,8 @@ function play_a_game() {
 function solve_a_game() {
     let rows_array = get_board_values();
     const solve_game = new solveSudokuGame(rows_array);
-    if (this.solution_board != null) {
-        update_board(solve_game.solution_board.rows, "game")
+    if (solve_game.solution_board != null) {
+        update_board(solve_game.solution_board.rows, null)
     } else {
         alert("no solution found. please make sure you have correctly input the board values.")
     }
@@ -91,8 +91,8 @@ function fill_random_board() {
     //put empty cells as no-space character
     const par = document.getElementById("game-type-header");
     par.innerHTML = `Solve Sudoku : Random`
-    let rows_array = test_game 
-    update_board(rows_array, "game") 
+    let rows_array = easy_game1
+    update_board(rows_array, "game-solve") 
 }
 
 //Getting board values from 
@@ -126,7 +126,7 @@ function reset_sudoku_board_options() {
 function clear_board_values() {
     //clear the board numbers
     //update all cell styles to the basic non-bold text style
-    update_board(null, null)
+    update_board(null, "reset")
     
 }
 
@@ -154,7 +154,36 @@ function update_board(board_array, type) {
             } 
         }
     }
-    update_cell_styles(type)
+
+    if (type != null) {
+        update_cell_styles(type)
+    } 
+    
+}
+
+function update_cell_styles(type) {
+    for (let r = 0; r < 9; r++) {
+        let cells = document.getElementsByClassName(`row${r}`);
+        for (let i = 0; i < 9; i++) {
+            if (type == "reset") {
+                cells[i].style.fontWeight = 400
+                cells[i].setAttribute("contenteditable", 'false');
+            } else if (typeof type == "string" && type.slice(0, 4) == "game") {
+                if (cells[i].innerHTML == "") {
+                    let game_type = type.slice(5)
+                    cells[i].style.fontWeight = 400
+                    if (game_type == "play") {
+                        cells[i].setAttribute("contenteditable", 'true');
+                    } else if (game_type == "solve") {
+                        cells[i].setAttribute("contenteditable", 'false');
+                    }
+                } else {
+                    cells[i].style.fontWeight = 700
+                    cells[i].setAttribute("contenteditable", 'false');
+                }
+            }
+        }
+    }
 }
 
 function dev_fillin(req) {
@@ -178,25 +207,7 @@ function dev_fillin(req) {
     }
 }
 
-function update_cell_styles(type) {
-    for (let r = 0; r < 9; r++) {
-        let cells = document.getElementsByClassName(`row${r}`);
-        for (let i = 0; i < 9; i++) {
-            if (cells[i].innerHTML == "") {
-                cells[i].style.fontWeight = 400
-                cells[i].setAttribute("contenteditable", 'true');
-            } else {
-                if (type == null) {
-                    cells[i].style.fontWeight = 400
-                    cells[i].setAttribute("contenteditable", 'false');
-                } else if (type == "game") {
-                    cells[i].style.fontWeight = 700
-                    cells[i].setAttribute("contenteditable", 'false');
-                }
-            }
-        }
-    }
-}
+
 
 
 function changeCellValue(event) {

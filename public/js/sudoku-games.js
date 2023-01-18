@@ -52,7 +52,7 @@ const hard_game1 = [
     [null, 5, null, null, null, null, null, null, null],
 ]
 
-const hidden_pairs1 = [
+const hidden_pairs_test = [
     [null, null, 9, null, 3, 2, null, null, null],
     [null, null, null, 7, null, null, null, null, null],
     [1, 6, 2, null, null, null, null, null, null],
