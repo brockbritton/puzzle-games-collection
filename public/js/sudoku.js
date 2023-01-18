@@ -167,11 +167,13 @@ function update_cell_styles(type) {
         for (let i = 0; i < 9; i++) {
             if (type == "reset") {
                 cells[i].style.fontWeight = 400
+                cells[i].style.color = "#000000"
                 cells[i].setAttribute("contenteditable", 'false');
             } else if (typeof type == "string" && type.slice(0, 4) == "game") {
                 if (cells[i].innerHTML == "") {
                     let game_type = type.slice(5)
                     cells[i].style.fontWeight = 400
+                    cells[i].style.color = "#0096FF"
                     if (game_type == "play") {
                         cells[i].setAttribute("contenteditable", 'true');
                     } else if (game_type == "solve") {
@@ -179,6 +181,7 @@ function update_cell_styles(type) {
                     }
                 } else {
                     cells[i].style.fontWeight = 700
+                    cells[i].style.color = "#000000"
                     cells[i].setAttribute("contenteditable", 'false');
                 }
             }
