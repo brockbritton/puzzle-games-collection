@@ -152,6 +152,12 @@
     overflow: hidden;
 }
 
+#solve-checkbox-container {
+    width: max-content;
+    margin: auto;
+    margin-bottom: 35px;
+}
+
 #solve-controls-div {
 
 }

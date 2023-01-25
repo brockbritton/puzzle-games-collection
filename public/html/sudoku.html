@@ -82,15 +82,16 @@
                 </div>
                 <div id="solve-settings-right" class="side-by-side">
                     <p class="sudoku-control-header">Options</p>
-                    <div class="align-radio-right">
-                        <input type="radio" id="easy-play" name="solve-type" value="0" />
-                        <label for="easy-play">Display Final</label>
+                    <div id="solve-checkbox-container">
+                        <div class="align-check-right">
+                            <label for="easy-play">Color-coding</label>
+                            <input type="checkbox" id="easy-play" name="solve-type" value="0" />
+                        </div>
+                        <div class="align-check-right">
+                            <label for="medium-play">Walkthrough</label>
+                            <input type="checkbox" id="medium-play" name="solve-type" value="1" />
+                        </div>
                     </div>
-                    <div class="align-radio-right">
-                        <input type="radio" id="medium-play" name="solve-type" value="1" />
-                        <label for="medium-play">Walkthrough</label>
-                    </div>
-                    <br>
                     <button id="solve-button1" onclick="solve_a_game()" class="gen-buttons"> Solve Board </button>
                 </div>
                 

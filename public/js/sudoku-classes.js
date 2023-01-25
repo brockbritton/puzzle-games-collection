@@ -23,6 +23,7 @@ class playSudokuGame {
 class SudokuBoard {
     constructor(rows_list) {
         this.rows = rows_list;
+        this.solve_sequence = []; 
         this.buildColumns(); //this.columns
         this.buildNinths(); //this.ninths
     }
@@ -78,6 +79,9 @@ class SudokuBoard {
     }
 
     updateBoard(new_value, row, col) {
+        //update the solve sequence 
+        this.solve_sequence.push([new_value, row, col])
+        
         //we should only update the row, column, and ninth that was changed
         this.rows[row][col] = new_value
         this.columns[col][row] = new_value
@@ -286,7 +290,7 @@ class SudokuBoard {
 
     tryANumber() {
         //recursive !!
-        //find naked pairs, plug in the first value for one cell, then try to solve
+        //find hidden/naked pairs, plug in the first value for one cell, then try to solve
         //if solveboard() comes back false, try the other value, 
         //if both numbers come back false, try to go back to the first function call.
 
