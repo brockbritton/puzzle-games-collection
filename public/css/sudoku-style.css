@@ -1,16 +1,17 @@
 
 /* Sudoku Board Start */
-.boxes {
+.board-ninths {
     width: 200px !important; 
     height: 200px !important;
 }
   
-.cells {
+.board-cells {
     border: 2px solid black;
     width: 65px !important; 
     height: 65px !important;
     text-align: center;
     font-size: 40px;
+    border-radius: 5px;
 }
 
 #sudoku-board-div {

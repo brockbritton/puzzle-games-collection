@@ -27,13 +27,13 @@ function build_sudoku_board() {
         const row = document.createElement("tr");
         for (let bc = 0; bc < 3; bc++) {
             const cell = document.createElement("td");
-            cell.classList.add("boxes");
+            cell.classList.add("board-ninths");
             const cell_tbl = document.createElement("table");
             for (let cr = 1; cr <= 3; cr++) {
                 const cell_row = document.createElement("tr");
                 for (let cc = 1; cc <= 3; cc++) {
                     const num_cell = document.createElement("td");
-                    num_cell.classList.add("cells");
+                    num_cell.classList.add("board-cells");
                     num_cell.classList.add(`row${((br*3)+cr)-1}`)
                     num_cell.classList.add(`col${((bc*3)+cc)-1}`) 
                     num_cell.classList.add(`nin${(3*br)+bc}`)

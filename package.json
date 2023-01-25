@@ -13,7 +13,11 @@
     "license": "MIT",
     "devDependencies": {
         "express": "^4.16.2",
-        "nodemon": "^2.0.19"
+        "nodemon": "^2.0.20"
     },
-    "keywords": ["server", "games", "sudoku"]
+    "keywords": [
+        "server",
+        "games",
+        "sudoku"
+    ]
 }
