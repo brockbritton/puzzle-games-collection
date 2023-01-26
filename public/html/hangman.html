@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/general.css" />
+    <link rel="stylesheet" type="text/css" href="css/sudoku-style.css" />
+
+    <script type="text/javascript" src="js/hangman.js"></script>
+    <title> Hangman </title> 
+</head>
+<body>
+    <div id="page-header">
+        <h2>Hangman</h2>
+    </div>
+    
+    <div id="sudoku-toggle-gamemode-div">
+        <p class="switch-game-toggle-label"> 
+            to switch gamemodes, please toggle below 
+        </p>
+        <div class="toggle-container">
+            <label for="slider-checkbox" class="toggle-labels side-by-side"> play </label>
+            <label class="switch side-by-side">
+                <input id="slider-toggle-sudoku" class="slider-checkbox" type="checkbox" onchange="toggleSudokuPlaySolve()">
+                <span class="slider round"></span>
+            </label>
+            <p class="toggle-labels side-by-side"> solve </p>
+        </div>
+        <p class="aware-warning"> 
+            please be aware that switching gamemodes will erase your current game if one is running 
+        </p>
+    </div>
+        
+    <p id="b_d_note"> Built and Designed by Brock Britton</p>
+    <script>
+
+        
+    </script>
+</body>
+</html>

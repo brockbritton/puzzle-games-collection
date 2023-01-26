@@ -17,6 +17,10 @@ app.get('/bingo', function (request, response ) {
     response.sendFile('bingo.html', { root: './public/html' });
 });
 
+app.get('/hangman', function (request, response ) {
+    response.sendFile('hangman.html', { root: './public/html' });
+});
+
 app.listen(server_port, function() {
     console.log(`server listening at: http://localhost:${server_port}/`)
 });
