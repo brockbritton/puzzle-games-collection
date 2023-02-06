@@ -1,0 +1,59 @@
+
+#hangman-play-div {
+    display: block;
+    margin: auto;
+    width: 100%;
+}
+
+#letters-div {
+    padding: 20px;
+    margin-bottom: 15px;
+    width: max-content;
+    margin: auto;
+}
+
+.letter-space {
+    font-size: 50px;
+    width: 50px;
+    height: 60px;
+    margin: 5px 5px;
+    background-color: lightgray;
+    text-align: center;
+    box-shadow: 3px 3px 10px #696969 inset;
+    border-radius: 3px;
+}
+
+.whitespace-space {
+    font-size: 50px;
+    width: 50px;
+    height: 60px;
+    margin: 5px 5px;
+}
+
+#hearts-div {
+    width: max-content;
+    height: min-content;
+    padding: 20px;
+    margin: auto;
+}
+
+.hearts {
+    font-size: 80px;
+    margin: 0 5px;
+    color: grey;
+    font-weight: 900;
+}
+
+.heart-full {
+    color: #EB0000;
+}
+
+#hangman-solve-div {
+    display: none;
+    margin: auto;
+    width: 100%;
+}
+
+.keyboard-row {
+
+}

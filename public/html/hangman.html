@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="css/general.css" />
-    <link rel="stylesheet" type="text/css" href="css/sudoku-style.css" />
+    <link rel="stylesheet" type="text/css" href="css/hangman-style.css" />
 
     <script type="text/javascript" src="js/hangman.js"></script>
     <title> Hangman </title> 
@@ -23,7 +23,7 @@
         <div class="toggle-container">
             <label for="slider-checkbox" class="toggle-labels side-by-side"> play </label>
             <label class="switch side-by-side">
-                <input id="slider-toggle-sudoku" class="slider-checkbox" type="checkbox" onchange="toggleSudokuPlaySolve()">
+                <input id="slider-toggle-hangman" class="slider-checkbox" type="checkbox" onchange="toggleHangmanPlaySolve()">
                 <span class="slider round"></span>
             </label>
             <p class="toggle-labels side-by-side"> solve </p>
@@ -32,11 +32,22 @@
             please be aware that switching gamemodes will erase your current game if one is running 
         </p>
     </div>
+    <div id="hangman-play-div">
+        <div id="letters-div">
+            <!-- letter spaces will be built here -->
+        </div>
+        <div id="hearts-div"> 
+            <!-- hearts will be built here -->
+        </div>
+    </div>
+    <div id="hangman-solve-div">
+        <p> solve div</p>
+    </div>
         
     <p id="b_d_note"> Built and Designed by Brock Britton</p>
     <script>
-
-        
+        buildHearts(10)
+        buildLetterSpaces("rhyme and rhythm")
     </script>
 </body>
 </html>
