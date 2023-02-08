@@ -11,6 +11,10 @@ body {
     font-family: Georgia, serif;
 }
 
+:disabled {
+    cursor: not-allowed !important;
+}
+
 .side-by-side {
     display: inline-block !important;
 }
@@ -47,7 +51,7 @@ body {
     cursor: pointer;
 }
 
-.gen-buttons:active {
+.gen-buttons:active:enabled {
     background-color: #F5F5F5;
 }
 

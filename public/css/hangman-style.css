@@ -32,8 +32,7 @@
 
 #hearts-div {
     width: max-content;
-    height: min-content;
-    padding: 20px;
+    padding: 10px;
     margin: auto;
 }
 
@@ -48,12 +47,31 @@
     color: #EB0000;
 }
 
+#keyboard-div {
+    margin: auto;
+    width: max-content;
+    border: 1px black solid;
+    padding: 20px;
+}
+
+.keyboard-row {
+    width: max-content;
+    margin: auto;
+}
+
+.keyboard-key {
+    display: inline-block;
+    border-radius: 3px;
+    border: black 1px solid;
+    font-size: 35px;
+    margin: 5px;
+    height: 50px;
+    width: 50px;
+}
+
 #hangman-solve-div {
     display: none;
     margin: auto;
     width: 100%;
 }
 
-.keyboard-row {
-
-}

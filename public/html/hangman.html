@@ -33,21 +33,31 @@
         </p>
     </div>
     <div id="hangman-play-div">
-        <div id="letters-div">
-            <!-- letter spaces will be built here -->
+        <div id="player-settings-container">
+            
         </div>
-        <div id="hearts-div"> 
-            <!-- hearts will be built here -->
+        <div id="player-container">
+            <div id="letters-div">
+                <!-- letter spaces will be built here -->
+            </div>
+            <div id="hearts-div"> 
+                <!-- hearts will be built here -->
+            </div>
+            <div id="keyboard-div"> 
+                <!-- keyboard will be built here -->
+            </div>
         </div>
     </div>
     <div id="hangman-solve-div">
-        <p> solve div</p>
+        
     </div>
         
     <p id="b_d_note"> Built and Designed by Brock Britton</p>
     <script>
-        buildHearts(10)
+        buildHearts(5)
         buildLetterSpaces("rhyme and rhythm")
+        buildDigitalKeyboard()
+        
     </script>
 </body>
 </html>

@@ -38,3 +38,28 @@ function buildLetterSpaces(word) {
         letters_div.appendChild(par)
     }
 }   
+
+function buildDigitalKeyboard() {
+    const keyboard_div = document.getElementById("keyboard-div")
+    const keyboard_rows = [
+        ["q","w","e","r","t","y","u","i","o","p"],
+        ["a","s","d","f","g","h","j","k","l"],
+        ["z","x","c","v","b","n","m"],
+    ]
+
+    for (let row = 0; row < keyboard_rows.length; row++) {
+        let keys_row = document.createElement("div")
+        keys_row.classList.add("keyboard-row")
+        for (let i = 0; i < keyboard_rows[row].length; i++) {
+            let key = document.createElement("button")
+            key.classList.add("keyboard-key")
+            key.setAttribute("onclick", "")
+            key.innerHTML = keyboard_rows[row][i]
+            keys_row.appendChild(key)
+            console.log()
+        }
+        keyboard_div.appendChild(keys_row)
+    }
+    
+
+}

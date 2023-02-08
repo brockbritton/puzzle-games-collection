@@ -29,7 +29,7 @@
             <p class="toggle-labels side-by-side"> call </p>
         </div>
         <p class="aware-warning"> 
-            please be aware that switching gamemodes will erase your current game if one is running 
+            switching gamemodes will NOT erase your current game 
         </p>
     </div>
     <div>
@@ -46,7 +46,7 @@
                             <div class="toggle-container side-by-side" >
                                 <label for="slider-checkbox" class="toggle-labels side-by-side"> some </label>
                                 <label class="switch side-by-side">
-                                <input type="checkbox" id="slider-toggle-some-all" class="slider-checkbox" onchange="curr_bingo_state.toggleColumnsSelect()">
+                                <input type="checkbox" id="slider-toggle-some-all" class="slider-checkbox" onchange="toggleAllColumnsSelect()">
                                 <span class="slider round"></span>
                             </label>
                                 <p class="toggle-labels side-by-side"> all </p>
@@ -54,38 +54,38 @@
                             <div id="spacer-25px" class="side-by-side"> 
                                 <!-- spacer -->
                             </div>
-                            <button class="gen-buttons side-by-side" onclick="curr_bingo_state.buildNewCaller()"> New Game </button>
+                            <button class="gen-buttons side-by-side" onclick="buildNewCaller()"> New Game </button>
                         </div>
                         <div id="column-select-div">
                             <div class="side-by-side select-column-div">
                                 <div class="select-column-label-container">
                                     <label for="columnB" class="select-column-letters"> B </label>
                                 </div>
-                                <input type="checkbox" id="columnB" value="0" class="select-column-checkbox" onclick="curr_bingo_state.checkClick(event)">
+                                <input type="checkbox" id="columnB" value="0" class="select-column-checkbox" onclick="checkColumnSelectionClick(event)">
                             </div>
                             <div class="side-by-side select-column-div">
                                 <div class="select-column-label-container">
                                     <label for="columnI" class="select-column-letters"> I </label>
                                 </div>
-                                <input type="checkbox" id="columnI" value="1" class="select-column-checkbox" onclick="curr_bingo_state.checkClick(event)">
+                                <input type="checkbox" id="columnI" value="1" class="select-column-checkbox" onclick="checkColumnSelectionClick(event)">
                             </div>
                             <div class="side-by-side select-column-div">
                                 <div class="select-column-label-container">
                                     <label for="columnN" class="select-column-letters"> N </label>
                                 </div>
-                                <input type="checkbox" id="columnN" value="2" class="select-column-checkbox" onclick="curr_bingo_state.checkClick(event)">
+                                <input type="checkbox" id="columnN" value="2" class="select-column-checkbox" onclick="checkColumnSelectionClick(event)">
                             </div>
                             <div class="side-by-side select-column-div">
                                 <div class="select-column-label-container">
                                     <label for="columnG" class="select-column-letters"> G </label>
                                 </div>
-                                <input type="checkbox" id="columnG" value="3" class="select-column-checkbox" onclick="curr_bingo_state.checkClick(event)">
+                                <input type="checkbox" id="columnG" value="3" class="select-column-checkbox" onclick="checkColumnSelectionClick(event)">
                             </div>
                             <div class="side-by-side select-column-div">
                                 <div class="select-column-label-container">
                                     <label for="columnO" class="select-column-letters"> O </label>
                                 </div>
-                                <input type="checkbox" id="columnO" value="4" class="select-column-checkbox" onclick="curr_bingo_state.checkClick(event)">
+                                <input type="checkbox" id="columnO" value="4" class="select-column-checkbox" onclick="checkColumnSelectionClick(event)">
                             </div>
                         </div>
                         <br>
@@ -107,7 +107,7 @@
                     <br>
                     <div id="calling-number-div">
                         <div class="side-by-side" id="call-number-btn-div" >
-                            <button class="gen-buttons" onclick="curr_bingo_state.checkCallNumber()"> Call a Number </button> 
+                            <button id="caller-call-number" class="gen-buttons" onclick="current_caller_game.callNumber()" disabled="true"> Call a Number </button> 
                         </div>
                         <div class="side-by-side" id="calling-number-display">
                             <p id="html-call-display" class="numbers-font"> &#8203; </p>
@@ -135,7 +135,7 @@
                     <div id="dropdowns-container">
                         <div class="side-by-side">
                             <label for="boards-num-dropdown"> boards per game: </label>
-                            <select class="play-settings-dropdowns" id="boards-num-dropdown" onchange="curr_bingo_state.updateBoardsNum()">
+                            <select class="play-settings-dropdowns" id="boards-num-dropdown">
                                 <option value="1" class="default-dropdown-option"> 1 </option>
                                 <option value="2"> 2 </option>
                                 <option value="3"> 3 </option>
@@ -149,12 +149,12 @@
                         <div class="side-by-side player-options-spacer"> <!-- spacer --> </div>
                         <div class="side-by-side">
                             <label for="highlight-colorpicker"> highlight color:</label>
-                            <input type="color" id="highlight-colorpicker" onchange="curr_bingo_state.updateHighlightColor()" value="#0096FF">
+                            <input type="color" id="highlight-colorpicker" onchange="updateHighlightColor()" value="#0096FF">
                         </div>
                         <div class="side-by-side player-options-spacer"> <!-- spacer --> </div>
                         <div class="side-by-side">
                             <label for="winning-pattern-dropdown"> winning pattern: </label>
-                            <select class="play-settings-dropdowns" id="winning-pattern-dropdown" onchange="curr_bingo_state.updateWinningPattern()">
+                            <select class="play-settings-dropdowns" id="winning-pattern-dropdown" onchange="updateWinningPattern()">
                                 <option value="stnd" class="default-dropdown-option"> classic </option>
                                 <option value="other" id="other-select"> custom </option>
                             </select>
@@ -167,7 +167,7 @@
                 </div>
                 <br>
                 <div id="new-game-button-container">
-                    <button class="gen-buttons" onclick="curr_bingo_state.buildNewPlayer()"> New Game </button>
+                    <button class="gen-buttons" onclick="buildNewPlayer()"> New Game </button>
                 </div>
             </div>
             <div id="call-nums-and-boards">
@@ -222,9 +222,15 @@
     <p id="b_d_note"> Built and Designed by Brock Britton </p>
 
     <script>
+        let current_caller_game = null
+        let current_player_dict = {
+            "player_game": null,
+            "current_boards": [],
+            "call_list": [],
+            "winning_pattern": "stnd",
+        }
 
-        toggleBingoStates()
-
+        //build page elements
         buildCallerCalledNumbersTable()
         buildPlayerCalledNumbersTable()
         buildCustomPatternSelectBoard()
