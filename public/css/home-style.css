@@ -1,18 +1,52 @@
 
-#hz-choice-buttons-div {
-    display: block;
-    justify-content: center;
+
+.play-button {
+    width: max-content;
+    margin: auto;
     text-align: center;
 }
 
-#hz-choice-buttons-div > p {
-    
+.game-option {
+    width: 80%;
+    margin: 1% auto;
+    display: flex;
+    flex-direction: row;
+    border: 2px solid black;
+    border-radius: 60px;
 }
 
+.game-image-container {
+    width: 200px;
+    height: auto;
+    padding: 5%;
+    text-align: center;
+}
 
-#hz-choice-buttons-div > button {
-    justify-content: center;
-    height: 35px;
+.home-image {
+    width: 100%;
+}
+
+.game-description {
+    width: 60%;
+    padding: 5%;
+    text-align: center;
+}
+
+.game-header {
+    font-weight: 700;
+    margin: 20px auto;
     width: max-content;
-    font-size: 25px;
+}
+
+.modes-description {
+    text-align: center;
+
+}
+
+#coming-soon-container {
+    text-align: center;
+}
+
+#coming-soon-header {
+    font-weight: 700;
 }

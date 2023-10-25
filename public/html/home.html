@@ -6,25 +6,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="css/general.css" />
     <link rel="stylesheet" type="text/css" href="css/home-style.css" />
-    <title> Games : Home </title>
+    <title> Brock's Games </title>
 </head>
 <body>
     <div id="page-header">
-        <h1>Small Games Player</h1>
-        <p>Built by Brock Britton</p>
-    </div>
-    
-    <div id="hz-choice-buttons-div">
-        <br>
-        <p> Quick Game Choice:</p>
-        
-        <button class="gen-buttons" onclick="location.href='/sudoku'">Sudoku</button>
-        <button class="gen-buttons" onclick="location.href='/bingo'">Bingo</button>
-        <button class="gen-buttons" onclick="location.href='/hangman'">Hangman</button>
-        <button class="gen-buttons">Word Search</button> 
+        <h1> Brock's Games </h1>
+        <p>A collection of game players and solvers built by Brock Britton</p>
     </div>
     <br>
-    <p> Game Descriptions: </p>
+    <div>
+        <div class="game-option">
+            <div class="game-image-container">
+                <img class="home-image" src="/images/bingo-board.jpg" alt="">
+            </div>
+            <div class="game-description">
+                <p class="game-header"> Bingo - Record and Call</p>
+                <p class="modes-description">
+                    The first Bingo function is to record a game of bingo, 
+                    allowing you to have multiple boards and each board will be updated automatically. 
+                    The second Bingo function is to call a game of bingo, with numbers being called randomly, 
+                    and the call board also being updated randomly.
+                </p>
+                <button class="gen-buttons" onclick="location.href='/bingo'"> Go to Bingo </button> 
+            </div>
+        </div>
+        <div class="game-option">
+            <div class="game-description">
+                <p class="game-header"> Sudoku - Solve </p>
+                <p class="modes-description">
+                    The first available Sudoku function is to solve a board of sudoku. 
+                    Once you manually enter the numbers into the board, the board will be automatically 
+                    populated by the answers. Sudoku Play is coming soon.
+                </p>
+                <button class="gen-buttons" onclick="location.href='/sudoku'"> Go to Sudoku </button>
+            </div>
+            <div class="game-image-container">
+                <img class="home-image" src="/images/sudoku-board.png" alt="">
+            </div>
+        </div>
+    </div>
+    <div id="coming-soon-container">
+        <p id="coming-soon-header"> Other Games Coming Soon </p>
+        <div>
+            <p> Hangman - Play and Solve </p>
+            <p> Word Search - Solve </p>
+        </div>
+    </div>
 
    
     

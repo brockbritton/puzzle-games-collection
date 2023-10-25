@@ -22,16 +22,18 @@
                 to switch gamemodes, please toggle below 
             </p>
             <div class="toggle-container">
-                <label for="slider-checkbox" class="toggle-labels side-by-side"> play </label>
+                <label for="slider-checkbox" class="toggle-labels side-by-side"> solve </label>
                 <label class="switch side-by-side">
                     <input id="slider-toggle-sudoku" class="slider-checkbox" type="checkbox" onchange="toggleSudokuPlaySolve()">
                     <span class="slider round"></span>
                 </label>
-                <p class="toggle-labels side-by-side"> solve </p>
+                <p class="toggle-labels side-by-side"> play </p>
             </div>
+            <!--
             <p class="aware-warning"> 
                 please be aware that switching gamemodes will erase your current game if one is running 
             </p>
+            -->
         </div>
         
         <div id="sudoku-control-bar">
@@ -63,7 +65,10 @@
                         </label for="play-correct"> Auto-correct </label>
                         <input type="checkbox" id="play-correct">
                     </div>
+                    <!--
                     <button id="play-button1" onclick="play_a_game()" class="gen-buttons"> Play </button>
+                    -->
+                    <p> Coming Soon</p>
                 </div>
                 
             </div>
@@ -74,21 +79,21 @@
                 <div id="solve-settings-left" class="side-by-side">
                     <p class="sudoku-control-header">Instructions</p>
                     <p id="enter-nums-instruction">
-                        Enter the numbers on the board or upload a photo of a board. 
-                        Or choose random board for an example.
+                        Enter the numbers on the board or choose random board for an example.
+                        Then press solve board.
                     </p>
-                    <button onclick="" class="gen-buttons"> Upload Photo </button>
+                    <br>
                     <button onclick="fill_random_board()" class="gen-buttons"> Random Board </button>
                 </div>
                 <div id="solve-settings-right" class="side-by-side">
                     <p class="sudoku-control-header">Options</p>
                     <div id="solve-checkbox-container">
                         <div class="align-check-right">
-                            <label for="easy-play">Color-coding</label>
+                            <label for="easy-play">Black & White</label>
                             <input type="checkbox" id="easy-play" name="solve-type" value="0" />
                         </div>
                         <div class="align-check-right">
-                            <label for="medium-play">Walkthrough</label>
+                            <label for="medium-play">Animate</label>
                             <input type="checkbox" id="medium-play" name="solve-type" value="1" />
                         </div>
                     </div>
@@ -119,8 +124,6 @@
     <script>
 
         build_sudoku_board();
-        document.getElementById("slider-toggle-sudoku").checked = true
-        toggleSudokuPlaySolve();
 
         //reset_sudoku_board_options()
     </script>

@@ -8,6 +8,8 @@ class solveSudokuGame {
         } else {
             this.solution_board = null;
         }
+
+        console.log()
         
     }
 }
@@ -324,7 +326,7 @@ class SudokuBoard {
             
             if (iterations == 10) {
                 console.log("board not solved")
-                return false
+                return true  ///should be false
             }
             
         }

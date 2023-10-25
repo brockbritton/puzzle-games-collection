@@ -86,7 +86,7 @@
 }
 
 #play-settings-div {
-    display: block;
+    display: none;
     background-color: transparent;
     height: 185px;
     margin: 0;
@@ -118,7 +118,6 @@
 
 }
 
-
 #spacer-40px {
     width: 40px;
 }
@@ -128,7 +127,7 @@
 }
 
 #solve-settings-div {
-    display: none;
+    display: block;
     background-color: transparent;
     height: 185px;
     margin: 0px;
@@ -161,4 +160,17 @@
 
 #solve-controls-div {
 
+}
+
+.subcell-array-table {
+    z-index: 3;
+    margin: 0;
+}
+
+
+
+.subcell-array-number {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
 }

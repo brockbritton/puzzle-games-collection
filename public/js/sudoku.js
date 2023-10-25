@@ -5,16 +5,16 @@ const available_games = {
     3 : hard_game1,
 };
 
-function toggleSudokuPlaySolve() {
+function toggleSudokuPlaySolve() { 
     const gamemode_toggle = document.getElementById("slider-toggle-sudoku")
     const play_settings_div = document.getElementById("play-settings-div")
     const solve_settings_div = document.getElementById("solve-settings-div")
     if (gamemode_toggle.checked) {
-        solve_settings_div.style.display = "block"
-        play_settings_div.style.display = "none"
-    } else {
         solve_settings_div.style.display = "none"
         play_settings_div.style.display = "block"
+    } else {
+        solve_settings_div.style.display = "block"
+        play_settings_div.style.display = "none"
     }
 }
 
@@ -74,7 +74,6 @@ function play_a_game() {
     }
 }
 
-
 //Solve Board Button
 function solve_a_game() {
     let rows_array = get_board_values();
@@ -83,6 +82,7 @@ function solve_a_game() {
         update_board(solve_game.solution_board.rows, null)
     } else {
         alert("no solution found. please make sure you have correctly input the board values.")
+        console.log(solve_game.solution_board.rows)
     }
 }
 
@@ -143,14 +143,36 @@ function update_board(board_array, type) {
                 //cells[i].addEventListener('keydown', changeCellValue);
             } else {
                 //if board array has numbers
-                cells[i].innerHTML = board_array[r][i]
-                if (cells[i].innerHTML == "") {
-                    cells[i].innerHTML == "&#8203;"
-                    cells[i].setAttribute("contenteditable", 'true');
-                    cells[i].addEventListener('keydown', changeCellValue);
+                if (Array.isArray(board_array[r][i])) {
+                    cells[i].innerHTML = ""
+                    const subcell_tbl = document.createElement("table");
+                    subcell_tbl.classList.add("subcell-array-table")
+                    for (let cr = 1; cr <= 3; cr++) {
+                        const subcell_row = document.createElement("tr");
+                        for (let cc = 1; cc <= 3; cc++) {
+                            const subcell_num = document.createElement("td");
+                            subcell_num.classList.add("subcell-array-number")
+                            if (board_array[r][i].includes((3*(cr-1)) +cc)) {
+                                subcell_num.innerHTML = `${(3*(cr-1))+cc}`
+                            } else {
+                                subcell_num.innerHTML == "&#8203;"
+                            }
+                            subcell_row.appendChild(subcell_num)
+                        }
+                        subcell_tbl.appendChild(subcell_row)
+                    }
+                    cells[i].appendChild(subcell_tbl)
                 } else {
-                    cells[i].setAttribute("contenteditable", 'false');
+                    cells[i].innerHTML = board_array[r][i]
+                    if (cells[i].innerHTML == "") {
+                        cells[i].innerHTML == "&#8203;"
+                        cells[i].setAttribute("contenteditable", 'true');
+                        cells[i].addEventListener('keydown', changeCellValue);
+                    } else {
+                        cells[i].setAttribute("contenteditable", 'false');
+                    }
                 }
+                
             } 
         }
     }

@@ -4,15 +4,16 @@
     "description": "",
     "main": "server.js",
     "scripts": {
-        "start": "node server",
-        "devstart": "nodemon server",
-        "__comment-debug-build__": "this is another comment",
-        "edge-debug": "nodemon --inspect server"
+        "start": "node server.js",
+        "devstart": "nodemon server.js",
+        "edge-debug": "nodemon --inspect server.js"
     },
     "author": "Brock Britton brockbritton@outlook.com",
     "license": "MIT",
+    "dependencies": {
+        "express": "^4.16.2"
+    },
     "devDependencies": {
-        "express": "^4.16.2",
         "nodemon": "^2.0.20"
     },
     "keywords": [

@@ -38,13 +38,13 @@ body {
     background-color: white ;
     color: black;
     cursor: pointer;
-    height: auto;
-    width: auto;
+    width: max-content;
     text-align: center;
     border: solid 1px;
     font-size: 20px;
     padding: 0px 15px;
     border-radius: 8px;
+    margin: auto;
 }
 
 .gen-buttons:hover {
