@@ -50,3 +50,26 @@
 #coming-soon-header {
     font-weight: 700;
 }
+
+@media only screen and (max-width: 650px) {
+
+    .game-option {
+        flex-direction: column;
+    }
+
+    .game-option.col-rev {
+        flex-direction: column-reverse;
+    }
+
+    .game-image-container {
+        width: 50%;
+        margin: auto;
+    }
+
+    .game-description {
+        width: 85%;
+        margin: auto;
+        text-align: center;
+    }
+
+  }

@@ -18,9 +18,6 @@
     </div>
     <div id="sudoku-options-div">
         <div id="sudoku-toggle-gamemode-div">
-            <p class="switch-game-toggle-label"> 
-                to switch gamemodes, please toggle below 
-            </p>
             <div class="toggle-container">
                 <label for="slider-checkbox" class="toggle-labels side-by-side"> solve </label>
                 <label class="switch side-by-side">
@@ -68,24 +65,22 @@
                     <!--
                     <button id="play-button1" onclick="play_a_game()" class="gen-buttons"> Play </button>
                     -->
-                    <p> Coming Soon</p>
+                    <p style="font-style: italic;"> Coming Soon</p>
                 </div>
-                
-            </div>
-            <div id="play-controls-div">
- 
             </div>
             <div id="solve-settings-div">
-                <div id="solve-settings-left" class="side-by-side">
+                <div id="solve-settings-left">
                     <p class="sudoku-control-header">Instructions</p>
-                    <p id="enter-nums-instruction">
-                        Enter the numbers on the board or choose random board for an example.
-                        Then press solve board.
+                    <p id="solve-instruction">
+                        Enter numbers into the board or choose example board.
+                        Then press Solve.
                     </p>
-                    <br>
-                    <button onclick="fill_random_board()" class="gen-buttons"> Random Board </button>
+                    <p id="solve-instruction">
+                        This solver is a work-in-progress, and cannot yet solve all sudoku puzzles. 
+                        If a cell has multiple numbers, those are the viable numbers that could be in that cell.
+                    </p>
                 </div>
-                <div id="solve-settings-right" class="side-by-side">
+                <div id="solve-settings-right">
                     <p class="sudoku-control-header">Options</p>
                     <div id="solve-checkbox-container">
                         <div class="align-check-right">
@@ -97,20 +92,16 @@
                             <input type="checkbox" id="medium-play" name="solve-type" value="1" />
                         </div>
                     </div>
-                    <button id="solve-button1" onclick="solve_a_game()" class="gen-buttons"> Solve Board </button>
+                    <button class="gen-buttons"> Clear Board </button>
+                    <button onclick="fill_random_board()" class="gen-buttons"> Example Board </button>
+                    <button id="solve-button1" onclick="solve_a_game()" class="gen-buttons"> Solve </button>
                 </div>
-                
-                
             </div>
-            <div id="solve-controls-div">
-
-            </div>
-            
         </div>
     </div>
     <div>
         <p id="game-type-header">
-
+            <!-- game header will be built here -->
         </p>
     </div>
     <div id="sudoku-board-div">
@@ -122,10 +113,7 @@
 
     <p id="b_d_note"> Built and Designed by Brock Britton</p>
     <script>
-
         build_sudoku_board();
-
-        //reset_sudoku_board_options()
     </script>
 </body>
 </html>

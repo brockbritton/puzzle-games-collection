@@ -326,7 +326,8 @@ class SudokuBoard {
             
             if (iterations == 10) {
                 console.log("board not solved")
-                return true  ///should be false
+                //keep as true for partial solutions
+                return true  ///should be false?
             }
             
         }

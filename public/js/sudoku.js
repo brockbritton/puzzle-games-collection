@@ -1,10 +1,4 @@
  
-const available_games = {
-    1 : easy_game1,
-    2 : medium_game1,
-    3 : hard_game1,
-};
-
 function toggleSudokuPlaySolve() { 
     const gamemode_toggle = document.getElementById("slider-toggle-sudoku")
     const play_settings_div = document.getElementById("play-settings-div")
@@ -63,7 +57,6 @@ function play_a_game() {
             select_radio = radios[i]
         }
     }
-
     if (select_radio != null) {
         const radio_label = document.querySelector(`label[for=${select_radio.id}]`);
         const par = document.getElementById("game-type-header");
@@ -87,12 +80,19 @@ function solve_a_game() {
 }
 
 //to fill in a random board from Solve Board Control
+
+let board_index = 0
 function fill_random_board() {
+    const available_games = [home_display_game, easy_game1, medium_game1, hard_game1, hidden_pairs_test, expert_game1, evil_game1]
     //put empty cells as no-space character
     const par = document.getElementById("game-type-header");
     par.innerHTML = `Solve Sudoku : Random`
-    let rows_array = easy_game1
-    update_board(rows_array, "game-solve") 
+    board_index += 1
+    if (board_index == available_games.length) {
+        board_index = 0
+    }
+    update_board(available_games[board_index], "game-solve") 
+    //update_board(test_game, "game-solve") 
 }
 
 //Getting board values from 
@@ -118,9 +118,6 @@ function reset_sudoku_board_options() {
     clear_board_values()
     //reset the gamemode dropdown
 }
-
-
-
 
 //Clear Board Button
 function clear_board_values() {
