@@ -4,7 +4,12 @@
 
 #play-or-call-choice-div {
     margin: 0 auto;
-    width: max-content;
+    width: 90vw;
+}
+
+.switch-game-toggle-label {
+    width: 90vw;
+    text-align: center;
 }
 
 #choose-bingo-gamemode-drpdwn {
@@ -72,8 +77,14 @@
 }
 
 #dropdowns-container {
+    display: flex;
+    flex-direction: row;
     margin: auto;
     width: max-content;
+}
+
+.rec-options-containers {
+    padding: 10px;
 }
 
 .play-settings-dropdowns {
@@ -237,7 +248,8 @@
 
 .play-boards-row {
     margin: auto;
-    display: block;
+    display: flex;
+    flex-direction: row;
     height: min-content;
     width: max-content;
     margin: 5px;
@@ -406,27 +418,29 @@
 }
 
 #gameplay-nums-table-wp-display {
-    z-index: 2;
-    position: absolute;
-    top: 0;
-    width: 100;
-    margin: auto;
+    position: relative;
     display: flex;
+    flex-direction: row;
+    width: max-content;
+    margin: auto;
+    background-color: white;
+    overflow: hidden;
 }
 
 #bingo-alert-popup-display {
     z-index: 3;
+    display: none;
     position: absolute;
     top: 0;
     background-color: transparent;
-    width: 100%;
+    width: 90vw;
     
 }
 
 #bingo-alert-background {
     position: relative;
     border-radius: 25px;
-    width: 400px;
+    width: 90%;
     height: 200px;
     margin: auto;
     margin-top: 15px !important;
@@ -474,15 +488,7 @@
     display: none;
     position: relative;
     width: 100%;
-    height: 250px;
-}
-
-#gameplay-nums-table-wp-display {
-    position: relative;
-    width: max-content;
-    margin: auto;
-    background-color: white;
-    
+    height: min-content;
 }
 
 #winning-pattern-display-container {
@@ -523,3 +529,37 @@
 #spacer-25px {
     width: 25px;
 }
+
+
+@media only screen and (max-width: 650px) {
+
+    #dropdowns-container {
+        flex-direction: column;
+    }
+
+    .rec-options-containers {
+        margin: auto;
+    }
+    
+    .play-boards-row {
+        flex-direction: column;
+    }
+
+    #gameplay-nums-table-wp-display {
+        flex-direction: column;
+    }
+
+    #winning-pattern-display-container {
+        margin: auto;
+    }
+
+    #numbers-table-container {
+        overflow: scroll;
+        width: 95vw;
+    }
+
+    .horizontal-table-cell {
+        font-size: 6vw;
+    }
+
+  }

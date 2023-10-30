@@ -61,10 +61,7 @@ function buildPlayerCalledNumbersTable() {
     }
     table_container.appendChild(table)
 
-    const instructions_par = document.createElement("p");
-    instructions_par.classList.add("bingo-table-captions")
-    instructions_par.innerHTML = "when a number is called, click the corresponding cell. your board(s) below will be automatically updated."
-    table_container.appendChild(instructions_par)
+    
 }
 
 function buildCustomPatternSelectBoard() {
@@ -461,18 +458,18 @@ function evaluateBingoCalls() {
 function toggleBingoAlert() {
     const bingo_popup = document.getElementById("bingo-alert-popup-display")
     const blur_elements = document.getElementsByClassName("blur-elements")
-    if (bingo_popup.style.zIndex == 1) {
+    if (!bingo_popup.style.display || bingo_popup.style.display == "none" ) {
         //change popup to visible and blur
         for (let i = 0; i < blur_elements.length; i++) {
             blur_elements[i].style.filter = "blur(3px)"
         }
-        bingo_popup.style.zIndex = 3
+        bingo_popup.style.display = "block"
     } else {
         //hide popup and unblur
         for (let i = 0; i < blur_elements.length; i++) {
             blur_elements[i].style.filter = "none"
         }
-        bingo_popup.style.zIndex = 1
+        bingo_popup.style.display = "none"
     }
 
 }

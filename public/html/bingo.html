@@ -10,7 +10,7 @@
 
     <script type="text/javascript" src="js/bingo.js"></script>
     <script type="text/javascript" src="js/bingo-classes.js"></script>
-    <title> Bingo </title>
+    <title> Bingo </title> 
 </head>
 <body>
     <div id="page-header">
@@ -133,7 +133,7 @@
                 <br>
                 <div id="player-settings-div">
                     <div id="dropdowns-container">
-                        <div class="side-by-side">
+                        <div class="rec-options-containers">
                             <label for="boards-num-dropdown"> boards per game: </label>
                             <select class="play-settings-dropdowns" id="boards-num-dropdown">
                                 <option value="1" class="default-dropdown-option"> 1 </option>
@@ -146,13 +146,11 @@
                                 <option value="8"> 8 </option>
                             </select>
                         </div>
-                        <div class="side-by-side player-options-spacer"> <!-- spacer --> </div>
-                        <div class="side-by-side">
+                        <div class="rec-options-containers">
                             <label for="highlight-colorpicker"> highlight color:</label>
                             <input type="color" id="highlight-colorpicker" onchange="updateHighlightColor()" value="#0096FF">
                         </div>
-                        <div class="side-by-side player-options-spacer"> <!-- spacer --> </div>
-                        <div class="side-by-side">
+                        <div class="rec-options-containers">
                             <label for="winning-pattern-dropdown"> winning pattern: </label>
                             <select class="play-settings-dropdowns" id="winning-pattern-dropdown" onchange="updateWinningPattern()">
                                 <option value="stnd" class="default-dropdown-option"> classic </option>
