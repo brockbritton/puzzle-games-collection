@@ -24,6 +24,7 @@
 
 #bingo-caller-div {
     display: none;
+    flex-direction: row;
     margin-top: 10px;
 }
 
@@ -85,6 +86,7 @@
 
 .rec-options-containers {
     padding: 10px;
+    vertical-align: middle;
 }
 
 .play-settings-dropdowns {
@@ -156,14 +158,15 @@
     margin-bottom: 10px !important;
 }
 
-.zero-margin-text {
-    margin: 0;
+.caller-instruct-text {
+    margin: 30px auto;
+    text-align: center;
+    width: 70%;
 }
 
 .center-text {
     text-align: center;
 }
-
 
 #calling-number-div {
     height: 85px;
@@ -560,6 +563,34 @@
 
     .horizontal-table-cell {
         font-size: 6vw;
+    }
+
+    #bingo-caller-div {
+        flex-direction: column;
+    }
+
+    #caller-left-container {
+        margin: auto;
+        width: 90%;
+    }
+    
+    #caller-left-content-container {
+        float: none;
+        height: min-content;
+        width: 90%;
+        margin: auto;
+    }
+    
+    #caller-right-container {
+        height: min-content;
+        flex: 1;
+    }
+    
+    #caller-right-content-container {
+        float: none;
+        height: min-content;
+        width: 95%;
+        margin: auto;
     }
 
   }
