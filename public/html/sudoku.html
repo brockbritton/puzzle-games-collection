@@ -50,7 +50,6 @@
                         <label for="hard-play">Hard</label>
                     </div>
                 </div>
-                <div id="spacer-40px" class="side-by-side"> <!-- spacer --></div>
                 <div id="play-settings-right" class="side-by-side">
                     <p class="sudoku-control-header">Options</p>
                     <div class="align-check-right">
@@ -65,8 +64,8 @@
                     <!--
                     <button id="play-button1" onclick="play_a_game()" class="gen-buttons"> Play </button>
                     -->
-                    <p style="font-style: italic;"> Coming Soon</p>
                 </div>
+                <p style="font-style: italic;"> Coming Soon</p>
             </div>
             <div id="solve-settings-div">
                 <div id="solve-settings-left">
@@ -77,19 +76,19 @@
                     </p>
                     <p id="solve-instruction">
                         This solver is a work-in-progress, and cannot yet solve all sudoku puzzles. 
-                        If a cell has multiple numbers, those are the viable numbers that could be in that cell.
+                        If a cell has multiple numbers after solving, those are the viable numbers that could be in that cell.
                     </p>
                 </div>
                 <div id="solve-settings-right">
                     <p class="sudoku-control-header">Options</p>
                     <div id="solve-checkbox-container">
                         <div class="align-check-right">
-                            <label for="easy-play">Black & White</label>
-                            <input type="checkbox" id="easy-play" name="solve-type" value="0" />
+                            <label for="bw-solve">Black & White</label>
+                            <input type="checkbox" id="bw-solve" name="solve-type" value="0" />
                         </div>
                         <div class="align-check-right">
-                            <label for="medium-play">Animate</label>
-                            <input type="checkbox" id="medium-play" name="solve-type" value="1" />
+                            <label for="animate-solve">Animate</label>
+                            <input type="checkbox" id="animate-solve" name="solve-type" value="1" />
                         </div>
                     </div>
                     <button class="gen-buttons"> Clear Board </button>

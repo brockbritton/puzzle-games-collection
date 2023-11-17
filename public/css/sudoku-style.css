@@ -62,7 +62,6 @@
 #sudoku-control-bar {
     margin: 20px auto 10px;
     padding: 10px;
-    
 }
 
 #choose-sudoku-gamemode-drpdwn {
@@ -80,9 +79,16 @@
 
 #play-settings-div {
     display: none;
-    background-color: transparent;
-    height: 185px;
-    margin: 0;
+    background-color: lightsteelblue;
+    width: 40%;
+    margin: auto;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+#play-settings-div > div{
+    vertical-align: top;
+    padding: 10px;
 }
 
 #play-settings-left {
@@ -121,15 +127,18 @@
 
 #solve-settings-div {
     display: flex;
+    flex-direction: column;
     background-color: lightsteelblue;
-    flex-direction: row;
-    padding: 20px;
     border-radius: 20px;
+    width: 40%;
+    padding: 20px;
+    margin: auto;
 
 }
 
 #solve-settings-div > div {
-    width: 50%;
+    width: 100%;
+    padding: 5px;
 
 }
 
@@ -162,6 +171,14 @@
 }
 
 @media only screen and (max-width: 650px) {
+
+    #play-settings-div {
+        width: 90%;
+    }
+
+    #solve-settings-div {
+        width: 90%;
+    }
 
     .board-ninths {
         width: 30vw !important; 
