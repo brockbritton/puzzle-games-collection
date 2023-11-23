@@ -12,7 +12,6 @@ function toggleSudokuPlaySolve() {
     }
 }
 
-
 function build_sudoku_board() {
     const board = document.createElement("table");
     board.setAttribute('id','sudoku-board');
@@ -48,8 +47,9 @@ function build_sudoku_board() {
 
 }
 
+
 //Play Game Button
-function play_a_game() {
+function play_sudoku() {
     let select_radio = null;
     var radios = document.getElementsByName('play-difficulty');   
     for (let i = 0; i < radios.length; i++) {
@@ -68,14 +68,18 @@ function play_a_game() {
 }
 
 //Solve Board Button
-function solve_a_game() {
-    let rows_array = get_board_values();
-    const solve_game = new solveSudokuGame(rows_array);
-    if (solve_game.solution_board != null) {
-        update_board(solve_game.solution_board.rows, null)
+function solve_sudoku() {
+    const starting_rows = get_board_values()
+    const game_board = new SudokuBoard(starting_rows);
+    update_board(starting_board, "game-solve")
+    if (game_board.scanForValid()) {
+        if (game_board.solveBoard()) {
+            update_board(game_board.rows, null)
+        } else {
+            alert("No Partial or Full Solution Found")
+        }
     } else {
-        alert("no solution found. please make sure you have correctly input the board values.")
-        console.log(solve_game.solution_board.rows)
+        alert("This Board is not Valid")
     }
 }
 
@@ -84,7 +88,6 @@ function solve_a_game() {
 let board_index = 0
 function fill_random_board() {
     const available_games = [home_display_game, easy_game1, medium_game1, hard_game1, hidden_pairs_test, expert_game1, evil_game1]
-    //put empty cells as no-space character
     const par = document.getElementById("game-type-header");
     par.innerHTML = `Solve Sudoku : Random`
     board_index += 1
@@ -97,17 +100,18 @@ function fill_random_board() {
 
 //Getting board values from 
 function get_board_values() {
-    const board_values = []
+
+    // does not work for user input numbers
+    let board_values = []
     for (let r = 0; r < 9; r++) {
         let row = []
         let cells = document.getElementsByClassName(`row${r}`);
         for (let i = 0; i < 9; i++) {
-            if (cells[i].innerHTML == "") {
+            if (isNaN(parseInt(cells[i].innerHTML))) {
                 row.push(null)
             } else {
-                row.push(Number(cells[i].innerHTML))
+                row.push(parseInt(cells[i].innerHTML))
             }
-            
         }
         board_values.push(row)
     }
@@ -115,16 +119,8 @@ function get_board_values() {
 }
 
 function reset_sudoku_board_options() {
-    clear_board_values()
-    //reset the gamemode dropdown
-}
+    update_board(null, null)
 
-//Clear Board Button
-function clear_board_values() {
-    //clear the board numbers
-    //update all cell styles to the basic non-bold text style
-    update_board(null, "reset")
-    
 }
 
 function update_board(board_array, type) {
@@ -136,7 +132,7 @@ function update_board(board_array, type) {
             if (board_array == null) {
                 cells[i].innerHTML = "&#8203;";
                 cells[i].style.fontWeight = 400
-                cells[i].setAttribute("contenteditable", 'false');
+                cells[i].setAttribute("contenteditable", 'true');
                 //cells[i].addEventListener('keydown', changeCellValue);
             } else {
                 //if board array has numbers
@@ -187,7 +183,7 @@ function update_cell_styles(type) {
             if (type == "reset") {
                 cells[i].style.fontWeight = 400
                 cells[i].style.color = "#000000"
-                cells[i].setAttribute("contenteditable", 'false');
+                cells[i].setAttribute("contenteditable", 'true');
             } else if (typeof type == "string" && type.slice(0, 4) == "game") {
                 if (cells[i].innerHTML == "") {
                     let game_type = type.slice(5)

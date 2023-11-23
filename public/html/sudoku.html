@@ -91,9 +91,9 @@
                             <input type="checkbox" id="animate-solve" name="solve-type" value="1" />
                         </div>
                     </div>
-                    <button class="gen-buttons"> Clear Board </button>
+                    <button class="gen-buttons" onclick="update_board(null, 'reset')"> Clear Board </button>
                     <button onclick="fill_random_board()" class="gen-buttons"> Example Board </button>
-                    <button id="solve-button1" onclick="solve_a_game()" class="gen-buttons"> Solve </button>
+                    <button id="solve-button1" onclick="solve_sudoku()" class="gen-buttons"> Solve </button>
                 </div>
             </div>
         </div>

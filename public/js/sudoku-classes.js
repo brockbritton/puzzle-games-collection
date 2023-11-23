@@ -1,33 +1,44 @@
 
-class solveSudokuGame {
-    constructor(starting_rows) {
-        this.starting_board = new SudokuBoard(starting_rows);
-
-        if (this.starting_board.solveBoard()) {
-            this.solution_board = new SudokuBoard(this.starting_board.rows) 
-        } else {
-            this.solution_board = null;
-        }
-
-        console.log()
-        
-    }
-}
-
-class playSudokuGame {
-    constructor(starting_rows) {
-        this.player_board = new SudokuBoard(starting_rows)
-        
-        //this.solution_board = this.player_board.solveBoard() 
-    }
-}
 
 class SudokuBoard {
     constructor(rows_list) {
         this.rows = rows_list;
-        this.solve_sequence = []; 
         this.buildColumns(); //this.columns
-        this.buildNinths(); //this.ninths
+        this.buildBlocks(); //this.blocks
+        this.all_ninths = [this.rows, this.columns, this.blocks];
+        this.solve_sequence = [];
+    }
+
+    scanForValid() {
+        for (let n = 0; n < this.all_ninths.length; n++) {
+            for (let ninth_array of this.all_ninths[n]) {
+                let ninth_dict = {
+                    1:0,
+                    2:0,
+                    3:0,
+                    4:0,
+                    5:0,
+                    6:0,
+                    7:0,
+                    8:0,
+                    9:0,
+                }
+                for (let i = 0; i < ninth_array.length; i++) {
+                    if (Number.isInteger(ninth_array[i])) {
+                        ninth_dict[ninth_array[i]] += 1
+                    }
+                }
+
+                //check the dict for values greater than 1
+                for (let digit_count of Object.values(ninth_dict)) {
+                    if (digit_count > 1) {
+                        return false
+                    }
+                }
+            }
+            
+        }
+        return true
     }
 
     buildColumns() {
@@ -45,18 +56,18 @@ class SudokuBoard {
         this.columns = cols
     }
 
-    buildNinths() {
-        let ninths = [] 
+    buildBlocks() {
+        let blocks = [] 
         for (let i = 0; i < 9; i++) {
-            ninths.push([])
+            blocks.push([])
         }
         
         for (let row_index in this.rows) {
             for (let col_index in this.rows[row_index]) {
-                ninths[(3 * (Math.floor(row_index / 3) % 3) + (Math.floor(col_index / 3) % 3))].push(this.rows[row_index][col_index])
+                blocks[(3 * (Math.floor(row_index / 3) % 3) + (Math.floor(col_index / 3) % 3))].push(this.rows[row_index][col_index])
             }
         }
-        this.ninths = ninths
+        this.blocks = blocks
         
     }
 
@@ -66,7 +77,7 @@ class SudokuBoard {
                 if (this.rows[row][col] == null) {
                     let new_array = []
                     for (let poss_num = 1; poss_num <= 9; poss_num++) {
-                        if (!(this.rows[row].includes(poss_num) || this.columns[col].includes(poss_num) || this.ninths[3 * (Math.floor(row / 3) % 3) + (Math.floor(col / 3) % 3)].includes(poss_num))) {
+                        if (!(this.rows[row].includes(poss_num) || this.columns[col].includes(poss_num) || this.blocks[3 * (Math.floor(row / 3) % 3) + (Math.floor(col / 3) % 3)].includes(poss_num))) {
                             new_array.push(poss_num)
                         }
                     }
@@ -87,13 +98,13 @@ class SudokuBoard {
         //we should only update the row, column, and ninth that was changed
         this.rows[row][col] = new_value
         this.columns[col][row] = new_value
-        this.ninths
+        this.blocks
             [3 * (Math.floor(row / 3) % 3) + (Math.floor(col / 3) % 3)]
             [(row % 3) + (col % 3) + ((row % 3) * 2)] = new_value;
         
         //the notes for each cell must also be updated
         if (typeof new_value === 'number') {
-            let sets = [this.rows, this.columns, this.ninths]
+            let sets = [this.rows, this.columns, this.blocks]
             for (let i in sets) { 
                 for (let cell in sets[i]) {
                     let subset_index = null
@@ -171,7 +182,7 @@ class SudokuBoard {
     }
 
     findHiddenSingles() {
-        let sets = [this.rows, this.columns, this.ninths]
+        let sets = [this.rows, this.columns, this.blocks]
         for (let i in sets) {
             for (let subset in sets[i]) {
                 let existing_set_values = {
@@ -218,7 +229,7 @@ class SudokuBoard {
     }
 
     findNakedPairs() {
-        let sets = [this.rows, this.columns, this.ninths]
+        let sets = [this.rows, this.columns, this.blocks]
         for (let i in sets) {
             i = Number(i)
             //iterate through the subsets of each set
@@ -238,7 +249,7 @@ class SudokuBoard {
                     if (Array.isArray(sets[i][subset][cell]) && sets[i][subset][cell].length == 2 && !found_already) {
                         let shared_rows = [];
                         let shared_columns = [];
-                        let shared_ninths = [];
+                        let shared_blocks = [];
                         let subset_filter = [];
                         let forEach_cell_index = 0;
                         sets[i][subset].forEach(element => {
@@ -247,21 +258,21 @@ class SudokuBoard {
                                 if (i == 0) {
                                     shared_rows.push(subset)
                                     shared_columns.push(forEach_cell_index)
-                                    shared_ninths.push(3 * (Math.floor(subset / 3) % 3) + (Math.floor(forEach_cell_index / 3) % 3))
+                                    shared_blocks.push(3 * (Math.floor(subset / 3) % 3) + (Math.floor(forEach_cell_index / 3) % 3))
                                 } else if (i == 1) {
                                     shared_rows.push(forEach_cell_index)
                                     shared_columns.push(subset)
-                                    shared_ninths.push(3 * (Math.floor(forEach_cell_index / 3) % 3) + (Math.floor(subset / 3) % 3))
+                                    shared_blocks.push(3 * (Math.floor(forEach_cell_index / 3) % 3) + (Math.floor(subset / 3) % 3))
                                 } else if (i == 2) {
                                     shared_rows.push((3 * Math.floor(subset / 3)) + Math.floor(forEach_cell_index / 3))
                                     shared_columns.push((3 * (subset % 3)) + (forEach_cell_index % 3))
-                                    shared_ninths.push(subset)
+                                    shared_blocks.push(subset)
                                 }
 
                             }
                             forEach_cell_index += 1
                         });
-                        let shared_subsets = [shared_rows, shared_columns, shared_ninths];
+                        let shared_subsets = [shared_rows, shared_columns, shared_blocks];
                         let shares_list = [];
                         if (subset_filter.length == 2) {
                             found_pairs.push(sets[i][subset][cell])
@@ -325,13 +336,14 @@ class SudokuBoard {
             //this.tryANumber() !!!
             
             if (iterations == 10) {
-                console.log("board not solved")
+                console.log("board partially solved")
                 //keep as true for partial solutions
-                return true  ///should be false?
+                return true  
             }
             
         }
-        console.log("board solved")
+        console.log("board fully solved")
+        
         return true
     }
 
