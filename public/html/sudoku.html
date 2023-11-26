@@ -8,7 +8,6 @@
     <link rel="stylesheet" type="text/css" href="css/sudoku-style.css" />
 
     <script type="text/javascript" src="js/sudoku.js"></script>
-    <script type="text/javascript" src="js/sudoku-classes.js"></script>
     <script type="text/javascript" src="js/sudoku-games.js"></script>
     <title> Sudoku </title> 
 </head>
@@ -17,6 +16,7 @@
         <h2>Sudoku</h2>
     </div>
     <div id="sudoku-options-div">
+        <!--
         <div id="sudoku-toggle-gamemode-div">
             <div class="toggle-container">
                 <label for="slider-checkbox" class="toggle-labels side-by-side"> solve </label>
@@ -26,13 +26,13 @@
                 </label>
                 <p class="toggle-labels side-by-side"> play </p>
             </div>
-            <!--
+            
             <p class="aware-warning"> 
                 please be aware that switching gamemodes will erase your current game if one is running 
             </p>
-            -->
-        </div>
-        
+            
+        </div> 
+        -->
         <div id="sudoku-control-bar">
             <div id="play-settings-div">
                 <div id="play-settings-left" class="side-by-side" >
@@ -69,7 +69,7 @@
             </div>
             <div id="solve-settings-div">
                 <div id="solve-settings-left">
-                    <p class="sudoku-control-header">Instructions</p>
+                    <p class="sudoku-control-header">Solver Instructions</p>
                     <p id="solve-instruction">
                         Enter numbers into the board or choose example board.
                         Then press Solve.
@@ -79,7 +79,9 @@
                         If a cell has multiple numbers after solving, those are the viable numbers that could be in that cell.
                     </p>
                 </div>
+                
                 <div id="solve-settings-right">
+                    <!-- 
                     <p class="sudoku-control-header">Options</p>
                     <div id="solve-checkbox-container">
                         <div class="align-check-right">
@@ -91,6 +93,7 @@
                             <input type="checkbox" id="animate-solve" name="solve-type" value="1" />
                         </div>
                     </div>
+                    -->
                     <button class="gen-buttons" onclick="update_board(null, 'reset')"> Clear Board </button>
                     <button onclick="fill_random_board()" class="gen-buttons"> Example Board </button>
                     <button id="solve-button1" onclick="solve_sudoku()" class="gen-buttons"> Solve </button>
