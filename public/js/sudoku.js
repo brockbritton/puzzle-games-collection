@@ -456,7 +456,7 @@ function solve_sudoku() {
             alert("No Solution Found")
         }
     } else {
-        alert("This Board is not Valid")
+        alert("Please ensure that there are no two of the same numbers in each row/column/block, and please try again.")
     }
 }
 
